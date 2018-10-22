@@ -8,18 +8,32 @@ namespace WDSE.Decorators
 {
     internal class FooterCutDecorator : BaseScreenshotDecorator
     {
+        #region Private fields
+
         private IWebElement _footerElement;
         private int _footerHeight;
+
+        #endregion
+
+        #region Ctor
 
         public FooterCutDecorator(IScreenshotStrategy strategy) : base(strategy)
         {
         }
+
+        #endregion
+
+        #region Override
 
         public override IMagickImage MakeScreenshot(IWebDriver driver)
         {
             var screen = Strategy.MakeScreenshot(driver);
             return RemoveFooter(driver, screen);
         }
+
+        #endregion
+
+        #region Privates
 
         private IMagickImage RemoveFooter(IWebDriver driver, IMagickImage magickImage)
         {
@@ -32,18 +46,6 @@ namespace WDSE.Decorators
             return image;
         }
 
-        public FooterCutDecorator SetFooter(IWebElement ele)
-        {
-            _footerElement = ele;
-            return this;
-        }
-
-        public FooterCutDecorator SetFooter(int footerHeight)
-        {
-            _footerHeight = footerHeight;
-            return this;
-        }
-
         private int GetFooterHeight(IWebDriver driver)
         {
             if (_footerElement == null) return _footerHeight;
@@ -51,5 +53,33 @@ namespace WDSE.Decorators
             _footerHeight = coords.height;
             return _footerHeight;
         }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Sets element for remove from the screenshot in the footer. 
+        /// </summary>
+        /// <param name="ele">Element</param>
+        /// <returns></returns>
+        public FooterCutDecorator SetFooter(IWebElement ele)
+        {
+            _footerElement = ele;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets height in pixels for remove from the screenshot in the footer. 
+        /// </summary>
+        /// <param name="footerHeight">Height</param>
+        /// <returns></returns>
+        public FooterCutDecorator SetFooter(int footerHeight)
+        {
+            _footerHeight = footerHeight;
+            return this;
+        }
+
+        #endregion
     }
 }

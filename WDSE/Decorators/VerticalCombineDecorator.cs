@@ -10,16 +10,45 @@ namespace WDSE.Decorators
 {
     public class VerticalCombineDecorator : BaseScreenshotDecorator
     {
+        #region Private fields
+
         private TimeSpan _waitAfterScroll;
+
+        #endregion
+
+        #region Ctor
 
         public VerticalCombineDecorator(IScreenshotStrategy strategy) : base(strategy)
         {
         }
 
+        #endregion
+
+        #region Override
+
         public override IMagickImage MakeScreenshot(IWebDriver driver)
         {
             return CombineScreenshots(driver);
         }
+
+        #endregion
+
+        #region Public methods
+
+        /// <summary>
+        /// Sets interval to wait after scrolling the page to take the screenshot.
+        /// </summary>
+        /// <param name="timeSpan">Time interval.</param>
+        /// <returns></returns>
+        public VerticalCombineDecorator SetWaitAfterScrolling(TimeSpan timeSpan)
+        {
+            _waitAfterScroll = timeSpan;
+            return this;
+        }
+
+        #endregion
+
+        #region Privates
 
         private void WaitAfterScrolling()
         {
@@ -60,10 +89,6 @@ namespace WDSE.Decorators
             }
         }
 
-        public VerticalCombineDecorator SetWaitAfterScrolling(TimeSpan timeSpan)
-        {
-            _waitAfterScroll = timeSpan;
-            return this;
-        }
+        #endregion
     }
 }
