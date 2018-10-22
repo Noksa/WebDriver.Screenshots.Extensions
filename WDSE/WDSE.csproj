@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net452;net46;net461;net462;net47;net471;net472</TargetFrameworks>
+    <PackageId>Noksa.WebDriver.ScreenshotsExtensions</PackageId>
+    <Version>0.0.1-alpha</Version>
+    <Product>Noksa (Alexandr Danilin)</Product>
+    <Company>Noksa (Alexandr Danilin)</Company>
+    <Authors>Noksa (Alexandr Danilin)</Authors>
+    <Description>Screenshots extensions, like screenshot a entiry page.</Description>
+    <Copyright>Noksa (Alexandr Danilin)</Copyright>
+    <PackageIconUrl>https://avatars0.githubusercontent.com/u/36312857?s=40&amp;v=4</PackageIconUrl>
+    <PackageTags>webdriver, screenshot, selenium, extension, page</PackageTags>
+    <PackageReleaseNotes>First version. Use new driver extension method:
+driver.TakeScreenshot(IScreenshotStrategy strategy).
+Use VerticalCombiningStrategy if you want to make screenshot of entire page, not only viewport.</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="Selenium.Support" Version="3.14.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>  
+
+</Project>
