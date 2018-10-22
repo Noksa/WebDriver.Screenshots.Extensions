@@ -16,6 +16,8 @@ For examples of usage, see the github project page.
     <PackageReleaseNotes>Added new functionality - take screenshot of a specific element</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>7.1</LangVersion>
+    <PackageProjectUrl>https://github.com/Noksa/WebDriver.Screenshots.Extensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Noksa/WebDriver.Screenshots.Extensions</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
