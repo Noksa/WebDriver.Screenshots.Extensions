@@ -63,6 +63,26 @@ namespace WDSETests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AllInOneShouldBe1280x720 {
+            get {
+                object obj = ResourceManager.GetObject("AllInOneShouldBe1280x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AllInOneShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("AllInOneShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BasicImageShouldBe1280x720 {
             get {
                 object obj = ResourceManager.GetObject("BasicImageShouldBe1280x720", resourceCulture);
@@ -76,6 +96,46 @@ namespace WDSETests.Properties {
         internal static System.Drawing.Bitmap BasicImageShouldBe1920x1080 {
             get {
                 object obj = ResourceManager.GetObject("BasicImageShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FooterCutImageShouldBe1280x720 {
+            get {
+                object obj = ResourceManager.GetObject("FooterCutImageShouldBe1280x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FooterCutImageShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("FooterCutImageShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HeadCutImageShouldBe1280x720 {
+            get {
+                object obj = ResourceManager.GetObject("HeadCutImageShouldBe1280x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HeadCutImageShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("HeadCutImageShouldBe1920x1080", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -16,19 +16,25 @@ using WDSETests.Properties;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
+// ReSharper disable InconsistentNaming
+
 namespace WDSETests
 {
     [TestFixture(TestName = "VerticalCombiningStrategy tests")]
-    [Parallelizable(ParallelScope.All)]
+    [NonParallelizable]
     public class VcsTests : AllureReport
     {
-
-        private readonly string _pagePath = Path.Combine(Path.GetDirectoryName(Assembly.GetAssembly(typeof(VcsTests)).Location),
+        private readonly string _pagePath = Path.Combine(
+            Path.GetDirectoryName(Assembly.GetAssembly(typeof(VcsTests)).Location) ??
+            throw new InvalidOperationException(),
             "Resources/VeryLongScrollPage.html");
+
         [SetUp]
         public void Setup()
         {
-            _driver = new ChromeDriver();
+            var chromeOptions = new ChromeOptions();
+            //chromeOptions.AddArgument("--headless");
+            _driver = new ChromeDriver(chromeOptions);
         }
 
         [OneTimeSetUp]
@@ -54,7 +60,6 @@ namespace WDSETests
             foreach (var process in processes) process.Kill();
         }
 
-        [Parallelizable(ParallelScope.Self)]
         [Test]
         public void TestVcsImage1920x1080()
         {
@@ -62,10 +67,10 @@ namespace WDSETests
             _driver.Navigate().GoToUrl(_pagePath);
             var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(new ScreenshotMaker()));
 
-            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(), new MagickImage(Resources.VcsImageShouldBe1920x1080)));
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.VcsImageShouldBe1920x1080)));
         }
 
-        [Parallelizable(ParallelScope.Self)]
         [Test]
         public void TestVcsImage1280x720()
         {
@@ -73,56 +78,101 @@ namespace WDSETests
             _driver.Navigate().GoToUrl(_pagePath);
             var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(new ScreenshotMaker()));
 
-            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(), new MagickImage(Resources.VcsImageShouldBe1280x720)));
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.VcsImageShouldBe1280x720)));
         }
 
         [Test]
-        [Parallelizable(ParallelScope.Self)]
         public void TestBasicImage1920x1080()
         {
             _driver.Manage().Window.Size = new Size(1920, 1080);
             _driver.Navigate().GoToUrl(_pagePath);
             var arr = _driver.TakeScreenshot(new ScreenshotMaker());
 
-            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(), new MagickImage(Resources.BasicImageShouldBe1920x1080)));
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.BasicImageShouldBe1920x1080)));
         }
 
         [Test]
-        [Parallelizable(ParallelScope.Self)]
         public void TestBasicImage1280x720()
         {
             _driver.Manage().Window.Size = new Size(1280, 720);
             _driver.Navigate().GoToUrl(_pagePath);
             var arr = _driver.TakeScreenshot(new ScreenshotMaker());
 
-            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(), new MagickImage(Resources.BasicImageShouldBe1280x720)));
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.BasicImageShouldBe1280x720)));
         }
 
 
-        [TestCase(1920, 1080, 200)]
-        [TestCase(1920, 1080, 0)]
-        [TestCase(1280, 720, 200)]
-        [TestCase(1280, 720, 0)]
-        [Parallelizable(ParallelScope.Self)]
-        public void TestCutHeadImage(int width, int height, int cutSize)
+        [Test]
+        public void TestCutHeadImageWithPixels1920x1080()
         {
-            _driver.Manage().Window.Size = new Size(width, height);
+            _driver.Manage().Window.Size = new Size(1920, 1080);
             _driver.Navigate().GoToUrl(_pagePath);
-            var arr = _driver.TakeScreenshot(new HeadCutDecorator(new ScreenshotMaker()).SetHead(cutSize));
-            AllureLifecycle.Instance.AddAttachment("Screen", AllureLifecycle.AttachFormat.ImagePng, arr);
+            var arr = _driver.TakeScreenshot(new HeadCutDecorator(new ScreenshotMaker()).SetHead(100));
+
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.HeadCutImageShouldBe1920x1080)));
         }
 
-        [TestCase(1920, 1080, 200)]
-        [TestCase(1920, 1080, 0)]
-        [TestCase(1280, 720, 200)]
-        [TestCase(1280, 720, 0)]
-        [Parallelizable(ParallelScope.Self)]
-        public void TestCutFooterImage(int width, int height, int cutSize)
+        [Test]
+        public void TestCutHeadImageWithPixels1280x720()
         {
-            _driver.Manage().Window.Size = new Size(width, height);
+            _driver.Manage().Window.Size = new Size(1280, 720);
             _driver.Navigate().GoToUrl(_pagePath);
-            var arr = _driver.TakeScreenshot(new FooterCutDecorator(new ScreenshotMaker()).SetFooter(cutSize));
-            AllureLifecycle.Instance.AddAttachment("Screen", AllureLifecycle.AttachFormat.ImagePng, arr);
+            var arr = _driver.TakeScreenshot(new HeadCutDecorator(new ScreenshotMaker()).SetHead(100));
+
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.HeadCutImageShouldBe1280x720)));
+        }
+
+        [Test]
+        public void TestCutFooterImageWithPixels1920x1080()
+        {
+            _driver.Manage().Window.Size = new Size(1920, 1080);
+            _driver.Navigate().GoToUrl(_pagePath);
+            var arr = _driver.TakeScreenshot(new FooterCutDecorator(new ScreenshotMaker()).SetFooter(150));
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.FooterCutImageShouldBe1920x1080)));
+            ;
+        }
+
+
+        [Test]
+        public void TestCutFooterImageWithPixels1280x720()
+        {
+            _driver.Manage().Window.Size = new Size(1280, 720);
+            _driver.Navigate().GoToUrl(_pagePath);
+            var arr = _driver.TakeScreenshot(new FooterCutDecorator(new ScreenshotMaker()).SetFooter(150));
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.FooterCutImageShouldBe1280x720)));
+        }
+
+        [Test]
+        public void TestCutFooterCutHeaderAndCombine1280x720()
+        {
+            _driver.Manage().Window.Size = new Size(1280, 720);
+            _driver.Navigate().GoToUrl(_pagePath);
+            var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(
+                    new HeadCutDecorator(new FooterCutDecorator(new ScreenshotMaker()).SetFooter(100)).SetHead(100))
+                .SetWaitAfterScrolling(TimeSpan.FromMilliseconds(200)));
+
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.AllInOneShouldBe1280x720)));
+        }
+
+        [Test]
+        public void TestCutFooterCutHeaderAndCombine1920x1080()
+        {
+            _driver.Manage().Window.Size = new Size(1920, 1080);
+            _driver.Navigate().GoToUrl(_pagePath);
+            var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(
+                    new HeadCutDecorator(new FooterCutDecorator(new ScreenshotMaker()).SetFooter(100)).SetHead(100))
+                .SetWaitAfterScrolling(TimeSpan.FromMilliseconds(200)));
+
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.AllInOneShouldBe1920x1080)));
         }
 
         [Test]

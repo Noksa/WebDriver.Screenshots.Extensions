@@ -34,7 +34,7 @@ namespace WDSE.Decorators
             var windowHeight = driver.GetHeight(SizesHelper.Entity.Window);
             var totalScrolls = totalHeight / windowHeight;
             var footer = totalHeight - windowHeight * totalScrolls;
-            totalHeight = 0;
+
             using (var imagesCollection = new MagickImageCollection())
             {
                 for (var i = 0; i < totalScrolls; i++)

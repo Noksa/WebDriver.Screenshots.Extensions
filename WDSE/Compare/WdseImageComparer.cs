@@ -66,7 +66,7 @@ namespace WDSE.Compare
                         image1.ColorFuzz = new Percentage(3);
                         var doubleRes = image1.Compare(image2, compareSettings, imgWithDiff);
                         yield return doubleRes;
-                        yield return imgWithDiff;
+                        yield return new MagickImage(imgWithDiff);
                     }
                 }
             }
