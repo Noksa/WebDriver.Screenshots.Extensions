@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using WDSE.Interfaces;
 
-namespace WDSE.Strategies
+namespace WDSE.ScreenshotMaker
 {
     public class ScreenshotMaker : IScreenshotStrategy
     {

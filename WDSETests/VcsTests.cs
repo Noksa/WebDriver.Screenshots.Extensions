@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using WDSE;
 using WDSE.Decorators;
-using WDSE.Strategies;
+using WDSE.ScreenshotMaker;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 

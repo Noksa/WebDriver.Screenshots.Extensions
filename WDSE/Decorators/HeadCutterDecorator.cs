@@ -1,10 +1,7 @@
 ﻿using System.Drawing;
-using Newtonsoft.Json;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.Extensions;
+using WDSE.Helpers;
 using WDSE.Interfaces;
-using WDSE.Json;
-using WDSE.Properties;
 
 namespace WDSE.Decorators
 {
@@ -47,11 +44,8 @@ namespace WDSE.Decorators
         private int GetHeadHeight(IWebDriver driver)
         {
             if (_headElement == null) return _headHeight;
-            var coords =
-                JsonConvert.DeserializeObject<ElementCoords>(
-                    driver.ExecuteJavaScript<string>(Resources.GetElementCoordinates, _headElement));
+            var coords = driver.GetElementCoordinates(_headElement);
             _headHeight = coords.height;
-
             return _headHeight;
         }
     }
