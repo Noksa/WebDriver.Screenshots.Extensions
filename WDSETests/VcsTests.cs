@@ -82,8 +82,9 @@ namespace WDSETests
         public void Debugging()
         {
             _driver.Manage().Window.Size = new Size(1920, 1080);
-            _driver.Navigate().GoToUrl("http://software-testing.ru");
-            var vcs = new VerticalCombineDecorator(new FooterCutDecorator(new ScreenshotMaker()).SetFooter(100));
+            _driver.Navigate().GoToUrl("http://yandex.ru");
+            var ele = _driver.FindElement(By.Id("text"));
+            var vcs = new OnlyElementDecorator(new ScreenshotMaker()).SetElement(ele);
             var screen = _driver.TakeScreenshot(vcs);
             AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, screen);
         }
