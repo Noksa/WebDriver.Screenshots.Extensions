@@ -5,12 +5,12 @@ using WDSE.Interfaces;
 
 namespace WDSE.Decorators
 {
-    public class HeadCutterDecorator : BasicStrategyDecorator
+    public class HeadCutDecorator : BaseScreenshotDecorator
     {
         private IWebElement _headElement;
         private int _headHeight;
 
-        public HeadCutterDecorator(IScreenshotStrategy strategy) : base(strategy)
+        public HeadCutDecorator(IScreenshotStrategy strategy) : base(strategy)
         {
         }
 
@@ -29,13 +29,13 @@ namespace WDSE.Decorators
             return bmp.Clone(rectangle, bmp.PixelFormat);
         }
 
-        public HeadCutterDecorator SetHead(IWebElement element)
+        public HeadCutDecorator SetHead(IWebElement element)
         {
             _headElement = element;
             return this;
         }
 
-        public HeadCutterDecorator SetHead(int headHeight)
+        public HeadCutDecorator SetHead(int headHeight)
         {
             _headHeight = headHeight;
             return this;

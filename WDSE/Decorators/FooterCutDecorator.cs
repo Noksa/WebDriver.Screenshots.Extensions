@@ -5,12 +5,12 @@ using WDSE.Interfaces;
 
 namespace WDSE.Decorators
 {
-    internal class FootCutterDecorator : BasicStrategyDecorator
+    internal class FooterCutDecorator : BaseScreenshotDecorator
     {
         private IWebElement _footerElement;
         private int _footerHeight;
 
-        public FootCutterDecorator(IScreenshotStrategy strategy) : base(strategy)
+        public FooterCutDecorator(IScreenshotStrategy strategy) : base(strategy)
         {
         }
 
@@ -29,13 +29,13 @@ namespace WDSE.Decorators
             return image;
         }
 
-        public FootCutterDecorator SetFooter(IWebElement ele)
+        public FooterCutDecorator SetFooter(IWebElement ele)
         {
             _footerElement = ele;
             return this;
         }
 
-        public FootCutterDecorator SetFooter(int footerHeight)
+        public FooterCutDecorator SetFooter(int footerHeight)
         {
             _footerHeight = footerHeight;
             return this;

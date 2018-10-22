@@ -4,9 +4,9 @@ using WDSE.Interfaces;
 
 namespace WDSE.Decorators
 {
-    public abstract class BasicStrategyDecorator : IScreenshotStrategy
+    public abstract class BaseScreenshotDecorator : IScreenshotStrategy
     {
-        protected BasicStrategyDecorator(IScreenshotStrategy strategy)
+        protected BaseScreenshotDecorator(IScreenshotStrategy strategy)
         {
             Strategy = strategy;
         }

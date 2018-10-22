@@ -8,12 +8,12 @@ using WDSE.Interfaces;
 
 namespace WDSE.Decorators
 {
-    public class VerticalCombiningDecorator : BasicStrategyDecorator
+    public class VerticalCombineDecorator : BaseScreenshotDecorator
     {
         private int _firstScreenshotHeight;
         private TimeSpan _waitAfterScroll;
 
-        public VerticalCombiningDecorator(IScreenshotStrategy strategy) : base(strategy)
+        public VerticalCombineDecorator(IScreenshotStrategy strategy) : base(strategy)
         {
         }
 
@@ -74,7 +74,7 @@ namespace WDSE.Decorators
             return combinedImage.Clone(new Rectangle(0, 0, totalWidth, totalHeight), combinedImage.PixelFormat);
         }
 
-        public VerticalCombiningDecorator SetWaitAfterScrolling(TimeSpan timeSpan)
+        public VerticalCombineDecorator SetWaitAfterScrolling(TimeSpan timeSpan)
         {
             _waitAfterScroll = timeSpan;
             return this;
