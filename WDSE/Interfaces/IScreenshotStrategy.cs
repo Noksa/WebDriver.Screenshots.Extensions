@@ -1,10 +1,10 @@
-﻿using System.Drawing;
+﻿using ImageMagick;
 using OpenQA.Selenium;
 
 namespace WDSE.Interfaces
 {
     public interface IScreenshotStrategy
     {
-        Bitmap MakeScreenshot(IWebDriver driver);
+        IMagickImage MakeScreenshot(IWebDriver driver);
     }
 }

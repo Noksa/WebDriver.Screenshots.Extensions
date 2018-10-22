@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using ImageMagick;
 using OpenQA.Selenium;
 using WDSE.Helpers;
 using WDSE.Interfaces;
@@ -14,19 +15,20 @@ namespace WDSE.Decorators
         {
         }
 
-        public override Bitmap MakeScreenshot(IWebDriver driver)
+        public override IMagickImage MakeScreenshot(IWebDriver driver)
         {
             return CutHead(driver, Strategy.MakeScreenshot(driver));
         }
 
 
-        private Bitmap CutHead(IWebDriver driver, Bitmap bmp)
+        private IMagickImage CutHead(IWebDriver driver, IMagickImage magickImage)
         {
-            var height = bmp.Height;
-            var width = bmp.Width;
+            var height = magickImage.Height;
+            var width = magickImage.Width;
             _headHeight = GetHeadHeight(driver);
+            if (_headHeight == 0) return magickImage;
             var rectangle = new Rectangle(0, _headHeight, width, height - _headHeight);
-            return bmp.Clone(rectangle, bmp.PixelFormat);
+            return magickImage.Clone(new MagickGeometry(rectangle));
         }
 
         public HeadCutDecorator SetHead(IWebElement element)

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Drawing;
 using System.Threading;
+using ImageMagick;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using WDSE.Helpers;
@@ -10,14 +10,13 @@ namespace WDSE.Decorators
 {
     public class VerticalCombineDecorator : BaseScreenshotDecorator
     {
-        private int _firstScreenshotHeight;
         private TimeSpan _waitAfterScroll;
 
         public VerticalCombineDecorator(IScreenshotStrategy strategy) : base(strategy)
         {
         }
 
-        public override Bitmap MakeScreenshot(IWebDriver driver)
+        public override IMagickImage MakeScreenshot(IWebDriver driver)
         {
             return CombineScreenshots(driver);
         }
@@ -28,50 +27,37 @@ namespace WDSE.Decorators
             Thread.Sleep(_waitAfterScroll);
         }
 
-        private Bitmap CombineScreenshots(IWebDriver driver)
+        private IMagickImage CombineScreenshots(IWebDriver driver)
         {
             var totalHeight = driver.GetHeight(SizesHelper.Entity.Document);
             var totalWidth = driver.GetWidth(SizesHelper.Entity.Document);
             var windowHeight = driver.GetHeight(SizesHelper.Entity.Window);
             var totalScrolls = totalHeight / windowHeight;
             var footer = totalHeight - windowHeight * totalScrolls;
-
-            var combinedImage = new Bitmap(totalWidth, totalHeight);
             totalHeight = 0;
-            using (var g = Graphics.FromImage(combinedImage))
+            using (var imagesCollection = new MagickImageCollection())
             {
                 for (var i = 0; i < totalScrolls; i++)
                 {
                     driver.ExecuteJavaScript("scrollTo(0, arguments[0])", windowHeight * i);
                     WaitAfterScrolling();
-                    var screenshot = Strategy.MakeScreenshot(driver);
-                    if (i == 0)
-                    {
-                        g.DrawImage(screenshot, 0, 0);
-                        _firstScreenshotHeight = screenshot.Height;
-                    }
-                    else
-                    {
-                        totalHeight = totalHeight + screenshot.Height;
-                        g.DrawImage(screenshot, 0, totalHeight);
-                    }
+                    var screenshot = new MagickImage(Strategy.MakeScreenshot(driver));
+                    imagesCollection.Add(screenshot);
                 }
-
-                totalHeight = totalHeight + _firstScreenshotHeight;
 
                 if (footer > 0)
                 {
                     driver.ExecuteJavaScript("scrollTo(0, document.body.scrollHeight)");
                     WaitAfterScrolling();
-                    var screenshot = Strategy.MakeScreenshot(driver);
-                    var footerImage = screenshot.Clone(new Rectangle(0, screenshot.Height - footer, totalWidth, footer),
-                        screenshot.PixelFormat);
-                    totalHeight = totalHeight + footer;
-                    g.DrawImage(footerImage, 0, totalHeight - footer);
+                    var screenshot = new MagickImage(Strategy.MakeScreenshot(driver));
+                    var footerImage = screenshot.Clone(0, screenshot.Height - footer, totalWidth, footer);
+                    footerImage.ToBitmap().Save(@"C:\footer.png");
+                    imagesCollection.Add(footerImage);
                 }
-            }
 
-            return combinedImage.Clone(new Rectangle(0, 0, totalWidth, totalHeight), combinedImage.PixelFormat);
+                var overAllImage = imagesCollection.AppendVertically();
+                return overAllImage;
+            }
         }
 
         public VerticalCombineDecorator SetWaitAfterScrolling(TimeSpan timeSpan)

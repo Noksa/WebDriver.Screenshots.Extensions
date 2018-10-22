@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using ImageMagick;
 using OpenQA.Selenium;
 using WDSE.Interfaces;
 
@@ -12,6 +13,6 @@ namespace WDSE.Decorators
         }
 
         public IScreenshotStrategy Strategy { get; }
-        public abstract Bitmap MakeScreenshot(IWebDriver driver);
+        public abstract IMagickImage MakeScreenshot(IWebDriver driver);
     }
 }

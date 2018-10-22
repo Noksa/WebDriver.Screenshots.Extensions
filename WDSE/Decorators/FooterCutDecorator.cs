@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using ImageMagick;
 using OpenQA.Selenium;
 using WDSE.Helpers;
 using WDSE.Interfaces;
@@ -14,18 +15,20 @@ namespace WDSE.Decorators
         {
         }
 
-        public override Bitmap MakeScreenshot(IWebDriver driver)
+        public override IMagickImage MakeScreenshot(IWebDriver driver)
         {
-            return RemoveFooter(driver, Strategy.MakeScreenshot(driver));
+            var screen = Strategy.MakeScreenshot(driver);
+            return RemoveFooter(driver, screen);
         }
 
-        private Bitmap RemoveFooter(IWebDriver driver, Bitmap bmp)
+        private IMagickImage RemoveFooter(IWebDriver driver, IMagickImage magickImage)
         {
-            var height = bmp.Height;
-            var width = bmp.Width;
+            var height = magickImage.Height;
+            var width = magickImage.Width;
             _footerHeight = GetFooterHeight(driver);
+            if (_footerHeight == 0) return magickImage;
             var rectangle = new Rectangle(0, 0, width, height - _footerHeight);
-            var image = bmp.Clone(rectangle, bmp.PixelFormat);
+            var image = magickImage.Clone(new MagickGeometry(rectangle));
             return image;
         }
 

@@ -1,5 +1,5 @@
-﻿using System.Drawing;
-using System.IO;
+﻿using System.IO;
+using ImageMagick;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using WDSE.Interfaces;
@@ -8,11 +8,11 @@ namespace WDSE.ScreenshotMaker
 {
     public class ScreenshotMaker : IScreenshotStrategy
     {
-        public Bitmap MakeScreenshot(IWebDriver driver)
+        public IMagickImage MakeScreenshot(IWebDriver driver)
         {
             var screenShot = driver.TakeScreenshot();
             var ms = new MemoryStream(screenShot.AsByteArray);
-            return new Bitmap(ms);
+            return new MagickImage(ms);
         }
     }
 }

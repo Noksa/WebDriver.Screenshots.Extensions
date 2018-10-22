@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+﻿using ImageMagick;
 using OpenQA.Selenium;
 using WDSE.Helpers;
 using WDSE.Interfaces;
@@ -10,10 +10,13 @@ namespace WDSE
         public static byte[] TakeScreenshot(this IWebDriver driver, IScreenshotStrategy strategy)
         {
             driver.CheckJQueryOnPage();
-            var bitmap = strategy.MakeScreenshot(driver);
-            var converter = new ImageConverter();
-            var arr = (byte[]) converter.ConvertTo(bitmap, typeof(byte[]));
-            return arr;
+            var magickImage = strategy.MakeScreenshot(driver);
+            return magickImage.ToByteArray();
+        }
+
+        public static IMagickImage ToMagickImage(this byte[] arr)
+        {
+            return new MagickImage(arr);
         }
     }
 }
