@@ -3,6 +3,7 @@ using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using WDSE.Properties;
+// ReSharper disable InconsistentNaming
 
 namespace WDSE.Helpers
 {
@@ -51,15 +52,26 @@ namespace WDSE.Helpers
 
         internal static bool IsElementInViewPort(this IWebDriver driver, IWebElement element)
         {
-            var script = Resources.GetElementVisibleState;
-            var result = driver.ExecuteJavaScript<bool>(script, element);
+            driver.IsElementExistsInDOM(element, true);
+            var result = driver.ExecuteJavaScript<bool>(Resources.GetElementVisibleState, element);
             return result;
         }
 
         internal static void ScrollToElement(this IWebDriver driver, IWebElement element)
         {
+            driver.IsElementExistsInDOM(element, true);
             var script = Resources.ScrollToElement;
             driver.ExecuteJavaScript(script, element);
+        }
+
+        internal static bool IsElementExistsInDOM(this IWebDriver driver, IWebElement element, bool throwExIfNot = false)
+        {
+            var result = driver.ExecuteJavaScript<bool>(Resources.CheckElementExists, element);
+            if (throwExIfNot && !result)
+            {
+                throw new NoSuchElementException($"Cant find element {element} in DOM.");
+            }
+            return result;
         }
     }
 }

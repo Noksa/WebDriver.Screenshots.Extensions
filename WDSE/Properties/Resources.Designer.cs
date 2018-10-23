@@ -61,6 +61,16 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to var ele = $(arguments[0]);
+        ///return $.contains(document, ele);.
+        /// </summary>
+        internal static string CheckElementExists {
+            get {
+                return ResourceManager.GetString("CheckElementExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to var el = $(arguments[0]);
         ///var left = parseInt(el.offset().left);
         ///var top = parseInt(el.offset().top);
@@ -99,7 +109,17 @@ namespace WDSE.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to var ele = $(arguments[0]);
-        ///$(&quot;body&quot;).scrollTo(ele);.
+        ///$(ele)[0].remove();.
+        /// </summary>
+        internal static string RemoveElementFromDOM {
+            get {
+                return ResourceManager.GetString("RemoveElementFromDOM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to var ele = $(arguments[0]);
+        ///$(ele)[0].scrollIntoView();.
         /// </summary>
         internal static string ScrollToElement {
             get {

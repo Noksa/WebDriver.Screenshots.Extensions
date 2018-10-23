@@ -123,6 +123,26 @@ namespace WDSETests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RemoveElementShouldBe1280x720 {
+            get {
+                object obj = ResourceManager.GetObject("RemoveElementShouldBe1280x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RemoveElementShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("RemoveElementShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap VcsEleCuttingShouldBe1280x720 {
             get {
                 object obj = ResourceManager.GetObject("VcsEleCuttingShouldBe1280x720", resourceCulture);
