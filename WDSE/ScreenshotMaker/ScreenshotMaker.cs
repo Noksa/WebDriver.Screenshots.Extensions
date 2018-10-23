@@ -35,7 +35,13 @@ namespace WDSE.ScreenshotMaker
             return new MagickImage(ms);
         }
 
-        public ScreenshotMaker RemoveElementsFromDOM(IEnumerable<IWebElement> elementsToRemove)
+        /// <summary>
+        /// <para>Method sets which elements will be removed from the DOM before taking the screenshot.</para>
+        /// <para>Elements will only be deleted if they are in the viewport.</para>
+        /// </summary>
+        /// <param name="elementsToRemove">Collection of elements to remove from the DOM.</param>
+        /// <returns></returns>
+        public ScreenshotMaker SetElementsToRemoveFromDOM(IEnumerable<IWebElement> elementsToRemove)
         {
             _elementsToRemove = elementsToRemove.ToList();
             return this;

@@ -20,7 +20,7 @@ namespace WDSETests.RemoveElementsFromDOMTests
             Driver.Navigate().GoToUrl(PagePathWithHr);
             var ele = Driver.FindElement(By.Id("hrId"));
             var screenMaker = new ScreenshotMaker();
-            screenMaker.RemoveElementsFromDOM(new[] {ele});
+            screenMaker.SetElementsToRemoveFromDOM(new[] {ele});
             var arr = Driver.TakeScreenshot(screenMaker);
             CompareAndTest(arr, Resources.RemoveElementShouldBe1280x720);
         }
@@ -32,7 +32,7 @@ namespace WDSETests.RemoveElementsFromDOMTests
             Driver.Navigate().GoToUrl(PagePathWithHr);
             var ele = Driver.FindElement(By.Id("hrId"));
             var screenMaker = new ScreenshotMaker();
-            screenMaker.RemoveElementsFromDOM(new[] {ele});
+            screenMaker.SetElementsToRemoveFromDOM(new[] {ele});
             var arr = Driver.TakeScreenshot(screenMaker);
             CompareAndTest(arr, Resources.RemoveElementShouldBe1920x1080);
         }
