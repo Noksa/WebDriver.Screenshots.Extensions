@@ -36,7 +36,7 @@ namespace WDSETests.VerticalCombineAndElementCuttingTests
             var arr = Driver.TakeScreenshot(new VerticalCombineDecorator(
                 new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(
                     new CutElementHeightOnEntireWidthThenCombine(ele))));
-            CompareAndTest(arr, Resources.VcsEleCuttingShouldBe1280x720);
+            CompareAndTest(arr, Resources.VcsEleCuttingShouldBe1920x1080);
         }
     }
 }
