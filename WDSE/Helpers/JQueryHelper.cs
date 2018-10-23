@@ -55,5 +55,11 @@ namespace WDSE.Helpers
             var result = driver.ExecuteJavaScript<bool>(script, element);
             return result;
         }
+
+        internal static void ScrollToElement(this IWebDriver driver, IWebElement element)
+        {
+            var script = Resources.ScrollToElement;
+            driver.ExecuteJavaScript(script, element);
+        }
     }
 }
