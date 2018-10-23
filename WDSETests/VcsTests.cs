@@ -11,6 +11,7 @@ using OpenQA.Selenium.Chrome;
 using WDSE;
 using WDSE.Compare;
 using WDSE.Decorators;
+using WDSE.Decorators.CuttingStrategies;
 using WDSE.ScreenshotMaker;
 using WDSETests.Properties;
 using WebDriverManager;
@@ -43,6 +44,11 @@ namespace WDSETests
             throw new InvalidOperationException(),
             "Resources/VeryLongScrollPage.html");
 
+        private readonly string _pagePathWithHr = Path.Combine(
+            Path.GetDirectoryName(Assembly.GetAssembly(typeof(VcsTests)).Location) ??
+            throw new InvalidOperationException(),
+            "Resources/PageWithElements.html");
+
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
@@ -63,13 +69,13 @@ namespace WDSETests
         [Test]
         public void Debugging()
         {
-            var diff = WdseImageComparer.CompareAndGetImage("C:\\diff1.png", "C:\\diff1.png");
-            AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, diff);
-            //_driver.Manage().Window.Size = new Size(1920, 1080);
-            //_driver.Navigate().GoToUrl("http://docker.com");
-            //var vcs = new VerticalCombineDecorator(new ScreenshotMaker());
-            //var screen = _driver.TakeScreenshot(vcs);
-            //AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, screen);
+            _driver.Manage().Window.Size = new Size(1920, 1080);
+            _driver.Navigate().GoToUrl("http://russian.rt.com");
+            var ele = _driver.FindElement(By.ClassName(
+                "header__content"));
+            var vcs = new VerticalCombineDecorator(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementInHeightThenCombine(ele)));
+            var screen = _driver.TakeScreenshot(vcs);
+            AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, screen);
         }
 
         [Test]
@@ -94,75 +100,60 @@ namespace WDSETests
                 new MagickImage(Resources.BasicImageShouldBe1920x1080)));
         }
 
+       
+
         [Test]
-        public void TestCutFooterCutHeaderAndCombine1280x720()
+        public void TestCutElementImageWithPixels1280x720()
         {
             _driver.Manage().Window.Size = new Size(1280, 720);
-            _driver.Navigate().GoToUrl(_pagePath);
-            var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(
-                    new HeadCutDecorator(new FooterCutDecorator(new ScreenshotMaker()).SetFooter(100)).SetHead(100))
-                .SetWaitAfterScrolling(TimeSpan.FromMilliseconds(200)));
+            _driver.Navigate().GoToUrl(_pagePathWithHr);
+            var ele = _driver.FindElement(By.Id("hrId"));
+            var arr = _driver.TakeScreenshot(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementInHeightThenCombine(ele)));
 
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
-                new MagickImage(Resources.AllInOneShouldBe1280x720)));
+                new MagickImage(Resources.EleCuttingShouldBe1280x720)));
         }
 
+
         [Test]
-        public void TestCutFooterCutHeaderAndCombine1920x1080()
+        public void TestCutElementImageWithPixels1920x1080()
         {
             _driver.Manage().Window.Size = new Size(1920, 1080);
-            _driver.Navigate().GoToUrl(_pagePath);
-            var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(
-                    new HeadCutDecorator(new FooterCutDecorator(new ScreenshotMaker()).SetFooter(100)).SetHead(100))
-                .SetWaitAfterScrolling(TimeSpan.FromMilliseconds(200)));
+            _driver.Navigate().GoToUrl(_pagePathWithHr);
+            var ele = _driver.FindElement(By.Id("hrId"));
+            var arr = _driver.TakeScreenshot(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementInHeightThenCombine(ele)));
 
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
-                new MagickImage(Resources.AllInOneShouldBe1920x1080)));
+                new MagickImage(Resources.EleCuttingShouldBe1920x1080)));
+
         }
 
+        [Test]
+        public void TestCutElementWithVcsImageWithPixels1920x1080()
+        {
+            _driver.Manage().Window.Size = new Size(1920, 1080);
+            _driver.Navigate().GoToUrl(_pagePathWithHr);
+            var ele = _driver.FindElement(By.Id("hrId"));
+            var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementInHeightThenCombine(ele))));
+
+            AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, arr);
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.EleCuttingShouldBe1920x1080)));
+        }
 
         [Test]
-        public void TestCutFooterImageWithPixels1280x720()
+        public void TestCutElementWithVcsImageWithPixels1280x720()
         {
             _driver.Manage().Window.Size = new Size(1280, 720);
-            _driver.Navigate().GoToUrl(_pagePath);
-            var arr = _driver.TakeScreenshot(new FooterCutDecorator(new ScreenshotMaker()).SetFooter(150));
+            _driver.Navigate().GoToUrl(_pagePathWithHr);
+            var ele = _driver.FindElement(By.Id("hrId"));
+            var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementInHeightThenCombine(ele))));
+
+            AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, arr);
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
-                new MagickImage(Resources.FooterCutImageShouldBe1280x720)));
+                new MagickImage(Resources.EleCuttingShouldBe1920x1080)));
         }
 
-        [Test]
-        public void TestCutFooterImageWithPixels1920x1080()
-        {
-            _driver.Manage().Window.Size = new Size(1920, 1080);
-            _driver.Navigate().GoToUrl(_pagePath);
-            var arr = _driver.TakeScreenshot(new FooterCutDecorator(new ScreenshotMaker()).SetFooter(150));
-            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
-                new MagickImage(Resources.FooterCutImageShouldBe1920x1080)));
-        }
-
-        [Test]
-        public void TestCutHeadImageWithPixels1280x720()
-        {
-            _driver.Manage().Window.Size = new Size(1280, 720);
-            _driver.Navigate().GoToUrl(_pagePath);
-            var arr = _driver.TakeScreenshot(new HeadCutDecorator(new ScreenshotMaker()).SetHead(100));
-
-            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
-                new MagickImage(Resources.HeadCutImageShouldBe1280x720)));
-        }
-
-
-        [Test]
-        public void TestCutHeadImageWithPixels1920x1080()
-        {
-            _driver.Manage().Window.Size = new Size(1920, 1080);
-            _driver.Navigate().GoToUrl(_pagePath);
-            var arr = _driver.TakeScreenshot(new HeadCutDecorator(new ScreenshotMaker()).SetHead(100));
-
-            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
-                new MagickImage(Resources.HeadCutImageShouldBe1920x1080)));
-        }
 
         [Test]
         public void TestVcsImage1280x720()

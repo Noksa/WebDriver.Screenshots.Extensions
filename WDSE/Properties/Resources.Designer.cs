@@ -61,29 +61,48 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to function Coords(el) {
-        ///    this.left = parseInt(el.offset().left);
-        ///    this.top = parseInt(el.offset().top);
-        ///    this.right = parseInt(this.left + el.outerWidth());
-        ///    this.bottom = parseInt(this.top + el.outerHeight());
-        ///}
-        ///
-        ///Coords.prototype.toString = function () {
-        ///    const x = Math.max(this.left, 0);
-        ///    const y = Math.max(this.top, 0);
-        ///    return JSON.stringify({
-        ///        x: x,
-        ///        y: y,
-        ///        width: this.right - x,
-        ///        height: this.bottom - y
-        ///    });
-        ///};
-        ///
-        ///return [(new Coords($( [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to var el = $(arguments[0]);
+        ///var left = parseInt(el.offset().left);
+        ///var top = parseInt(el.offset().top);
+        ///var right = parseInt(left + el.outerWidth());
+        ///var bottom = parseInt(top + el.outerHeight());
+        ///const x = Math.max(left, 0);
+        ///const y = Math.max(top, 0);
+        ///var str = JSON.stringify({
+        ///    x: x,
+        ///    y: y,
+        ///    width: right - x,
+        ///    height: bottom - y
+        ///});
+        ///return str;.
         /// </summary>
         internal static string GetElementCoordinates {
             get {
                 return ResourceManager.GetString("GetElementCoordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to function IsElementVisible(ele) {
+        ///
+        ///    const win = $(window);
+        ///
+        ///    const viewport = {
+        ///        top: win.scrollTop(),
+        ///        left: win.scrollLeft()
+        ///    };
+        ///    viewport.right = viewport.left + win.width();
+        ///    viewport.bottom = viewport.top + win.height();
+        ///
+        ///    const bounds = ele.offset();
+        ///    bounds.right = bounds.left + ele.outerWidth();
+        ///    bounds.bottom = bounds.top + ele.outerHeight();
+        ///
+        ///    return (!(viewport.right &lt; bounds.left || viewport.left &gt; bounds.right || viewport.bottom &lt; bounds.to [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GetElementVisibleState {
+            get {
+                return ResourceManager.GetString("GetElementVisibleState", resourceCulture);
             }
         }
         
