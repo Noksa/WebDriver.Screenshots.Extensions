@@ -6,11 +6,11 @@ using WDSE.Interfaces;
 
 namespace WDSE.Decorators.CuttingStrategies
 {
-    public class CutElementInHeightThenCombine : ICuttingStrategy
+    public class CutElementHeightOnEntireWidthThenCombine : ICuttingStrategy
     {
         private readonly IWebElement _elementToCut;
 
-        public CutElementInHeightThenCombine(IWebElement ele)
+        public CutElementHeightOnEntireWidthThenCombine(IWebElement ele)
         {
             _elementToCut = ele;
         }

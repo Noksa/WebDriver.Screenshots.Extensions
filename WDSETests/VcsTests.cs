@@ -73,7 +73,7 @@ namespace WDSETests
             _driver.Navigate().GoToUrl("http://russian.rt.com");
             var ele = _driver.FindElement(By.ClassName(
                 "header__content"));
-            var vcs = new VerticalCombineDecorator(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementInHeightThenCombine(ele)));
+            var vcs = new VerticalCombineDecorator(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementHeightOnEntireWidthThenCombine(ele)));
             var screen = _driver.TakeScreenshot(vcs);
             AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, screen);
         }
@@ -108,7 +108,7 @@ namespace WDSETests
             _driver.Manage().Window.Size = new Size(1280, 720);
             _driver.Navigate().GoToUrl(_pagePathWithHr);
             var ele = _driver.FindElement(By.Id("hrId"));
-            var arr = _driver.TakeScreenshot(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementInHeightThenCombine(ele)));
+            var arr = _driver.TakeScreenshot(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementHeightOnEntireWidthThenCombine(ele)));
 
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
                 new MagickImage(Resources.EleCuttingShouldBe1280x720)));
@@ -121,7 +121,7 @@ namespace WDSETests
             _driver.Manage().Window.Size = new Size(1920, 1080);
             _driver.Navigate().GoToUrl(_pagePathWithHr);
             var ele = _driver.FindElement(By.Id("hrId"));
-            var arr = _driver.TakeScreenshot(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementInHeightThenCombine(ele)));
+            var arr = _driver.TakeScreenshot(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementHeightOnEntireWidthThenCombine(ele)));
 
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
                 new MagickImage(Resources.EleCuttingShouldBe1920x1080)));
@@ -134,7 +134,7 @@ namespace WDSETests
             _driver.Manage().Window.Size = new Size(1920, 1080);
             _driver.Navigate().GoToUrl(_pagePathWithHr);
             var ele = _driver.FindElement(By.Id("hrId"));
-            var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementInHeightThenCombine(ele))));
+            var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementHeightOnEntireWidthThenCombine(ele))));
 
             AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, arr);
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
@@ -147,8 +147,7 @@ namespace WDSETests
             _driver.Manage().Window.Size = new Size(1280, 720);
             _driver.Navigate().GoToUrl(_pagePathWithHr);
             var ele = _driver.FindElement(By.Id("hrId"));
-            var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementInHeightThenCombine(ele))));
-
+            var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementHeightOnEntireWidthThenCombine(ele))));
             AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, arr);
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
                 new MagickImage(Resources.VcsEleCuttingShouldBe1280x720)));
@@ -160,7 +159,10 @@ namespace WDSETests
             _driver.Manage().Window.Size = new Size(1280, 720);
             _driver.Navigate().GoToUrl(_pagePathWithHr);
             var ele = _driver.FindElement(By.Id("hrId"));
-            var arr = _driver.TakeScreenshot(new OnlyElementDecorator(new ScreenshotMaker()).SetElement(ele));
+            var screenMaker = new ScreenshotMaker();
+            var onlyEleDecorator = new OnlyElementDecorator(screenMaker);
+            onlyEleDecorator.SetElement(ele);
+            var arr = _driver.TakeScreenshot(onlyEleDecorator);
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
                 new MagickImage(Resources.OnlyElementShouldBe1280x720)));
         }
