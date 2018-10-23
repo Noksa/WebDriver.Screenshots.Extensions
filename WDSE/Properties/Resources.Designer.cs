@@ -83,26 +83,27 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to function IsElementVisible(ele) {
+        ///   Looks up a localized string similar to var ele = $(arguments[0]);
         ///
-        ///    const win = $(window);
-        ///
-        ///    const viewport = {
-        ///        top: win.scrollTop(),
-        ///        left: win.scrollLeft()
-        ///    };
-        ///    viewport.right = viewport.left + win.width();
-        ///    viewport.bottom = viewport.top + win.height();
-        ///
-        ///    const bounds = ele.offset();
-        ///    bounds.right = bounds.left + ele.outerWidth();
-        ///    bounds.bottom = bounds.top + ele.outerHeight();
-        ///
-        ///    return (!(viewport.right &lt; bounds.left || viewport.left &gt; bounds.right || viewport.bottom &lt; bounds.to [rest of string was truncated]&quot;;.
+        ///var elementTop = $(ele).offset().top;
+        ///var elementBottom = elementTop + $(ele).outerHeight();
+        ///var viewportTop = $(window).scrollTop();
+        ///var viewportBottom = viewportTop + $(window).height();
+        ///return elementBottom &gt; viewportTop &amp;&amp; elementTop &lt; viewportBottom;.
         /// </summary>
         internal static string GetElementVisibleState {
             get {
                 return ResourceManager.GetString("GetElementVisibleState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to var ele = $(arguments[0]);
+        ///$(&quot;body&quot;).scrollTo(ele);.
+        /// </summary>
+        internal static string ScrollToElement {
+            get {
+                return ResourceManager.GetString("ScrollToElement", resourceCulture);
             }
         }
         

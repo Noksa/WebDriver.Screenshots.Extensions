@@ -27,7 +27,7 @@ namespace WDSE.Decorators
 
         public override IMagickImage MakeScreenshot(IWebDriver driver)
         {
-            return CutElementFromScreenshot(driver, Strategy.MakeScreenshot(driver));
+            return TakeOnlyElementScreenshot(driver, Strategy.MakeScreenshot(driver));
         }
 
         #endregion
@@ -50,11 +50,12 @@ namespace WDSE.Decorators
 
         #region Privates
 
-        private IMagickImage CutElementFromScreenshot(IWebDriver driver, IMagickImage magickImage)
+        private IMagickImage TakeOnlyElementScreenshot(IWebDriver driver, IMagickImage magickImage)
         {
             if (_element == null)
                 throw new ArgumentNullException(
-                    "Element is not setted. Before using this decorator, call the method SetElement(IWebElement element).");
+                    $"Element is not setted. Before using {nameof(OnlyElementDecorator)}, call the method {nameof(SetElement)}.");
+            driver.ScrollToElement(_element);
             var coords = driver.GetElementCoordinates(_element);
             var rectangle = new Rectangle(coords.x, coords.y, coords.width, coords.height);
             var image = magickImage.Clone(new MagickGeometry(rectangle));

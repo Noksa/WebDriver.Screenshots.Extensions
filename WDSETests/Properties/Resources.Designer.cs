@@ -103,6 +103,46 @@ namespace WDSETests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap OnlyElementShouldBe1280x720 {
+            get {
+                object obj = ResourceManager.GetObject("OnlyElementShouldBe1280x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OnlyElementShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("OnlyElementShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VcsEleCuttingShouldBe1280x720 {
+            get {
+                object obj = ResourceManager.GetObject("VcsEleCuttingShouldBe1280x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VcsEleCuttingShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("VcsEleCuttingShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap VcsImageShouldBe1280x720 {
             get {
                 object obj = ResourceManager.GetObject("VcsImageShouldBe1280x720", resourceCulture);

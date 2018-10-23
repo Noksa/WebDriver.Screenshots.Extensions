@@ -138,7 +138,7 @@ namespace WDSETests
 
             AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, arr);
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
-                new MagickImage(Resources.EleCuttingShouldBe1920x1080)));
+                new MagickImage(Resources.VcsEleCuttingShouldBe1920x1080)));
         }
 
         [Test]
@@ -151,7 +151,29 @@ namespace WDSETests
 
             AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, arr);
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
-                new MagickImage(Resources.EleCuttingShouldBe1920x1080)));
+                new MagickImage(Resources.VcsEleCuttingShouldBe1280x720)));
+        }
+
+        [Test]
+        public void TestOnlyElementImage1280x720()
+        {
+            _driver.Manage().Window.Size = new Size(1280, 720);
+            _driver.Navigate().GoToUrl(_pagePathWithHr);
+            var ele = _driver.FindElement(By.Id("hrId"));
+            var arr = _driver.TakeScreenshot(new OnlyElementDecorator(new ScreenshotMaker()).SetElement(ele));
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.OnlyElementShouldBe1280x720)));
+        }
+
+        [Test]
+        public void TestOnlyElementImage1920x1080()
+        {
+            _driver.Manage().Window.Size = new Size(1920, 1080);
+            _driver.Navigate().GoToUrl(_pagePathWithHr);
+            var ele = _driver.FindElement(By.Id("hrId"));
+            var arr = _driver.TakeScreenshot(new OnlyElementDecorator(new ScreenshotMaker()).SetElement(ele));
+            Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
+                new MagickImage(Resources.OnlyElementShouldBe1920x1080)));
         }
 
 
