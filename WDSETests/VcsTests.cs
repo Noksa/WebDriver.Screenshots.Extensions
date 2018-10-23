@@ -148,7 +148,6 @@ namespace WDSETests
             _driver.Navigate().GoToUrl(_pagePathWithHr);
             var ele = _driver.FindElement(By.Id("hrId"));
             var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(new CutElementHeightOnEntireWidthThenCombine(ele))));
-
             AllureLifecycle.Instance.AddAttachment("screen", AllureLifecycle.AttachFormat.ImagePng, arr);
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
                 new MagickImage(Resources.VcsEleCuttingShouldBe1280x720)));
@@ -160,7 +159,10 @@ namespace WDSETests
             _driver.Manage().Window.Size = new Size(1280, 720);
             _driver.Navigate().GoToUrl(_pagePathWithHr);
             var ele = _driver.FindElement(By.Id("hrId"));
-            var arr = _driver.TakeScreenshot(new OnlyElementDecorator(new ScreenshotMaker()).SetElement(ele));
+            var screenMaker = new ScreenshotMaker();
+            var onlyEleDecorator = new OnlyElementDecorator(screenMaker);
+            onlyEleDecorator.SetElement(ele);
+            var arr = _driver.TakeScreenshot(onlyEleDecorator);
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
                 new MagickImage(Resources.OnlyElementShouldBe1280x720)));
         }
@@ -193,13 +195,6 @@ namespace WDSETests
         {
             _driver.Manage().Window.Size = new Size(1920, 1080);
             _driver.Navigate().GoToUrl(_pagePath);
-            var scMaker = new ScreenshotMaker();
-            var cutFooterDecorator = new CutterDecorator(scMaker);
-            cutFooterDecorator.SetCuttingStrategy(
-            new CutElementHeightOnEntireWidthThenCombine(_driver.FindElement(By.Id("footer"))));
-            var vcd = new VerticalCombineDecorator(cutFooterDecorator);
-            var screenArrBytes = _driver.TakeScreenshot(vcd);
-
             var arr = _driver.TakeScreenshot(new VerticalCombineDecorator(new ScreenshotMaker()));
 
             Assert.That(WdseImageComparer.Compare(arr.ToMagickImage(),
