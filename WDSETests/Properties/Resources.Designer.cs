@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WDSE.Properties {
+namespace WDSETests.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WDSE.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WDSE.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WDSETests.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,60 +61,62 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to var el = $(arguments[0]);
-        ///var left = parseInt(el.offset().left);
-        ///var top = parseInt(el.offset().top);
-        ///var right = parseInt(left + el.outerWidth());
-        ///var bottom = parseInt(top + el.outerHeight());
-        ///const x = Math.max(left, 0);
-        ///const y = Math.max(top, 0);
-        ///var str = JSON.stringify({
-        ///    x: x,
-        ///    y: y,
-        ///    width: right - x,
-        ///    height: bottom - y
-        ///});
-        ///return str;.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static string GetElementCoordinates {
+        internal static System.Drawing.Bitmap BasicImageShouldBe1280x720 {
             get {
-                return ResourceManager.GetString("GetElementCoordinates", resourceCulture);
+                object obj = ResourceManager.GetObject("BasicImageShouldBe1280x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to function IsElementVisible(ele) {
-        ///
-        ///    const win = $(window);
-        ///
-        ///    const viewport = {
-        ///        top: win.scrollTop(),
-        ///        left: win.scrollLeft()
-        ///    };
-        ///    viewport.right = viewport.left + win.width();
-        ///    viewport.bottom = viewport.top + win.height();
-        ///
-        ///    const bounds = ele.offset();
-        ///    bounds.right = bounds.left + ele.outerWidth();
-        ///    bounds.bottom = bounds.top + ele.outerHeight();
-        ///
-        ///    return (!(viewport.right &lt; bounds.left || viewport.left &gt; bounds.right || viewport.bottom &lt; bounds.to [rest of string was truncated]&quot;;.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static string GetElementVisibleState {
+        internal static System.Drawing.Bitmap BasicImageShouldBe1920x1080 {
             get {
-                return ResourceManager.GetString("GetElementVisibleState", resourceCulture);
+                object obj = ResourceManager.GetObject("BasicImageShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to var ele = document.createElement(&quot;script&quot;);
-        ///ele.src = &quot;https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js&quot;;
-        ///var body = document.getElementsByTagName(&quot;head&quot;)[0];
-        ///body.appendChild(ele);.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static string SetJQuery {
+        internal static System.Drawing.Bitmap EleCuttingShouldBe1280x720 {
             get {
-                return ResourceManager.GetString("SetJQuery", resourceCulture);
+                object obj = ResourceManager.GetObject("EleCuttingShouldBe1280x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap EleCuttingShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("EleCuttingShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VcsImageShouldBe1280x720 {
+            get {
+                object obj = ResourceManager.GetObject("VcsImageShouldBe1280x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VcsImageShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("VcsImageShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

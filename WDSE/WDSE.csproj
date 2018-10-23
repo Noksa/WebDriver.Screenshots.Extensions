@@ -3,22 +3,25 @@
   <PropertyGroup>
     <TargetFrameworks>net452;net46;net461;net462;net47;net471;net472</TargetFrameworks>
     <PackageId>Noksa.WebDriver.ScreenshotsExtensions</PackageId>
-    <Version>0.0.1-alpha</Version>
+    <Version>0.0.1</Version>
     <Product>Noksa (Alexandr Danilin)</Product>
     <Company>Noksa (Alexandr Danilin)</Company>
     <Authors>Noksa (Alexandr Danilin)</Authors>
-    <Description>Screenshots extensions, like screenshot a entiry page.</Description>
+    <Description>Screenshots extensions, like screenshot a entiry page.
+For examples of usage, see the github project page.
+</Description>
     <Copyright>Noksa (Alexandr Danilin)</Copyright>
     <PackageIconUrl>https://avatars0.githubusercontent.com/u/36312857?s=40&amp;v=4</PackageIconUrl>
     <PackageTags>webdriver, screenshot, selenium, extension, page</PackageTags>
-    <PackageReleaseNotes>First version. Use new driver extension method:
-driver.TakeScreenshot(IScreenshotStrategy strategy).
-Use VerticalCombiningStrategy if you want to make screenshot of entire page, not only viewport.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added new functionality - take screenshot of a specific element</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>7.1</LangVersion>
+    <PackageProjectUrl>https://github.com/Noksa/WebDriver.Screenshots.Extensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Noksa/WebDriver.Screenshots.Extensions</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.9.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="Selenium.Support" Version="3.14.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.14.0" />
@@ -37,6 +40,7 @@ Use VerticalCombiningStrategy if you want to make screenshot of entire page, not
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>  
+  </ItemGroup>
+
 
 </Project>

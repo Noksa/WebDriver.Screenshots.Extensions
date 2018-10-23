@@ -48,5 +48,12 @@ namespace WDSE.Helpers
                 } while (sw.Elapsed.TotalSeconds <= 15);
             }
         }
+
+        internal static bool IsElementInViewPort(this IWebDriver driver, IWebElement element)
+        {
+            var script = Resources.GetElementVisibleState;
+            var result = driver.ExecuteJavaScript<bool>(script, element);
+            return result;
+        }
     }
 }
