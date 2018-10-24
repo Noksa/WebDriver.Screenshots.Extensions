@@ -19,7 +19,7 @@ namespace WDSE.Decorators
         #region Props
 
         /// <summary>
-        /// Nested strategy of screenshoting.
+        ///     Nested strategy of screenshoting.
         /// </summary>
         public IScreenshotStrategy Strategy { get; }
 
@@ -29,7 +29,7 @@ namespace WDSE.Decorators
         #region Abstract member
 
         /// <summary>
-        /// Method that determines how a screenshot will be processed or created.
+        ///     Method that determines how a screenshot will be processed or created.
         /// </summary>
         /// <param name="driver">Webdriver.</param>
         /// <returns></returns>

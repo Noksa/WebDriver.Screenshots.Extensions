@@ -1,10 +1,4 @@
-﻿using System.Drawing;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using WDSE;
-using WDSE.Decorators;
-using WDSE.Helpers;
-using WDSE.ScreenshotMaker;
+﻿
 
 // ReSharper disable InconsistentNaming
 

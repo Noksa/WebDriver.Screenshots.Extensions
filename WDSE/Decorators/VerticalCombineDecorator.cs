@@ -36,7 +36,7 @@ namespace WDSE.Decorators
         #region Public methods
 
         /// <summary>
-        /// Sets interval to wait after scrolling the page to take the screenshot.
+        ///     Sets interval to wait after scrolling the page to take the screenshot.
         /// </summary>
         /// <param name="timeSpan">Time interval.</param>
         /// <returns></returns>

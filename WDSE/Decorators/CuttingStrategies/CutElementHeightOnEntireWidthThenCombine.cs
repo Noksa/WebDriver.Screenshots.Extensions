@@ -11,7 +11,6 @@ namespace WDSE.Decorators.CuttingStrategies
         private readonly By _elementByToCut;
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="by">How to find element.</param>
         public CutElementHeightOnEntireWidthThenCombine(By by)
@@ -26,7 +25,6 @@ namespace WDSE.Decorators.CuttingStrategies
             var height = magickImage.Height;
             var headElementCoords = driver.GetElementCoordinates(_elementByToCut);
             if (headElementCoords.y != 0)
-            {
                 using (var collection = new MagickImageCollection())
                 {
                     var firstRectangle = new Rectangle(0, 0, width, 0 + headElementCoords.y);
@@ -39,11 +37,9 @@ namespace WDSE.Decorators.CuttingStrategies
                     var overAllImage = collection.AppendVertically();
                     return new MagickImage(overAllImage);
                 }
-            }
 
             var rectangle = new Rectangle(0, headElementCoords.height, width, height - headElementCoords.height);
             return magickImage.Clone(new MagickGeometry(rectangle));
         }
-
     }
 }
