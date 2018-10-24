@@ -52,12 +52,21 @@ namespace WDSE.Compare
             return arr;
         }
 
+        public static byte[] CompareAndGetImageIfNotSame(IMagickImage image1, IMagickImage image2)
+        {
+            var list = CompareImages(image1, image2).ToList();
+            var res = (double)list[0];
+            if (!(res > 0)) return null;
+            var arr = ((IMagickImage)list[1]).ToByteArray();
+            return arr;
+        }
+
         #endregion
 
         #region Boolean compare
 
         /// <summary>
-        /// Compares two images. Returns true is images are same.
+        /// Compares two images. Returns true if images are same.
         /// </summary>
         /// <param name="image1">Image #1 to compare</param>
         /// <param name="image2">Image #2 to compare</param>
@@ -70,7 +79,7 @@ namespace WDSE.Compare
         }
 
         /// <summary>
-        /// Compares two images. Returns true is images are same.
+        /// Compares two images. Returns true if images are same.
         /// </summary>
         /// <param name="image1">Image #1 to compare</param>
         /// <param name="image2">Image #2 to compare</param>
@@ -83,7 +92,7 @@ namespace WDSE.Compare
         }
 
         /// <summary>
-        /// Compares two images. Returns true is images are same.
+        /// Compares two images. Returns true if images are same.
         /// </summary>
         /// <param name="pathToImage1">Path to Image #1 to compare</param>
         /// <param name="pathToImage2">Path to Image #2 to compare</param>

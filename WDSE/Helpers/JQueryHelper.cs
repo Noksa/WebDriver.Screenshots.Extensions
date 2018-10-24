@@ -1,8 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using WDSE.Properties;
+// ReSharper disable InconsistentNaming
 
 namespace WDSE.Helpers
 {
@@ -49,17 +51,48 @@ namespace WDSE.Helpers
             }
         }
 
-        internal static bool IsElementInViewPort(this IWebDriver driver, IWebElement element)
+        internal static bool IsElementInViewPort(this IWebDriver driver, By by)
         {
-            var script = Resources.GetElementVisibleState;
-            var result = driver.ExecuteJavaScript<bool>(script, element);
+            var element = driver.GetElementFromDOM(by);
+            if (element == null) return false;
+            var result = driver.ExecuteJavaScript<bool>(Resources.GetElementVisibleState, element);
             return result;
         }
 
-        internal static void ScrollToElement(this IWebDriver driver, IWebElement element)
+        internal static bool IsElementInViewPort(this IWebDriver driver, IWebElement element)
         {
-            var script = Resources.ScrollToElement;
-            driver.ExecuteJavaScript(script, element);
+            var result = driver.ExecuteJavaScript<bool>(Resources.GetElementVisibleState, element);
+            return result;
+        }
+
+        internal static void ScrollToElement(this IWebDriver driver, By by)
+        {
+            var element = driver.GetElementFromDOM(by, true);
+            driver.ExecuteJavaScript(Resources.ScrollToElement, element);
+        }
+
+        internal static IWebElement GetElementFromDOM(this IWebDriver driver, By by, bool throwEx = false)
+        {
+            try
+            {
+                var ele = driver.FindElement(by);
+                return ele;
+            }
+            catch (NoSuchElementException)
+            {
+                if (throwEx) throw;
+                return null;
+            }
+        }
+
+        internal static void SetElementHidden(this IWebDriver driver, IWebElement element)
+        {
+            driver.ExecuteJavaScript(Resources.HideElementFromDOM, element);
+        }
+
+        internal static void SetElementVisible(this IWebDriver driver, IWebElement element)
+        {
+            driver.ExecuteJavaScript(Resources.ShowElementInDOM, element);
         }
     }
 }
