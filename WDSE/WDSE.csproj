@@ -13,7 +13,7 @@ For examples of usage, see the github project page.
     <Copyright>Noksa (Alexandr Danilin)</Copyright>
     <PackageIconUrl>https://avatars0.githubusercontent.com/u/36312857?s=40&amp;v=4</PackageIconUrl>
     <PackageTags>webdriver, screenshot, selenium, extension, page</PackageTags>
-    <PackageReleaseNotes>Added new functionality - take screenshot of a specific element</PackageReleaseNotes>
+    <PackageReleaseNotes>Added RemoveScrollBarsWhileShooting method at ScreenshotMaker class</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>7.1</LangVersion>
     <PackageProjectUrl>https://github.com/Noksa/WebDriver.Screenshots.Extensions</PackageProjectUrl>

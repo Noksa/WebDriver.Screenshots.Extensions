@@ -1,5 +1,8 @@
-﻿using ImageMagick;
+﻿using System.Collections.Generic;
+using System.Linq;
+using ImageMagick;
 using OpenQA.Selenium;
+using WDSE.Decorators;
 using WDSE.Helpers;
 using WDSE.Interfaces;
 
@@ -20,7 +23,28 @@ namespace WDSE
         public static byte[] TakeScreenshot(this IWebDriver driver, IScreenshotStrategy strategy)
         {
             driver.CheckJQueryOnPage();
+            ScreenshotMaker.ScreenshotMaker screenshotMaker = null;
+            switch (strategy)
+            {
+                case ScreenshotMaker.ScreenshotMaker sm:
+                    screenshotMaker = sm;
+                    break;
+                case BaseScreenshotDecorator baseDecorator:
+                {
+                    var nestedStrategies = GetNestedStrategies(baseDecorator).ToList();
+                    if (nestedStrategies.Any())
+                    {
+                        var sm = nestedStrategies.FirstOrDefault(q =>
+                            q.GetType() == typeof(ScreenshotMaker.ScreenshotMaker));
+                        if (sm != null) screenshotMaker = sm as ScreenshotMaker.ScreenshotMaker;
+                    }
+
+                    break;
+                }
+            }
+
             var magickImage = strategy.MakeScreenshot(driver);
+            screenshotMaker?.RestoreAll();
             return magickImage.ToByteArray();
         }
 
@@ -32,6 +56,18 @@ namespace WDSE
         public static IMagickImage ToMagickImage(this byte[] arr)
         {
             return new MagickImage(arr);
+        }
+
+        private static IEnumerable<IScreenshotStrategy> GetNestedStrategies(BaseScreenshotDecorator strategy)
+        {
+            var nestedStrategy = strategy.NestedStrategy;
+            if (nestedStrategy == null) yield break;
+            do
+            {
+                yield return nestedStrategy;
+                strategy = nestedStrategy as BaseScreenshotDecorator;
+                nestedStrategy = strategy?.NestedStrategy;
+            } while (nestedStrategy != null);
         }
     }
 }

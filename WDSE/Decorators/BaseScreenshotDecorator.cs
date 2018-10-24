@@ -10,7 +10,7 @@ namespace WDSE.Decorators
 
         protected BaseScreenshotDecorator(IScreenshotStrategy strategy)
         {
-            Strategy = strategy;
+            NestedStrategy = strategy;
         }
 
         #endregion
@@ -19,20 +19,15 @@ namespace WDSE.Decorators
         #region Props
 
         /// <summary>
-        ///     Nested strategy of screenshoting.
+        /// Nested strategy, if have. Else is null.
         /// </summary>
-        public IScreenshotStrategy Strategy { get; }
+        public IScreenshotStrategy NestedStrategy { get; }
 
         #endregion
 
 
         #region Abstract member
-
-        /// <summary>
-        ///     Method that determines how a screenshot will be processed or created.
-        /// </summary>
-        /// <param name="driver">Webdriver.</param>
-        /// <returns></returns>
+        
         public abstract IMagickImage MakeScreenshot(IWebDriver driver);
 
         #endregion

@@ -25,7 +25,7 @@ namespace WDSE.Decorators
 
         public override IMagickImage MakeScreenshot(IWebDriver driver)
         {
-            return Cut(driver, Strategy.MakeScreenshot(driver));
+            return Cut(driver, NestedStrategy.MakeScreenshot(driver));
         }
 
         #endregion

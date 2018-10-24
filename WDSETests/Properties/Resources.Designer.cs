@@ -123,6 +123,16 @@ namespace WDSETests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RemoveAllElementByOneByShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("RemoveAllElementByOneByShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap RemoveElementShouldBe1280x720 {
             get {
                 object obj = ResourceManager.GetObject("RemoveElementShouldBe1280x720", resourceCulture);
@@ -136,6 +146,36 @@ namespace WDSETests.Properties {
         internal static System.Drawing.Bitmap RemoveElementShouldBe1920x1080 {
             get {
                 object obj = ResourceManager.GetObject("RemoveElementShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RemoveTwoElementShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("RemoveTwoElementShouldBe1920x1080", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RemovingScrollBarsShouldBe1280x720 {
+            get {
+                object obj = ResourceManager.GetObject("RemovingScrollBarsShouldBe1280x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RemovingScrollBarsShouldBe1920x1080 {
+            get {
+                object obj = ResourceManager.GetObject("RemovingScrollBarsShouldBe1920x1080", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

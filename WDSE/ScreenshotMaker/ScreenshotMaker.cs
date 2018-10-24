@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ImageMagick;
@@ -20,8 +21,8 @@ namespace WDSE.ScreenshotMaker
         #region Private fields
 
         private IWebDriver _driver;
-        private List<By> _elementsToRemoveBys;
-        private List<IWebElement> _hiddenElements;
+        internal List<By> _elementsToRemoveBys;
+        internal List<IWebElement> _hiddenElements;
         private bool _scrollBarsNeedToBeHidden;
 
         #endregion
@@ -32,9 +33,12 @@ namespace WDSE.ScreenshotMaker
             HideElements().HideScrollBars();
             var screenshot = driver.TakeScreenshot();
             var ms = new MemoryStream(screenshot.AsByteArray);
-            RestoreScrollBars().RestoreHiddenElements();
             return new MagickImage(ms);
         }
+
+        #region Override
+
+        #endregion
 
         /// <summary>
         ///     <para>Sets which elements will be hidden from the DOM before taking the screenshot.</para>
@@ -103,6 +107,13 @@ namespace WDSE.ScreenshotMaker
         private ScreenshotMaker RestoreScrollBars()
         {
             if (_scrollBarsNeedToBeHidden) _driver.ShowScrollBar();
+            return this;
+        }
+
+        internal ScreenshotMaker RestoreAll()
+        {
+            RestoreHiddenElements().
+            RestoreScrollBars();
             return this;
         }
 
