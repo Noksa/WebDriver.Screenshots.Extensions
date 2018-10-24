@@ -8,6 +8,9 @@ using WDSE.Interfaces;
 
 namespace WDSE.Decorators
 {
+    /// <summary>
+    /// Maker of the entire page screenshot. 
+    /// </summary>
     public class VerticalCombineDecorator : BaseScreenshotDecorator
     {
         #region Private fields

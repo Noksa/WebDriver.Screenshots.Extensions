@@ -11,12 +11,20 @@ using WDSE.Interfaces;
 
 namespace WDSE.ScreenshotMaker
 {
+    /// <summary>
+    /// <para>The default core strategy.</para>
+    /// <para>This class takes a screenshot and has additional settings, such as hiding scrollbars, hiding elements when taking a screenshot, and others.</para>
+    /// </summary>
     public class ScreenshotMaker : IScreenshotStrategy
     {
+        #region Private fields
+
         private IWebDriver _driver;
         private List<By> _elementsToRemoveBys;
         private List<IWebElement> _hiddenElements;
         private bool _scrollBarsNeedToBeHidden;
+
+        #endregion
 
         public IMagickImage MakeScreenshot(IWebDriver driver)
         {
@@ -29,7 +37,7 @@ namespace WDSE.ScreenshotMaker
         }
 
         /// <summary>
-        ///     <para>Method sets which elements will be hidden from the DOM before taking the screenshot.</para>
+        ///     <para>Sets which elements will be hidden from the DOM before taking the screenshot.</para>
         ///     <para>Elements will be hidden if they are in the viewport.</para>
         ///     <para>After taking the screenshot, the hidden elements will become visible again.</para>
         ///     <para>Be careful, if any of the Bys finds more than one element, they all will be hidden.</para>
