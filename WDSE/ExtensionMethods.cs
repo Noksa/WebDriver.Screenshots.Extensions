@@ -1,4 +1,5 @@
-﻿using ImageMagick;
+﻿using System;
+using ImageMagick;
 using OpenQA.Selenium;
 using WDSE.Helpers;
 using WDSE.Interfaces;

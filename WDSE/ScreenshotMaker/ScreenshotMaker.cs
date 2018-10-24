@@ -6,7 +6,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using WDSE.Helpers;
 using WDSE.Interfaces;
-using WDSE.Properties;
 
 // ReSharper disable InconsistentNaming
 
@@ -14,36 +13,47 @@ namespace WDSE.ScreenshotMaker
 {
     public class ScreenshotMaker : IScreenshotStrategy
     {
-        private List<IWebElement> _elementsToRemove;
+        private List<By> _elementsToRemoveBys;
 
         public IMagickImage MakeScreenshot(IWebDriver driver)
         {
-            if (_elementsToRemove != null && _elementsToRemove.Count > 0)
+            List<IWebElement> hiddenElements = null;
+            if (_elementsToRemoveBys != null && _elementsToRemoveBys.Count > 0)
             {
-                _elementsToRemove.ForEach(element =>
+                _elementsToRemoveBys.ForEach(by =>
                 {
-                    var visibleState = driver.IsElementInViewPort(element);
-                    if (visibleState)
+                    var element = driver.GetElementFromDOM(by);
+                    if (element != null)
                     {
-                        driver.ExecuteJavaScript(Resources.RemoveElementFromDOM, element);
+                        if (hiddenElements == null) hiddenElements = new List<IWebElement>();
+                        var visibleState = driver.IsElementInViewPort(element);
+                        if (visibleState)
+                        {
+                            driver.SetElementHidden(element);
+                            hiddenElements.Add(element);
+                        }
                     }
                 });
             }
 
             var screenshot = driver.TakeScreenshot();
             var ms = new MemoryStream(screenshot.AsByteArray);
+
+            hiddenElements?.ForEach(driver.SetElementVisible);
+
             return new MagickImage(ms);
         }
 
         /// <summary>
-        /// <para>Method sets which elements will be removed from the DOM before taking the screenshot.</para>
-        /// <para>Elements will only be deleted if they are in the viewport.</para>
+        /// <para>Method sets which elements will be hidden from the DOM before taking the screenshot.</para>
+        /// <para>Elements will be hidden if they are in the viewport.</para>
+        /// <para>After taking the screenshot, the hidden elements will become visible again.</para>
         /// </summary>
-        /// <param name="elementsToRemove">Collection of elements to remove from the DOM.</param>
+        /// <param name="Bys">Bys collection, how to find the elements that need to be hidden from the DOM until screenshot was taken.</param>
         /// <returns></returns>
-        public ScreenshotMaker SetElementsToRemoveFromDOM(IEnumerable<IWebElement> elementsToRemove)
+        public ScreenshotMaker SetElementsToHide(IEnumerable<By> Bys)
         {
-            _elementsToRemove = elementsToRemove.ToList();
+            _elementsToRemoveBys = Bys.ToList();
             return this;
         }
     }

@@ -4,4 +4,5 @@ var elementTop = ele.offset().top;
 var elementBottom = elementTop + ele.outerHeight();
 var viewportTop = win.scrollTop();
 var viewportBottom = viewportTop + win.height();
-return elementBottom > viewportTop && elementTop < viewportBottom;
+var res = ele.is(":visible");
+return elementBottom > viewportTop && elementTop < viewportBottom && res;

@@ -33,7 +33,7 @@ namespace WDSE.Decorators
         /// <summary>
         /// Sets cutting strategy for specify how and what be cutting from screenshot. 
         /// </summary>
-        /// <param name="ele">Element</param>
+        /// <param name="cuttingStrategy">Cutting strategy</param>
         /// <returns></returns>
         public CutterDecorator SetCuttingStrategy(ICuttingStrategy cuttingStrategy)
         {

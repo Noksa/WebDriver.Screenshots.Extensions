@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
@@ -50,28 +51,48 @@ namespace WDSE.Helpers
             }
         }
 
-        internal static bool IsElementInViewPort(this IWebDriver driver, IWebElement element)
+        internal static bool IsElementInViewPort(this IWebDriver driver, By by)
         {
-            driver.IsElementExistsInDOM(element, true);
+            var element = driver.GetElementFromDOM(by);
+            if (element == null) return false;
             var result = driver.ExecuteJavaScript<bool>(Resources.GetElementVisibleState, element);
             return result;
         }
 
-        internal static void ScrollToElement(this IWebDriver driver, IWebElement element)
+        internal static bool IsElementInViewPort(this IWebDriver driver, IWebElement element)
         {
-            driver.IsElementExistsInDOM(element, true);
-            var script = Resources.ScrollToElement;
-            driver.ExecuteJavaScript(script, element);
+            var result = driver.ExecuteJavaScript<bool>(Resources.GetElementVisibleState, element);
+            return result;
         }
 
-        internal static bool IsElementExistsInDOM(this IWebDriver driver, IWebElement element, bool throwExIfNot = false)
+        internal static void ScrollToElement(this IWebDriver driver, By by)
         {
-            var result = driver.ExecuteJavaScript<bool>(Resources.CheckElementExists, element);
-            if (throwExIfNot && !result)
+            var element = driver.GetElementFromDOM(by, true);
+            driver.ExecuteJavaScript(Resources.ScrollToElement, element);
+        }
+
+        internal static IWebElement GetElementFromDOM(this IWebDriver driver, By by, bool throwEx = false)
+        {
+            try
             {
-                throw new NoSuchElementException($"Cant find element {element} in DOM.");
+                var ele = driver.FindElement(by);
+                return ele;
             }
-            return result;
+            catch (NoSuchElementException)
+            {
+                if (throwEx) throw;
+                return null;
+            }
+        }
+
+        internal static void SetElementHidden(this IWebDriver driver, IWebElement element)
+        {
+            driver.ExecuteJavaScript(Resources.HideElementFromDOM, element);
+        }
+
+        internal static void SetElementVisible(this IWebDriver driver, IWebElement element)
+        {
+            driver.ExecuteJavaScript(Resources.ShowElementInDOM, element);
         }
     }
 }

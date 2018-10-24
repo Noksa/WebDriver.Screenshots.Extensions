@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using WDSE;
+using WDSE.Helpers;
 using WDSE.ScreenshotMaker;
 using WDSETests.Properties;
 
@@ -18,9 +19,8 @@ namespace WDSETests.RemoveElementsFromDOMTests
         {
             Driver.Manage().Window.Size = new Size(1280, 720);
             Driver.Navigate().GoToUrl(PagePathWithHr);
-            var ele = Driver.FindElement(By.Id("hrId"));
             var screenMaker = new ScreenshotMaker();
-            screenMaker.SetElementsToRemoveFromDOM(new[] {ele});
+            screenMaker.SetElementsToHide(new[] { By.Id("hrId") });
             var arr = Driver.TakeScreenshot(screenMaker);
             CompareAndTest(arr, Resources.RemoveElementShouldBe1280x720);
         }
@@ -30,9 +30,8 @@ namespace WDSETests.RemoveElementsFromDOMTests
         {
             Driver.Manage().Window.Size = new Size(1920, 1080);
             Driver.Navigate().GoToUrl(PagePathWithHr);
-            var ele = Driver.FindElement(By.Id("hrId"));
             var screenMaker = new ScreenshotMaker();
-            screenMaker.SetElementsToRemoveFromDOM(new[] {ele});
+            screenMaker.SetElementsToHide(new[] { By.Id("hrId") });
             var arr = Driver.TakeScreenshot(screenMaker);
             CompareAndTest(arr, Resources.RemoveElementShouldBe1920x1080);
         }

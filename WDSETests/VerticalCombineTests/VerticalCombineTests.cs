@@ -19,7 +19,7 @@ namespace WDSETests.VerticalCombineTests
         {
             Driver.Manage().Window.Size = new Size(1280, 720);
             Driver.Navigate().GoToUrl(PagePathWithHr);
-            var ele = Driver.FindElement(By.Id("hrId"));
+            var ele = By.Id("hrId");
             var screenMaker = new ScreenshotMaker();
             var onlyEleDecorator = new OnlyElementDecorator(screenMaker);
             onlyEleDecorator.SetElement(ele);
@@ -32,7 +32,7 @@ namespace WDSETests.VerticalCombineTests
         {
             Driver.Manage().Window.Size = new Size(1920, 1080);
             Driver.Navigate().GoToUrl(PagePathWithHr);
-            var ele = Driver.FindElement(By.Id("hrId"));
+            var ele = By.Id("hrId");
             var arr = Driver.TakeScreenshot(new OnlyElementDecorator(new ScreenshotMaker()).SetElement(ele));
             CompareAndTest(arr, Resources.OnlyElementShouldBe1920x1080);
         }

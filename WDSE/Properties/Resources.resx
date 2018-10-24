@@ -124,16 +124,22 @@
   <data name="GetElementCoordinates" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\GetElementCoordinates.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="GetElementFromByStr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Scripts\GetElementFromByStr.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="GetElementVisibleState" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\GetElementVisibleState.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="RemoveElementFromDOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Scripts\RemoveElementFromDOM.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="HideElementFromDOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Scripts\HideElementFromDOM.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="ScrollToElement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\ScrollToElement.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SetJQuery" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\SetJQuery.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ShowElementInDOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Scripts\ShowElementInDOM.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

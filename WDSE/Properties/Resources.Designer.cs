@@ -61,7 +61,7 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to var ele = $(arguments[0]);
+        ///   Looks up a localized string similar to var ele = arguments[0];
         ///return $.contains(document, ele);.
         /// </summary>
         internal static string CheckElementExists {
@@ -71,11 +71,11 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to var el = $(arguments[0]);
-        ///var left = parseInt(el.offset().left);
-        ///var top = parseInt(el.offset().top);
-        ///var right = parseInt(left + el.outerWidth());
-        ///var bottom = parseInt(top + el.outerHeight());
+        ///   Looks up a localized string similar to var ele = $(arguments[0]);
+        ///var left = parseInt(ele.offset().left);
+        ///var top = parseInt(ele.offset().top);
+        ///var right = parseInt(left + ele.outerWidth());
+        ///var bottom = parseInt(top + ele.outerHeight());
         ///const x = Math.max(left, 0);
         ///const y = Math.max(top, 0);
         ///var str = JSON.stringify({
@@ -93,13 +93,35 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to function GetElement(byStr) {
+        ///    let res = &quot;&quot;;
+        ///    if (byStr.startsWith(&quot;By.XPath: &quot;)) {
+        ///        res = byStr.replace(&quot;By.XPath: &quot;, &quot;&quot;);
+        ///        res = res.replace(&quot;&apos;&quot;, &quot;\&apos;&quot;);
+        ///        return document.evaluate(res, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0);
+        ///    }
+        ///    else if (byStr.startsWith(&quot;By.Id: &quot;)) {
+        ///        res = byStr.replace(&quot;By.Id: &quot;, &quot;&quot;);
+        ///        return document.getElementById(res);
+        ///    }
+        ///    else if (byStr.startsWith(&quot;By.TagName: &quot;)) {
+        ///        res = b [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GetElementFromByStr {
+            get {
+                return ResourceManager.GetString("GetElementFromByStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to var ele = $(arguments[0]);
-        ///
-        ///var elementTop = $(ele).offset().top;
-        ///var elementBottom = elementTop + $(ele).outerHeight();
-        ///var viewportTop = $(window).scrollTop();
-        ///var viewportBottom = viewportTop + $(window).height();
-        ///return elementBottom &gt; viewportTop &amp;&amp; elementTop &lt; viewportBottom;.
+        ///var win = $(window);
+        ///var elementTop = ele.offset().top;
+        ///var elementBottom = elementTop + ele.outerHeight();
+        ///var viewportTop = win.scrollTop();
+        ///var viewportBottom = viewportTop + win.height();
+        ///var res = ele.is(&quot;:visible&quot;);
+        ///return elementBottom &gt; viewportTop &amp;&amp; elementTop &lt; viewportBottom &amp;&amp; res;.
         /// </summary>
         internal static string GetElementVisibleState {
             get {
@@ -109,17 +131,17 @@ namespace WDSE.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to var ele = $(arguments[0]);
-        ///$(ele)[0].remove();.
+        ///ele.hide();.
         /// </summary>
-        internal static string RemoveElementFromDOM {
+        internal static string HideElementFromDOM {
             get {
-                return ResourceManager.GetString("RemoveElementFromDOM", resourceCulture);
+                return ResourceManager.GetString("HideElementFromDOM", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to var ele = $(arguments[0]);
-        ///$(ele)[0].scrollIntoView();.
+        ///   Looks up a localized string similar to var ele = arguments[0];
+        ///ele.scrollIntoView();.
         /// </summary>
         internal static string ScrollToElement {
             get {
@@ -136,6 +158,16 @@ namespace WDSE.Properties {
         internal static string SetJQuery {
             get {
                 return ResourceManager.GetString("SetJQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to var ele = $(arguments[0]);
+        ///ele.show();.
+        /// </summary>
+        internal static string ShowElementInDOM {
+            get {
+                return ResourceManager.GetString("ShowElementInDOM", resourceCulture);
             }
         }
     }

@@ -20,10 +20,11 @@ namespace WDSETests.CuttingDecoratorTests
         {
             Driver.Manage().Window.Size = new Size(1280, 720);
             Driver.Navigate().GoToUrl(PagePathWithHr);
-            var ele = Driver.FindElement(By.Id("hrId"));
+
+            var by = By.Id("hrId");
             var arr = Driver.TakeScreenshot(
                 new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(
-                    new CutElementHeightOnEntireWidthThenCombine(ele)));
+                    new CutElementHeightOnEntireWidthThenCombine(by)));
             CompareAndTest(arr, Resources.EleCuttingShouldBe1280x720);
         }
 
@@ -33,10 +34,10 @@ namespace WDSETests.CuttingDecoratorTests
         {
             Driver.Manage().Window.Size = new Size(1920, 1080);
             Driver.Navigate().GoToUrl(PagePathWithHr);
-            var ele = Driver.FindElement(By.Id("hrId"));
+            var by = By.Id("hrId");
             var arr = Driver.TakeScreenshot(
                 new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(
-                    new CutElementHeightOnEntireWidthThenCombine(ele)));
+                    new CutElementHeightOnEntireWidthThenCombine(by)));
             CompareAndTest(arr, Resources.EleCuttingShouldBe1920x1080);
         }
     }

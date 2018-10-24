@@ -8,19 +8,23 @@ namespace WDSE.Decorators.CuttingStrategies
 {
     public class CutElementHeightOnEntireWidthThenCombine : ICuttingStrategy
     {
-        private readonly IWebElement _elementToCut;
+        private readonly By _elementByToCut;
 
-        public CutElementHeightOnEntireWidthThenCombine(IWebElement ele)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="by">How to find element.</param>
+        public CutElementHeightOnEntireWidthThenCombine(By by)
         {
-            _elementToCut = ele;
+            _elementByToCut = by;
         }
 
         public IMagickImage Cut(IWebDriver driver, IMagickImage magickImage)
         {
-            if (!driver.IsElementInViewPort(_elementToCut)) return magickImage;
+            if (!driver.IsElementInViewPort(_elementByToCut)) return magickImage;
             var width = magickImage.Width;
             var height = magickImage.Height;
-            var headElementCoords = driver.GetElementCoordinates(_elementToCut);
+            var headElementCoords = driver.GetElementCoordinates(_elementByToCut);
             if (headElementCoords.y != 0)
             {
                 using (var collection = new MagickImageCollection())

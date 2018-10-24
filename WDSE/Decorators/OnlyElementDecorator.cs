@@ -11,7 +11,7 @@ namespace WDSE.Decorators
     {
         #region Private fields
 
-        private IWebElement _element;
+        private By _by;
 
         #endregion
 
@@ -38,11 +38,11 @@ namespace WDSE.Decorators
         /// <summary>
         /// Sets the element whose screenshot is to be made.
         /// </summary>
-        /// <param name="element">Element.</param>
+        /// <param name="by">How to find element.</param>
         /// <returns></returns>
-        public OnlyElementDecorator SetElement(IWebElement element)
+        public OnlyElementDecorator SetElement(By by)
         {
-            _element = element;
+            _by = by;
             return this;
         }
 
@@ -52,11 +52,11 @@ namespace WDSE.Decorators
 
         private IMagickImage TakeOnlyElementScreenshot(IWebDriver driver, IMagickImage magickImage)
         {
-            if (_element == null)
+            if (_by == null)
                 throw new ArgumentNullException(
                     $"Element is not setted. Before using {nameof(OnlyElementDecorator)}, call the method {nameof(SetElement)}.");
-            driver.ScrollToElement(_element);
-            var coords = driver.GetElementCoordinates(_element);
+            driver.ScrollToElement(_by);
+            var coords = driver.GetElementCoordinates(_by);
             var rectangle = new Rectangle(coords.x, coords.y, coords.width, coords.height);
             var image = magickImage.Clone(new MagickGeometry(rectangle));
             return image;
