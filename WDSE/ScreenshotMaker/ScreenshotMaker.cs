@@ -21,8 +21,8 @@ namespace WDSE.ScreenshotMaker
         #region Private fields
 
         private IWebDriver _driver;
-        internal List<By> _elementsToRemoveBys;
-        internal List<IWebElement> _hiddenElements;
+        private List<By> _elementsToRemoveBys;
+        private List<IWebElement> _hiddenElements;
         private bool _scrollBarsNeedToBeHidden;
 
         #endregion
