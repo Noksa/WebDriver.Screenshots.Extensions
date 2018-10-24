@@ -1,16 +1,17 @@
-﻿using System.Drawing;
+﻿
+
+// ReSharper disable InconsistentNaming
+
+using System.Drawing;
+using ImageMagick;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using WDSE;
 using WDSE.Decorators;
-using WDSE.Helpers;
 using WDSE.ScreenshotMaker;
-
-// ReSharper disable InconsistentNaming
 
 namespace WDSETests.Debugging
 {
-#if DEBUG
     [TestFixture(TestName = "DEBUG SUITE")]
     [NonParallelizable]
     public class DebuggingTests : TestsInit
@@ -22,10 +23,9 @@ namespace WDSETests.Debugging
             Driver.Manage().Window.Size = new Size(1280, 720);
             Driver.Navigate().GoToUrl("http://docker.com");
             var screenMaker = new ScreenshotMaker();
-            screenMaker.SetElementsToHide(new[] { By.Id("floatingContactButton") });
-            var vcd = new VerticalCombineDecorator(screenMaker);
-            Driver.TakeScreenshot(vcd);
+            screenMaker.RemoveScrollBarsWhileShooting();
+            var arr = Driver.TakeScreenshot(screenMaker);
+            new MagickImage(arr).ToBitmap().Save(@"C:\png.png");
         }
     }
-#endif
 }

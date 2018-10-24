@@ -8,6 +8,9 @@ using WDSE.Interfaces;
 
 namespace WDSE.Decorators
 {
+    /// <summary>
+    /// Maker of the entire page screenshot. 
+    /// </summary>
     public class VerticalCombineDecorator : BaseScreenshotDecorator
     {
         #region Private fields
@@ -36,7 +39,7 @@ namespace WDSE.Decorators
         #region Public methods
 
         /// <summary>
-        /// Sets interval to wait after scrolling the page to take the screenshot.
+        ///     Sets interval to wait after scrolling the page to take the screenshot.
         /// </summary>
         /// <param name="timeSpan">Time interval.</param>
         /// <returns></returns>
@@ -70,17 +73,21 @@ namespace WDSE.Decorators
                 {
                     driver.ExecuteJavaScript("scrollTo(0, arguments[0])", windowHeight * i);
                     WaitAfterScrolling();
-                    var screenshot = new MagickImage(Strategy.MakeScreenshot(driver));
+                    var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
                     imagesCollection.Add(screenshot);
                 }
 
                 if (footer > 0)
                 {
+                    var actualDocumentHeight = driver.GetHeight(SizesHelper.Entity.Document);
+                    if (actualDocumentHeight != totalHeight && actualDocumentHeight < totalHeight)
+                    {
+                        footer = footer - (totalHeight - actualDocumentHeight);
+                    }
                     driver.ExecuteJavaScript("scrollTo(0, document.body.scrollHeight)");
                     WaitAfterScrolling();
-                    var screenshot = new MagickImage(Strategy.MakeScreenshot(driver));
+                    var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
                     var footerImage = screenshot.Clone(0, screenshot.Height - footer, totalWidth, footer);
-                    footerImage.ToBitmap().Save(@"C:\footer.png");
                     imagesCollection.Add(footerImage);
                 }
 

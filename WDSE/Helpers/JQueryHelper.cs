@@ -1,9 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using WDSE.Properties;
+
 // ReSharper disable InconsistentNaming
 
 namespace WDSE.Helpers
@@ -85,6 +86,20 @@ namespace WDSE.Helpers
             }
         }
 
+        internal static IEnumerable<IWebElement> GetElementsFromDOM(this IWebDriver driver, By by, bool throwEx = false)
+        {
+            try
+            {
+                var ele = driver.FindElements(by);
+                return ele;
+            }
+            catch (NoSuchElementException)
+            {
+                if (throwEx) throw;
+                return null;
+            }
+        }
+
         internal static void SetElementHidden(this IWebDriver driver, IWebElement element)
         {
             driver.ExecuteJavaScript(Resources.HideElementFromDOM, element);
@@ -93,6 +108,16 @@ namespace WDSE.Helpers
         internal static void SetElementVisible(this IWebDriver driver, IWebElement element)
         {
             driver.ExecuteJavaScript(Resources.ShowElementInDOM, element);
+        }
+
+        internal static void ShowScrollBar(this IWebDriver driver)
+        {
+            driver.ExecuteJavaScript(Resources.ShowScrollBar);
+        }
+
+        internal static void HideScrollBar(this IWebDriver driver)
+        {
+            driver.ExecuteJavaScript(Resources.RemoveScrollBar);
         }
     }
 }

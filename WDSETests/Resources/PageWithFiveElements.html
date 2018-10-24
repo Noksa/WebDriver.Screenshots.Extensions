@@ -1,0 +1,500 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+table,th,td {
+border: 2px solid black;
+border-collapse: collapse;
+}
+</style>
+    <meta charset="utf-8"/>
+    <title>Very long scroll page</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<table style="width:100%" id="table1">
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th> 
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td> 
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td> 
+    <td>94</td>
+  </tr>
+</table>
+<h1>
+    В чем разница между sudo и su
+    Оригинал: What`s the Difference Between Sudo & Su?
+    Автор: Chris Hoffman
+    Дата публикации: 17 апреля 2012 года
+    Перевод: А. Кривошей
+    Дата публикации перевода: 6 февраля 2013 г.
+    запрос пароля
+
+    Если вы - пользователь Linux, вероятно вы слышали как о sudo, так и о su. Обычно в популярных статьях говорится, что пользователи Ubuntu должны использовать sudo, других дистрибутивов - su. Но в чем же разница между этими командами?
+    Sudo и su - это два различных способа получения привилегий root. Они по разному функционируют и различные дистрибутивы Linux при этом используют разные настройки по умолчанию.
+    <hr size="100" id="hrId"></hr>
+    Пользователь Root
+    Как su, так и sudo используются для запуска команд с привилегиями root. Пользователь root в целом эквивалентен администратору в Windows - он имеет наибольшие права и может делать с системой практически все. Обычные пользователи в Linux имеют намного меньшие возможности - например, они не могут устанавливать программы или записывать в системные директории.
+    Если нужно сделать что-то, требующее таких прав, вы можете получить их с поомощью su или sudo.
+
+    Su vs. Sudo
+    При выполнении команды su без дополнительных опций она переключает вас в сеанс суперпользователя (или root). Для этого вам необходимо знать пароль root. Это не все, что может делать команда su, на самом деле она может использоваться для переключения в любой пользовательский аккаунт. Наберите su bob, и вам будет предложено ввести пароль пользователя Bob, и оболочка переключится в его аккаунт.
+    После того, как вы сделаете все, что вам было нужно, вы можете ввести команду exit и снова переключиться в режим обычного пользователя с ограниченными правами.
+    Sudo запускает с правами root только одну команду. При выполнении команды sudo система запросит у ваш текущий пользовательский пароль, а затем запустит команду на выполнение от имени root. По умолчанию Ubuntu помнит введенный пароль 15 минут, и в течение этого времени при повторном использовании не будет запрашивать его.
+
+    sudo
+
+    Это ключевое различие между su и sudo. Su переключает вас в аккаунт root и требует пароля root. Sudo запускает с привилегиями root одну команду - она не переключает вас в аккаунт суперпользователя и не требует отдельного пароля root.
+
+    Ubuntu vs. другие дистрибутивы Linux
+    Команда su - это традиционный способ получения привилегий root в Linux. Команда sudo существует уже достаточно давно, однако Ubuntu стал первым дистрибутивом, в котором по умолчанию используется только она. При установке Ubuntu создается стандартный аккаунт root, но его не назначается пароль. Вы не сможете авторизоваться как root, пока не зададите пароль для него.
+
+    su
+
+    Использование по умолчанию sudo вместо su имеет некоторые преимущства. Пользователям Ubuntu необходимо помнить только один пароль, в то время как пользователям Fedora и других дистрибутивов требуется создавать отдельные аккаунты для root и обычного пользователя, каждый со своим паролем.
+    Еще одно преимущество - предотвращение нахождения пользователя постоянно в аккаунте root, или постоянно открытого терминала с сессией суперпользователя. Запуск меньшего числа команд от имени root повышает безопасность и предотвращает случайное внесение изменений в системные файлы.
+    Дистрибутивы на базе Ubuntu, включая Linux Mint, также используют по умолчанию sudo вместо su.
+
+    Несколько хитростей
+    Linux - очень гибкая система, поэтому не составляет большого труда сделать так, чтобы su стала похожей на sudo, и наоборот.
+    Для запуска одной команды от имени root с помощью su используется команда вида:
+
+    $ su -c 'command'
+    Это похоже на запуск команды с помощью sudo, но в данном случае вам потребуется пароль root, а не пароль текущего пользователя.
+    Чтобы получить полнофункциональную интерактивную командную оболочку с правами root с помощью sudo, введите:
+
+    $ sudo -i
+    sudo -i
+
+    В данном случае вы можете использовать свой пользовательский пароль.
+
+    Активация пользователя root в Ubuntu
+    Активировать аккаунт root в Ubuntu можно с помощью команды, позволяющей задать пароль для него (помните, что разработчики Ubuntu не рекомендуют делать это):
+
+    $ sudo passwd root
+    Sudo сначала запросит ваш текущий пользовательский пароль, перед тем, как вы сможете задать новый. Вы можете использовать свой новый пароль, чтобы авторизоваться в терминале как root, или для использования с командой su. Однако вы не сможете запустить полное графическое окружение как root - это слишком сильно ослабляет безопасность системы, поэтому многие программы не будут нормально работать.
+
+    Активация пользователя root в Ubuntu
+
+    Добавление пользователей в файл Sudoers
+    Только пользователи с администраторскими аккаунтами могут использовать sudo в Ubuntu. Вы можете изменить тип аккаунта в настройках в разделе "User Accounts".
+
+    User Accounts
+
+    Акканту,созданному при установке системы, Ubuntu автоматически присваивает тип администратора.
+
+    присвоение аккаунту привилегий администратора
+
+    Если вы используете другой дистрибутив linux, вы можете дать пользователю разрешение на применение sudo с помощью команды visudo, которая требует привилегий root (поэтому сначала выполните команду su, или используйте su -c).
+    Добавтьте в файл следующую строку, заменив "user" на требуемое имя пользователя:
+
+    user ALL=(ALL:ALL) ALL
+    Нажмите Ctrl-X и затем Y, чтобы сохранить файл. Вы можете также добавить пользователя в группу, определенную в файле. Пользователи, принадлежащие к группе, определенной в файле, автоматически получают привилегии sudo.
+
+    редактирование файла Sudoers
+
+    Графические версии Su
+    Linux также поддерживает графические версии su, которые запрашивают у вас пароль в графическом окружении. Например, с помощью приведенной ниже команды вы можете получить графический запрос пароля и запустить файловый менеджер Nautilus с привилегиями root. Нажмите Alt-F2, чтобы запустить команду в графическом диалоговом окне без терминала.
+
+    $ gksu nautilus
+    gksu
+
+    Команда gksu также имеет несколько тузов в рукаве. Она запоминает текущие настройки вашего рабочего стола, поэтому графические программы при их запуске от имени другого пользователя не будут выглядеть неожиданно. Такие программы, как gksu являются предпочтительным способом запуска графических программ с привилегиями root.
+    Gksu использует su или sudo, в зависимости от вашего дистрибутива.
+</h1>
+<table style="width:100%" id="table2">
+  <tr>
+    <th>ASD</th>
+    <th>WQWE</th> 
+    <th>QWE</th>
+  </tr>
+  <tr>
+    <td>asd</td>
+    <td>asd</td> 
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td> 
+    <td>94</td>
+  </tr>
+</table>
+<h1>
+    Target frameworks
+    05/31/2018
+    4 minutes to read
+    Contributors
+    Rich Lander Aymeric A Maira Wenzel Chris Maddock Mike Jones all
+    When you target a framework in an app or library, you're specifying the set of APIs that you'd like to make available to the app or library. You specify the target framework in your project file using Target Framework Monikers (TFMs).
+
+    An app or library can target a version of .NET Standard. .NET Standard versions represent standardized sets of APIs across all .NET implementations. For example, a library can target .NET Standard 1.6 and gain access to APIs that function across .NET Core and .NET Framework using the same codebase.
+
+    An app or library can also target a specific .NET implementation to gain access to implementation-specific APIs. For example, an app that targets Xamarin.iOS (for example, Xamarin.iOS10) gets access to Xamarin-provided iOS API wrappers for iOS 10, or an app that targets the Universal Windows Platform (UWP, uap10.0) has access to APIs that compile for devices that run Windows 10.
+
+    For some target frameworks (for example, the .NET Framework), the APIs are defined by the assemblies that the framework installs on a system and may include application framework APIs (for example, ASP.NET).
+
+    For package-based target frameworks (for example, .NET Standard and .NET Core), the APIs are defined by the packages included in the app or library. A metapackage is a NuGet package that has no content of its own but is a list of dependencies (other packages). A NuGet package-based target framework implicitly specifies a metapackage that references all the packages that together make up the framework.
+
+    Latest target framework versions
+    The following table defines the most common target frameworks, how they're referenced, and which version of the .NET Standard they implement. These target framework versions are the latest stable versions. Pre-release versions aren't shown. A Target Framework Moniker (TFM) is a standardized token format for specifying the target framework of a .NET app or library.
+
+    Target Framework Latest
+    Stable Version Target Framework Moniker (TFM) Implemented
+    .NET Standard Version
+    .NET Standard 2.0 netstandard2.0 N/A
+    .NET Core 2.1 netcoreapp2.1 2.0
+    .NET Framework 4.7.2 net472 2.0
+    Supported target framework versions
+    A target framework is typically referenced by a TFM. The following table shows the target frameworks supported by the .NET Core SDK and the NuGet client. Equivalents are shown within brackets. For example, win81 is an equivalent TFM to netcore451.
+
+    Target Framework TFM
+    .NET Standard netstandard1.0
+    netstandard1.1
+    netstandard1.2
+    netstandard1.3
+    netstandard1.4
+    netstandard1.5
+    netstandard1.6
+    netstandard2.0
+    .NET Core netcoreapp1.0
+    netcoreapp1.1
+    netcoreapp2.0
+    netcoreapp2.1
+    .NET Framework net11
+    net20
+    net35
+    net40
+    net403
+    net45
+    net451
+    net452
+    net46
+    net461
+    net462
+    net47
+    net471
+    net472
+    Windows Store netcore [netcore45]
+    netcore45 [win] [win8]
+    netcore451 [win81]
+    .NET Micro Framework netmf
+    Silverlight sl4
+    sl5
+    Windows Phone wp [wp7]
+    wp7
+    wp75
+    wp8
+    wp81
+    wpa81
+    Universal Windows Platform uap [uap10.0]
+    uap10.0 [win10] [netcore50]
+    How to specify target frameworks
+    Target frameworks are specified in your project file. When a single target framework is specified, use the TargetFramework element. The following console app project file demonstrates how to target .NET Core 2.0:
+
+    XML
+
+    Copy
+    <Project Sdk="Microsoft.NET.Sdk">
+
+        <PropertyGroup>
+            <OutputType>Exe</OutputType>
+            <TargetFramework>netcoreapp2.0</TargetFramework>
+        </PropertyGroup>
+
+    </Project>
+    When you specify multiple target frameworks, you may conditionally reference assemblies for each target framework. In your code, you can conditionally compile against those assemblies by using preprocessor symbols with if-then-else logic.
+
+    The following library project file targets APIs of .NET Standard (netstandard1.4) and APIs of the .NET Framework (net40 and net45). Use the plural TargetFrameworks element with multiple target frameworks. Note how the Condition attributes include implementation-specific packages when the library is compiled for the two .NET Framework TFMs:
+
+    XML
+
+    Copy
+    <Project Sdk="Microsoft.NET.Sdk">
+
+        <PropertyGroup>
+            <TargetFrameworks>netstandard1.4;net40;net45</TargetFrameworks>
+        </PropertyGroup>
+
+        <!-- Conditionally obtain references for the .NET Framework 4.0 target -->
+        <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+            <Reference Include="System.Net"/>
+        </ItemGroup>
+
+        <!-- Conditionally obtain references for the .NET Framework 4.5 target -->
+        <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+            <Reference Include="System.Net.Http"/>
+            <Reference Include="System.Threading.Tasks"/>
+        </ItemGroup>
+
+    </Project>
+    Within your library or app, you write conditional code to compile for each target framework:
+
+    C#
+
+    Copy
+    public class MyClass
+    {
+    static void Main()
+    {
+    #if NET40
+    Console.WriteLine("Target framework: .NET Framework 4.0");
+    #elif NET45
+    Console.WriteLine("Target framework: .NET Framework 4.5");
+    #else
+    Console.WriteLine("Target framework: .NET Standard 1.4");
+    #endif
+    }
+    }
+    The build system is aware of preprocessor symbols representing the target frameworks shown in the Supported target framework versions table. When using a symbol that represents a .NET Standard or .NET Core TFM, replace the dot with an underscore and change lowercase letters to uppercase (for example, the symbol for netstandard1.4 is NETSTANDARD1_4).
+
+    The complete list of preprocessor symbols for .NET Core target frameworks is:
+
+    Target Frameworks Symbols
+    .NET Framework NET20, NET35, NET40, NET45, NET451, NET452, NET46, NET461, NET462, NET47, NET471, NET472
+    .NET Standard NETSTANDARD1_0, NETSTANDARD1_1, NETSTANDARD1_2, NETSTANDARD1_3, NETSTANDARD1_4, NETSTANDARD1_5, NETSTANDARD1_6, NETSTANDARD2_0
+    .NET Core NETCOREAPP1_0, NETCOREAPP1_1, NETCOREAPP2_0, NETCOREAPP2_1
+    Deprecated target frameworks
+    The following target frameworks are deprecated. Packages targeting these target frameworks should migrate to the indicated replacements.
+
+    Deprecated TFM Replacement
+    aspnet50
+    aspnetcore50
+    dnxcore50
+    dnx
+    dnx45
+    dnx451
+    dnx452 netcoreapp
+    dotnet
+    dotnet50
+    dotnet51
+    dotnet52
+    dotnet53
+    dotnet54
+    dotnet55
+    dotnet56 netstandard
+    netcore50 uap10.0
+    win netcore45
+    win8 netcore45
+    win81 netcore451
+    win10 uap10.0
+    winrt netcore45
+    See also
+    Packages, Metapackages and Frameworks
+    Developing Libraries with Cross Platform Tools
+    .NET Standard
+    .NET Core Versioning
+    dotnet/standard GitHub repository
+    NuGet Tools GitHub Repository
+    Framework Profiles in .NET
+    Feedback
+    We'd love to hear your thoughts. Choose the type you'd like to provide:
+
+    Product feedback
+    Sign in to give documentation feedback
+
+    Our new feedback system is built on GitHub Issues. Read about this change in our blog post.
+
+    0 Open
+    1 Closed
+    There are no open issues
+</h1>
+<table style="width:100%" id="table3">
+  <tr>
+    <th>Firssdfgdfsgdfstnametname</th>
+    <th>sdfgsdfgdfgsdgdss234234</th> 
+    <th>sdfgsdgf</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td> 
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>sdfg</td>
+    <td>Jackson</td> 
+    <td>94</td>
+  </tr>
+</table>
+<h2>
+    MySQL
+
+
+    Login / Register
+
+    Developer Zone
+    Bugs Home
+    Report a bug
+    Statistics
+    Advanced search
+    Saved searches
+    Tags
+
+    Bug #91030 Entity Framework Code-First Migration to database does not work
+    Submitted: 25 May 17:05 Modified: 31 May 11:54
+    Reporter: Bari Tobi Email Updates:
+    Status: Verified Impact on me:
+    None
+    Category: Connector / NET Severity: S1 (Critical)
+    Version: 8.0.11 OS: Microsoft Windows
+    Assigned to: CPU Architecture: x86
+    Tags: entity framework
+    ViewAdd CommentFilesDeveloperEdit SubmissionView Progress LogContributions
+    [25 May 17:05] Bari Tobi
+    Description:
+    Using Entity Framework with latest versions of libraries (See "how to repeat" section), it no longer works to do a code-first migration. I.e. set up the domain model in code and then let the Entity Framework via the MySql Entity Framework connector create the equivalent database tables. This used to work in a previous version.
+
+    The error message I get is that there is something wrong with the database connection string although it is a very simple one and working in the previous version. I doubt that this is the problem. I would suggest that the error message handling was improved too to give some more information on what is really wrong. There seem to be many people on various forums that are puzzled by this error message and there seem to be many reasons for it to appear not all related to the connection string.
+
+    The error occurs when issuing the "enable-migrations" command in the Packet manage Console according to the article. The error message you get is:
+
+    "An error occurred accessing the database. This usually means that the connection to the database failed. Check that the connection string is correct and that the appropriate DbContext constructor is being used to specify it or find it in the application's config file. See http://go.microsoft.com/fwlink/?LinkId=386386 for information on DbContext and connections. See the inner exception for details of the failure."
+
+    Inner Exception stack is:
+    System.Data.Entity.Core.ProviderIncompatibleException: The provider did not return a ProviderManifestToken string. ---> System.MethodAccessException: Attempt by method 'MySql.Data.MySqlClient.MySqlProviderServices.GetDbProviderManifestToken(System.Data.Common.DbConnection)' to access method 'MySql.Data.MySqlClient.MySqlConnection.get_Settings()' failed.
+    at MySql.Data.MySqlClient.MySqlProviderServices.GetDbProviderManifestToken(DbConnection connection)
+    at System.Data.Entity.Core.Common.DbProviderServices.GetProviderManifestToken(DbConnection connection)
+
+    How to repeat:
+    My VS library versions:
+    - Entity Framework 6.2.0 (though it states in 6.0.0, I know 6.2 is installed via NuGet)
+    - MySql.Data v8.0.11
+    - MySql.data.Entity 6.10.7
+
+    There is a blog description of how to work around this in an older version of .net (4.5) using older versions of the needed libraries: https://vnextcoder.wordpress.com/2015/10/04/mysql-net-entity-framework-code-first-migratio...
+
+    Downloading the test code in that article (link to GitHub repository link at the end of article), it is possible to make it work with those libraries he used following the blog post. (however, there is an app.config updated needed that he does not explicitly state: Change MySql.Data.Entity.EF6 v6.9.7.0 to v6.8.3.0 according to the version that actually works).
+
+    Since the code has not changed, not the connection string, I assume this is a bug or a breaking change in some library upgrade.
+
+    Suggested fix:
+    Use the code in that blog. Update binaries to the latest version and make it work.
+    [25 May 17:14] Bari Tobi
+    Updated bug report. Version number was wrong by mistake.
+    [31 May 11:54] Chiranjeevi Battula
+    Hello Tob Fja,
+
+    Thank you for the bug report.
+    Verified based on internal discussion with dev's.
+
+    Thanks,
+    Chiranjeevi.
+    [25 Jun 11:18] Paul Reeder
+    I had the same problem. In order to work around it, I had to downgrade to:
+
+    MySql.Data - 6.9.12 (6.10.7 and 8.0.11 exhibited the problem)
+    MySQL.Data.Entity - 6.8.8 (6.9.12 and 6.10.7 exhibited the problem)
+
+    I did not have to downgrade EntityFramework from 6.2.0
+    Legal PoliciesYour Privacy RightsTerms of UseContact Us
+    Portions of this website are copyright © 2001, 2002 The PHP Group Page generated in 0.028 sec. using MySQL 5.7.22-enterprise-commercial-advanced-log
+
+    Content reproduced on this site is the property of the respective copyright holders.
+    It is not reviewed in advance by Oracle and does not necessarily represent the opinion of Oracle or any other party.Oracle © 2018, Oracle Corporation and/or its affiliates
+</h2>
+<table style="width:100%" id="table4">
+  <tr>
+    <th>Firs11111111111111111tname</th>
+    <th>Last4444444444444name</th> 
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Ji222222222ll</td>
+    <td>Smith</td> 
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>E44444444ve</td>
+    <td>Jackson</td> 
+    <td>94</td>
+  </tr>
+</table>
+<h1>
+
+    Блог о разработке и проектировании ПО, а также о многом другом
+
+    суббота, 5 марта 2011 г.
+    ReSharper полезные горячие клавиши
+    В этом посте я хочу описать наиболее полезные и часто применимые горячие клавиши отличного инструмента для Visual Studio ReSharper.
+    ReSharper помогает писать и изменять код быстро и легко. Для увеличения продуктивности и упрощения работы с ReSharper я рекомендую изучить и использовать горячие клавиши.
+    ReSharper включает две схемы клавиш Visual Studio и IntellyJ Idea, я опишу первую схему.
+    Вы можете выбрать используемую схему если пройдете в главное меню ReSharper -> Options и далее на вкладку Visual Studio Integration. Горячих клавиш у ReSharper –а очень много более 80 я же перечислю наиболее часто используемые при работе.
+    Alt+Enter – Показывает действия для быстрого исправления в зависимости от контекста где расположен курсор
+    Ctr+E,U – Окружает код по шаблону например try catch if и т д.
+    Alt+Shift+L – Отображает местонахождение текущего файла в окне обозревателя решения(Solution Explorer)
+    Ctrl+Shift+Backspace - Переход на предыдущее место редактирования
+    Alt+Ins (В Solution Explorer) Создание файла по шаблону
+    Ctrl+E,Ctrl+C – Запускает функцию очистки кода необходимо предварительно настроить как будет производиться очистка
+    Ctrl+E,H – Отображение иерархии типа Например если навести курсор на имя класса и нажать эти клавиши то отобразится полная иерархия в которую включен данный класс
+
+    Навигация
+    F12 – Переход в место объявления типа или члена класса
+    Ctrl+F12 – Переход к имплементации
+    Ctrl+T – Переход к типу
+    Ctrl+Shift+T – Переход к файлу
+    Alt+\ - Переход к члену класса
+    Shift +F12 – Поиск всех использований
+    Рефакторинг
+    Ctrl+Shift +R- Отображает список опций рефакторинга, для данного контекста согласно тому где находится курсор.
+    Также каждая опция имеет свой short cut
+    Ctrl+R,R – Переименование.
+    Ctrl+R,M – Извлечение метода
+    Ctrl+R,V – Введение переменной
+    Ctrl+R,S - Изменение сигнатуры метода
+    Если вы знаете какие-либо другие полезные горячие клавиши, то поделитесь.
+    Автор: Сергей на 6:28
+    Отправить по электронной почте
+    Написать об этом в блоге
+    Опубликовать в Twitter
+    Опубликовать в Facebook
+    Поделиться в Pinterest
+
+    Ярлыки: C#, Resharper, Visual Studio
+    Комментариев нет:
+    Отправить комментарий
+
+    Следующее Предыдущее Главная страница
+    Подписаться на: Комментарии к сообщению (Atom)
+    Обо мне
+    Моя фотография
+    Сергей
+    Просмотреть профиль
+
+    Transcript ID: 991668 Access code: 123ksn456
+    Популярные сообщения
+
+    Построение Progressive Fluent Interface
+    Рефакторинг метода с большим количеством параметров
+    Сдача сертификационного экзамена Microsoft 70-515 ASP.NET 4 Web
+    ReSharper полезные горячие клавиши
+    Сдача сертификационного экзамена MCTS Microsoft 70-513 WCF Development with Microsoft .NET Framework 4.
+    Общее·количество·просмотров·страницы
+    Sparkline 29,335
+    Постоянные читатели
+
+    Архив блога
+    ► 2017 (1)
+    ► 2012 (1)
+    ▼ 2011 (14)
+    ► сентября (2)
+    ► июля (4)
+    ► июня (1)
+    ► мая (2)
+    ► апреля (1)
+    ▼ марта (1)
+    ReSharper полезные горячие клавиши
+    ► февраля (2)
+    ► января (1)
+    Тема "Простая". Технологии Blogger.
+
+</h1>
+</body>
+</html>

@@ -140,6 +140,15 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to $(&quot;body&quot;).css(&quot;overflow&quot;, &quot;hidden&quot;);.
+        /// </summary>
+        internal static string RemoveScrollBar {
+            get {
+                return ResourceManager.GetString("RemoveScrollBar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to var ele = arguments[0];
         ///ele.scrollIntoView();.
         /// </summary>
@@ -168,6 +177,15 @@ namespace WDSE.Properties {
         internal static string ShowElementInDOM {
             get {
                 return ResourceManager.GetString("ShowElementInDOM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $(&quot;body&quot;).css(&quot;overflow&quot;, &quot;auto&quot;);.
+        /// </summary>
+        internal static string ShowScrollBar {
+            get {
+                return ResourceManager.GetString("ShowScrollBar", resourceCulture);
             }
         }
     }

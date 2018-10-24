@@ -27,7 +27,7 @@ namespace WDSE.Decorators
 
         public override IMagickImage MakeScreenshot(IWebDriver driver)
         {
-            return TakeOnlyElementScreenshot(driver, Strategy.MakeScreenshot(driver));
+            return TakeOnlyElementScreenshot(driver, NestedStrategy.MakeScreenshot(driver));
         }
 
         #endregion
@@ -36,7 +36,7 @@ namespace WDSE.Decorators
         #region Public Methods
 
         /// <summary>
-        /// Sets the element whose screenshot is to be made.
+        ///     Sets the element whose screenshot is to be made.
         /// </summary>
         /// <param name="by">How to find element.</param>
         /// <returns></returns>

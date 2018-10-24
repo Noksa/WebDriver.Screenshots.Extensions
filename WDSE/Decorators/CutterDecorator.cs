@@ -8,7 +8,9 @@ namespace WDSE.Decorators
     public class CutterDecorator : BaseScreenshotDecorator
     {
         #region Private fields
+
         private ICuttingStrategy _cuttingStrategy;
+
         #endregion
 
         #region Ctor
@@ -23,7 +25,7 @@ namespace WDSE.Decorators
 
         public override IMagickImage MakeScreenshot(IWebDriver driver)
         {
-            return Cut(driver, Strategy.MakeScreenshot(driver));
+            return Cut(driver, NestedStrategy.MakeScreenshot(driver));
         }
 
         #endregion
@@ -31,7 +33,7 @@ namespace WDSE.Decorators
         #region Public Methods
 
         /// <summary>
-        /// Sets cutting strategy for specify how and what be cutting from screenshot. 
+        ///     Sets cutting strategy for specify how and what be cutting from screenshot.
         /// </summary>
         /// <param name="cuttingStrategy">Cutting strategy</param>
         /// <returns></returns>
@@ -40,13 +42,16 @@ namespace WDSE.Decorators
             _cuttingStrategy = cuttingStrategy;
             return this;
         }
+
         #endregion
 
         #region Privates
 
         private IMagickImage Cut(IWebDriver driver, IMagickImage magickImage)
         {
-            if (_cuttingStrategy == null) throw new ArgumentNullException($"Before using {nameof(CutterDecorator)}, you must specify which cutting strategy to use by calling {nameof(SetCuttingStrategy)} method.");
+            if (_cuttingStrategy == null)
+                throw new ArgumentNullException(
+                    $"Before using {nameof(CutterDecorator)}, you must specify which cutting strategy to use by calling {nameof(SetCuttingStrategy)} method.");
             return _cuttingStrategy.Cut(driver, magickImage);
         }
 

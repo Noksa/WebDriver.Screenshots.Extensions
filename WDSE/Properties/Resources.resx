@@ -133,6 +133,9 @@
   <data name="HideElementFromDOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\HideElementFromDOM.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="RemoveScrollBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Scripts\RemoveScrollBar.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="ScrollToElement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\ScrollToElement.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -141,5 +144,8 @@
   </data>
   <data name="ShowElementInDOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\ShowElementInDOM.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ShowScrollBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Scripts\ShowScrollBar.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>
