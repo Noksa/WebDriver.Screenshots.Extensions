@@ -20,7 +20,8 @@ namespace WDSETests.RemoveElementsFromDOMTests
             Driver.Manage().Window.Size = new Size(1280, 720);
             Driver.Navigate().GoToUrl(PagePathWithHr);
             var screenMaker = new ScreenshotMaker();
-            screenMaker.SetElementsToHide(new[] { By.Id("hrId") });
+            var by = By.Id("hrId");
+            screenMaker.SetElementsToHide(new[] { by });
             var arr = Driver.TakeScreenshot(screenMaker);
             CompareAndTest(arr, Resources.RemoveElementShouldBe1280x720);
         }
