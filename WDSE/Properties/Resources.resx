@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CheckElementExists" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Scripts\CheckElementExists.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="GetElementCoordinates" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\GetElementCoordinates.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -129,6 +126,9 @@
   </data>
   <data name="GetElementVisibleState" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\GetElementVisibleState.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="GetElementWithActiveScrollbar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Scripts\GetElementWithActiveScrollbar.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="HideElementFromDOM" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\HideElementFromDOM.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

@@ -105,19 +105,44 @@ namespace WDSE.Helpers
             driver.ExecuteJavaScript(Resources.HideElementFromDOM, element);
         }
 
+
         internal static void SetElementVisible(this IWebDriver driver, IWebElement element)
         {
             driver.ExecuteJavaScript(Resources.ShowElementInDOM, element);
         }
+
 
         internal static void ShowScrollBar(this IWebDriver driver)
         {
             driver.ExecuteJavaScript(Resources.ShowScrollBar);
         }
 
+
         internal static void HideScrollBar(this IWebDriver driver)
         {
             driver.ExecuteJavaScript(Resources.RemoveScrollBar);
+        }
+
+
+        internal static IWebElement GetElementWithActiveScrollBar(this IWebDriver driver)
+        {
+            return driver.ExecuteJavaScript<IWebElement>(Resources.GetElementWithActiveScrollbar);
+        }
+
+        internal static IWebElement GetDocumentScrollingElement(this IWebDriver driver)
+        {
+            return driver.ExecuteJavaScript<IWebElement>("return document.scrollingElement");
+        }
+
+        internal static int GetElementScrollBarHeight(this IWebDriver driver, IWebElement element)
+        {
+            return int.Parse(driver
+                .ExecuteJavaScript<long>("return arguments[0].scrollHeight", element).ToString());
+        }
+
+        internal static void ScrollTo(this IWebDriver driver, IWebElement element, int position)
+        {
+            driver.ExecuteJavaScript("$(arguments[0]).scrollTop(arguments[1])", element, position);
         }
     }
 }

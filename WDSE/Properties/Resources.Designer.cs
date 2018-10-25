@@ -61,16 +61,6 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to var ele = arguments[0];
-        ///return $.contains(document, ele);.
-        /// </summary>
-        internal static string CheckElementExists {
-            get {
-                return ResourceManager.GetString("CheckElementExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to var ele = $(arguments[0]);
         ///var left = parseInt(ele.offset().left);
         ///var top = parseInt(ele.offset().top);
@@ -99,13 +89,11 @@ namespace WDSE.Properties {
         ///        res = byStr.replace(&quot;By.XPath: &quot;, &quot;&quot;);
         ///        res = res.replace(&quot;&apos;&quot;, &quot;\&apos;&quot;);
         ///        return document.evaluate(res, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0);
-        ///    }
-        ///    else if (byStr.startsWith(&quot;By.Id: &quot;)) {
+        ///    } else if (byStr.startsWith(&quot;By.Id: &quot;)) {
         ///        res = byStr.replace(&quot;By.Id: &quot;, &quot;&quot;);
         ///        return document.getElementById(res);
-        ///    }
-        ///    else if (byStr.startsWith(&quot;By.TagName: &quot;)) {
-        ///        res = b [rest of string was truncated]&quot;;.
+        ///    } else if (byStr.startsWith(&quot;By.TagName: &quot;)) {
+        ///        res = byStr.repla [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetElementFromByStr {
             get {
@@ -126,6 +114,24 @@ namespace WDSE.Properties {
         internal static string GetElementVisibleState {
             get {
                 return ResourceManager.GetString("GetElementVisibleState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to function GetElementWithActiveScrollBar() {
+        ///    let elementsWithScrollBars =
+        ///        $(&quot;*&quot;).filter(function() {
+        ///            return $(this)[0].scrollHeight &gt; $(window).height() &amp;&amp;
+        ///                $(this)[0].scrollHeight &gt; $(this)[0].clientHeight &amp;&amp;
+        ///                $(this)[0].scrollHeight &gt; $(this).height();
+        ///        });
+        ///    if (elementsWithScrollBars.length === 0) return null;
+        ///    if (elementsWithScrollBars.length === 1) return elementsWithScrollBars[0];
+        ///    elementsWithScrollBars = elementsWithScroll [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GetElementWithActiveScrollbar {
+            get {
+                return ResourceManager.GetString("GetElementWithActiveScrollbar", resourceCulture);
             }
         }
         
