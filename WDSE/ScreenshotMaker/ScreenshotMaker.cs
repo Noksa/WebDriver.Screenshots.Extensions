@@ -12,20 +12,14 @@ using WDSE.Interfaces;
 namespace WDSE.ScreenshotMaker
 {
     /// <summary>
-    /// <para>The default core strategy.</para>
-    /// <para>This class takes a screenshot and has additional settings, such as hiding scrollbars, hiding elements when taking a screenshot, and others.</para>
+    ///     <para>The default core strategy.</para>
+    ///     <para>
+    ///         This class takes a screenshot and has additional settings, such as hiding scrollbars, hiding elements when
+    ///         taking a screenshot, and others.
+    ///     </para>
     /// </summary>
     public class ScreenshotMaker : IScreenshotStrategy
     {
-        #region Private fields
-
-        private IWebDriver _driver;
-        private List<By> _elementsToRemoveBys;
-        private List<IWebElement> _hiddenElements;
-        private bool _scrollBarsNeedToBeHidden;
-
-        #endregion
-
         public IMagickImage MakeScreenshot(IWebDriver driver)
         {
             _driver = driver;
@@ -34,10 +28,6 @@ namespace WDSE.ScreenshotMaker
             var ms = new MemoryStream(screenshot.AsByteArray);
             return new MagickImage(ms);
         }
-
-        #region Override
-
-        #endregion
 
         /// <summary>
         ///     <para>Sets which elements will be hidden from the DOM before taking the screenshot.</para>
@@ -65,6 +55,19 @@ namespace WDSE.ScreenshotMaker
             _scrollBarsNeedToBeHidden = true;
             return this;
         }
+
+        #region Private fields
+
+        private IWebDriver _driver;
+        private List<By> _elementsToRemoveBys;
+        private List<IWebElement> _hiddenElements;
+        private bool _scrollBarsNeedToBeHidden;
+
+        #endregion
+
+        #region Override
+
+        #endregion
 
 
         #region Privates
@@ -111,8 +114,7 @@ namespace WDSE.ScreenshotMaker
 
         internal ScreenshotMaker RestoreAll()
         {
-            RestoreHiddenElements().
-            RestoreScrollBars();
+            RestoreHiddenElements().RestoreScrollBars();
             return this;
         }
 

@@ -2,14 +2,13 @@
 using System.Threading;
 using ImageMagick;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.Extensions;
 using WDSE.Helpers;
 using WDSE.Interfaces;
 
 namespace WDSE.Decorators
 {
     /// <summary>
-    /// Maker of the entire page screenshot. 
+    ///     Maker of the entire page screenshot.
     /// </summary>
     public class VerticalCombineDecorator : BaseScreenshotDecorator
     {
@@ -61,7 +60,20 @@ namespace WDSE.Decorators
 
         private IMagickImage CombineScreenshots(IWebDriver driver)
         {
-            var totalHeight = driver.GetHeight(SizesHelper.Entity.Document);
+            int totalHeight;
+            var beforeActionsDocumentHeight = driver.GetHeight(SizesHelper.Entity.Document);
+            var elementWithScrollBar = driver.GetElementWithActiveScrollBar();
+            if (elementWithScrollBar == null || elementWithScrollBar.TagName.ToLower() == "body" ||
+                elementWithScrollBar.TagName.ToLower() == "html")
+            {
+                totalHeight = driver.GetHeight(SizesHelper.Entity.Document);
+                elementWithScrollBar = driver.GetDocumentScrollingElement();
+            }
+            else
+            {
+                totalHeight = driver.GetElementScrollBarHeight(elementWithScrollBar);
+            }
+
             var totalWidth = driver.GetWidth(SizesHelper.Entity.Document);
             var windowHeight = driver.GetHeight(SizesHelper.Entity.Window);
             var totalScrolls = totalHeight / windowHeight;
@@ -71,7 +83,8 @@ namespace WDSE.Decorators
             {
                 for (var i = 0; i < totalScrolls; i++)
                 {
-                    driver.ExecuteJavaScript("scrollTo(0, arguments[0])", windowHeight * i);
+                    driver.ScrollTo(elementWithScrollBar,
+                        windowHeight * i);
                     WaitAfterScrolling();
                     var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
                     imagesCollection.Add(screenshot);
@@ -80,11 +93,12 @@ namespace WDSE.Decorators
                 if (footer > 0)
                 {
                     var actualDocumentHeight = driver.GetHeight(SizesHelper.Entity.Document);
-                    if (actualDocumentHeight != totalHeight && actualDocumentHeight < totalHeight)
-                    {
-                        footer = footer - (totalHeight - actualDocumentHeight);
-                    }
-                    driver.ExecuteJavaScript("scrollTo(0, document.body.scrollHeight)");
+                    if (actualDocumentHeight != beforeActionsDocumentHeight &&
+                        actualDocumentHeight < beforeActionsDocumentHeight)
+                        footer = footer - (beforeActionsDocumentHeight - actualDocumentHeight);
+
+                    driver.ScrollTo(elementWithScrollBar,
+                        totalHeight);
                     WaitAfterScrolling();
                     var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
                     var footerImage = screenshot.Clone(0, screenshot.Height - footer, totalWidth, footer);

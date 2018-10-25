@@ -19,7 +19,7 @@ namespace WDSE.Decorators
         #region Props
 
         /// <summary>
-        /// Nested strategy, if have. Else is null.
+        ///     Nested strategy, if have. Else is null.
         /// </summary>
         public IScreenshotStrategy NestedStrategy { get; }
 
@@ -27,7 +27,7 @@ namespace WDSE.Decorators
 
 
         #region Abstract member
-        
+
         public abstract IMagickImage MakeScreenshot(IWebDriver driver);
 
         #endregion
