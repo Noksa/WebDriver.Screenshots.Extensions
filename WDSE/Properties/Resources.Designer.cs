@@ -61,6 +61,32 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to function absoluteXPath(element) {
+        ///    var comp, comps = [];
+        ///    var xpath = &apos;&apos;;
+        ///    var getPos = function(element) {
+        ///        var position = 1, curNode;
+        ///        if (element.nodeType == Node.ATTRIBUTE_NODE) {
+        ///            return null;
+        ///        }
+        ///        for (curNode = element.previousSibling; curNode; curNode = curNode.previousSibling) {
+        ///
+        ///            if (curNode.nodeName == element.nodeName) {
+        ///                ++position;
+        ///            }
+        ///        }
+        ///        return position;
+        ///    };
+        ///
+        ///    if (element i [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GetElementAbsoluteXPath {
+            get {
+                return ResourceManager.GetString("GetElementAbsoluteXPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to var ele = $(arguments[0]);
         ///var left = parseInt(ele.offset().left);
         ///var top = parseInt(ele.offset().top);
@@ -119,15 +145,16 @@ namespace WDSE.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to function GetElementWithActiveScrollBar() {
-        ///    let elementsWithScrollBars =
-        ///        $(&quot;*&quot;).filter(function() {
-        ///            return $(this)[0].scrollHeight &gt; $(window).height() &amp;&amp;
-        ///                $(this)[0].scrollHeight &gt; $(this)[0].clientHeight &amp;&amp;
-        ///                $(this)[0].scrollHeight &gt; $(this).height();
-        ///        });
-        ///    if (elementsWithScrollBars.length === 0) return null;
-        ///    if (elementsWithScrollBars.length === 1) return elementsWithScrollBars[0];
-        ///    elementsWithScrollBars = elementsWithScroll [rest of string was truncated]&quot;;.
+        ///    const elements = $(&quot;*&quot;);
+        ///    let elementWithScrollBar = FilteringElements(elements);
+        ///    if (elementWithScrollBar.length === 0) return null;
+        ///    if (elementWithScrollBar.length === 1) return elementWithScrollBar[0];
+        ///    elementWithScrollBar = elementWithScrollBar.filter(function() {
+        ///        return $(this)[0].tagName.toLowerCase() !== &quot;html&quot;;
+        ///    });
+        ///    if (elementWithScrollBar.length === 1) return elementWithScrollBar[0];
+        ///    let str = &quot;&quot;;
+        ///    elemen [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetElementWithActiveScrollbar {
             get {
