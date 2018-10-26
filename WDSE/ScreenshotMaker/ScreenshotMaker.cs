@@ -22,8 +22,7 @@ namespace WDSE.ScreenshotMaker
     {
         public IMagickImage MakeScreenshot(IWebDriver driver)
         {
-            _driver = driver;
-            HideElements().HideScrollBars();
+            SetDriver(driver).HideElements().HideScrollBars();
             var screenshot = driver.TakeScreenshot();
             var ms = new MemoryStream(screenshot.AsByteArray);
             return new MagickImage(ms);
@@ -58,9 +57,9 @@ namespace WDSE.ScreenshotMaker
 
         #region Private fields
 
-        private IWebDriver _driver;
         private List<By> _elementsToRemoveBys;
         private List<IWebElement> _hiddenElements;
+        private IWebDriver _driver;
         private bool _scrollBarsNeedToBeHidden;
 
         #endregion
@@ -69,8 +68,14 @@ namespace WDSE.ScreenshotMaker
 
         #endregion
 
-
         #region Privates
+
+        private ScreenshotMaker SetDriver(IWebDriver driver)
+        {
+            if (_driver != null && _driver.GetHashCode() == driver.GetHashCode()) return this;
+            _driver = driver;
+            return this;
+        }
 
         private ScreenshotMaker HideElements()
         {
@@ -97,6 +102,7 @@ namespace WDSE.ScreenshotMaker
         private ScreenshotMaker RestoreHiddenElements()
         {
             _hiddenElements?.ForEach(_driver.SetElementVisible);
+            _hiddenElements?.Clear();
             return this;
         }
 

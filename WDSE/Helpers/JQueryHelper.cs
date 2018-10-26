@@ -111,6 +111,10 @@ namespace WDSE.Helpers
             driver.ExecuteJavaScript(Resources.ShowElementInDOM, element);
         }
 
+        internal static string GetElementAbsoluteXPath(this IWebDriver driver, IWebElement element)
+        {
+            return driver.ExecuteJavaScript<string>(Resources.GetElementAbsoluteXPath, element);
+        }
 
         internal static void ShowScrollBar(this IWebDriver driver)
         {
