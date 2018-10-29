@@ -22,6 +22,7 @@ namespace WDSETests.Debugging
             Driver.Navigate().GoToUrl("http://docker.com");
             var screenMaker = new ScreenshotMaker();
             screenMaker.SetElementsToHide(new[] {By.Id("floatingContactButton")});
+            screenMaker.RemoveScrollBarsWhileShooting();
             var arr = Driver.TakeScreenshot(new VerticalCombineDecorator(screenMaker));
             new MagickImage(arr).ToBitmap().Save(@"C:\png.png");
         }
