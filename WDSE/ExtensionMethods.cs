@@ -30,17 +30,8 @@ namespace WDSE
                     screenshotMaker = sm;
                     break;
                 case BaseScreenshotDecorator baseDecorator:
-                {
-                    var nestedStrategies = GetNestedStrategies(baseDecorator).ToList();
-                    if (nestedStrategies.Any())
-                    {
-                        var sm = nestedStrategies.FirstOrDefault(q =>
-                            q.GetType() == typeof(ScreenshotMaker.ScreenshotMaker));
-                        if (sm != null) screenshotMaker = sm as ScreenshotMaker.ScreenshotMaker;
-                    }
-
+                    screenshotMaker = GetScrenshotMakerStrategy(baseDecorator);
                     break;
-                }
             }
 
             var magickImage = strategy.MakeScreenshot(driver);
@@ -68,6 +59,22 @@ namespace WDSE
                 strategy = nestedStrategy as BaseScreenshotDecorator;
                 nestedStrategy = strategy?.NestedStrategy;
             } while (nestedStrategy != null);
+        }
+
+        internal static ScreenshotMaker.ScreenshotMaker GetScrenshotMakerStrategy(BaseScreenshotDecorator strategy)
+        {
+            var nestedStrategies = GetNestedStrategies(strategy).ToList();
+            if (nestedStrategies.Any())
+            {
+                var sm = nestedStrategies.FirstOrDefault(q =>
+                    q.GetType() == typeof(ScreenshotMaker.ScreenshotMaker));
+                if (sm != null)
+                {
+                    return sm as ScreenshotMaker.ScreenshotMaker;
+                }
+            }
+
+            return null;
         }
     }
 }

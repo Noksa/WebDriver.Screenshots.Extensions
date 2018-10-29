@@ -91,7 +91,7 @@ namespace WDSE.ScreenshotMaker
                             {
                                 if (_hiddenElements == null) _hiddenElements = new List<IWebElement>();
                                 _driver.SetElementHidden(element);
-                                _hiddenElements.Add(element);
+                                if (!_hiddenElements.Contains(element)) _hiddenElements.Add(element);
                             }
                         });
                 });
