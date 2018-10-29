@@ -34,9 +34,9 @@ let GetElementWithActiveScrollBar = function () {
     let elementWithScroll = elements.filter(function () {
         return (IsElementHasScrollbar($(this)[0]));
     });
+    if (elementWithScroll.length === 0) return null;
     if (elementWithScroll.first()[0] === document.scrollingElement) return elementWithScroll.get(0);
     if (elementWithScroll.length === 1) return elementWithScroll.get(0);
-
     let str = "";
     elementWithScroll.each(function () {
         str = str + $(this)[0].tagName + ", ";
