@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net452;net46;net461;net462;net47;net471;net472</TargetFrameworks>
     <PackageId>Noksa.WebDriver.ScreenshotsExtensions</PackageId>
-    <Version>0.0.4.3</Version>
+    <Version>0.0.4.4</Version>
     <Product>Noksa (Alexandr Danilin)</Product>
     <Company>Noksa (Alexandr Danilin)</Company>
     <Authors>Noksa (Alexandr Danilin)</Authors>
