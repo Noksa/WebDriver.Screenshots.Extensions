@@ -18,7 +18,7 @@ namespace WDSETests.Debugging
         public void Debugging()
         {
             Driver.Manage().Window.Size = new Size(1280, 720);
-            Driver.Navigate().GoToUrl("http://ya.ru");
+            Driver.Navigate().GoToUrl("http://pi-test2.iml.ru/setPoint");
             var screenMaker = new ScreenshotMaker();
             screenMaker.RemoveScrollBarsWhileShooting();
             screenMaker.SetElementsToHide(new[]

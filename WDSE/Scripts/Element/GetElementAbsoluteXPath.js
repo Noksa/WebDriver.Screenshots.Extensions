@@ -1,7 +1,8 @@
 ﻿function absoluteXPath(element) {
-    var comp, comps = [];
-    var xpath = '';
-    var getPos = function(element) {
+    var comp;
+    const comps = [];
+    var xpath = "";
+    const getPos = function(element) {
         var position = 1, curNode;
         if (element.nodeType == Node.ATTRIBUTE_NODE) {
             return null;
@@ -16,7 +17,7 @@
     };
 
     if (element instanceof Document) {
-        return '/';
+        return "/";
     }
 
     for (;
@@ -29,16 +30,16 @@
         comp = comps[comps.length] = {};
         switch (element.nodeType) {
         case Node.TEXT_NODE:
-            comp.name = 'text()';
+            comp.name = "text()";
             break;
         case Node.ATTRIBUTE_NODE:
-            comp.name = '@' + element.nodeName;
+            comp.name = `@${element.nodeName}`;
             break;
         case Node.PROCESSING_INSTRUCTION_NODE:
-            comp.name = 'processing-instruction()';
+            comp.name = "processing-instruction()";
             break;
         case Node.COMMENT_NODE:
-            comp.name = 'comment()';
+            comp.name = "comment()";
             break;
         case Node.ELEMENT_NODE:
             comp.name = element.nodeName;
@@ -49,9 +50,9 @@
 
     for (let i = comps.length - 1; i >= 0; i--) {
         comp = comps[i];
-        xpath += '/' + comp.name.toLowerCase();
+        xpath += `/${comp.name.toLowerCase()}`;
         if (comp.position !== null) {
-            xpath += '[' + comp.position + ']';
+            xpath += `[${comp.position}]`;
         }
     }
 

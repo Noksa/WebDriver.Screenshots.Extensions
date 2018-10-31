@@ -68,10 +68,7 @@ namespace WDSE
             {
                 var sm = nestedStrategies.FirstOrDefault(q =>
                     q.GetType() == typeof(ScreenshotMaker.ScreenshotMaker));
-                if (sm != null)
-                {
-                    return sm as ScreenshotMaker.ScreenshotMaker;
-                }
+                if (sm != null) return sm as ScreenshotMaker.ScreenshotMaker;
             }
 
             return null;

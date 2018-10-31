@@ -125,22 +125,19 @@ namespace WDSE.ScreenshotMaker
                     }
                 });
             }
+
             return this;
         }
 
         private ScreenshotMaker RestoreScrollBars()
         {
             if (_scrollBarsNeedToBeHidden)
-            {
                 if (_scrollBarsOverflows != null && _scrollBarsOverflows.Count != 0)
                 {
-                    foreach (var pair in _scrollBarsOverflows)
-                    {
-                        _driver.ShowScrollBar(pair.Key, pair.Value);
-                    }
+                    foreach (var pair in _scrollBarsOverflows) _driver.ShowScrollBar(pair.Key, pair.Value);
                     _scrollBarsOverflows.Clear();
                 }
-            }
+
             return this;
         }
 

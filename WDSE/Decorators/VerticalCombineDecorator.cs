@@ -61,19 +61,14 @@ namespace WDSE.Decorators
         private IMagickImage CombineScreenshots(IWebDriver driver)
         {
             int totalHeight;
-            var beforeActionsDocumentHeight = driver.GetHeight(SizesHelper.Entity.Document);
             var elementWithScrollBar = driver.GetElementWithActiveScrollBar();
             if (elementWithScrollBar.TagName.ToLower() == "body" ||
-                elementWithScrollBar.TagName.ToLower() == "html" || elementWithScrollBar.Equals(driver.GetDocumentScrollingElement()))
-            {
+                elementWithScrollBar.TagName.ToLower() == "html" ||
+                elementWithScrollBar.Equals(driver.GetDocumentScrollingElement()))
                 totalHeight = driver.GetHeight(SizesHelper.Entity.Document);
-            }
             else
-            {
                 totalHeight = driver.GetElementScrollBarHeight(elementWithScrollBar);
-            }
 
-            var totalWidth = driver.GetWidth(SizesHelper.Entity.Document);
             var windowHeight = driver.GetHeight(SizesHelper.Entity.Window);
             var totalScrolls = totalHeight / windowHeight;
             var footer = totalHeight - windowHeight * totalScrolls;
@@ -91,21 +86,20 @@ namespace WDSE.Decorators
 
                 if (footer > 0)
                 {
-                    var actualDocumentHeight = driver.GetHeight(SizesHelper.Entity.Document);
-                    if (actualDocumentHeight != beforeActionsDocumentHeight &&
-                        actualDocumentHeight < beforeActionsDocumentHeight)
-                        footer = footer - (beforeActionsDocumentHeight - actualDocumentHeight);
-
+                    var currentScrollLocation = driver.GetCurrentScrollLocation(elementWithScrollBar);
                     driver.ScrollTo(elementWithScrollBar,
                         totalHeight);
                     WaitAfterScrolling();
+                    var afterScrollingScrollLocation = driver.GetCurrentScrollLocation(elementWithScrollBar);
+                    var realFooterSize = afterScrollingScrollLocation - currentScrollLocation;
                     var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
-                    var footerImage = screenshot.Clone(0, screenshot.Height - footer, totalWidth, footer);
+                    var footerImage = screenshot.Clone(0, screenshot.Height - realFooterSize, screenshot.Width,
+                        realFooterSize);
                     imagesCollection.Add(footerImage);
                 }
 
-                var overAllImage = imagesCollection.AppendVertically();
-                return overAllImage;
+                var overallImage = imagesCollection.AppendVertically();
+                return overallImage;
             }
         }
 

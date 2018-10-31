@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Support.Extensions;
 using WDSE.Properties;
 
@@ -21,7 +20,8 @@ namespace WDSE.Helpers
                 _ = driver.ExecuteJavaScript<long>("return $(document).outerHeight()");
             }
             catch (WebDriverException ex) when (ex.Message.Contains("$ is not defined") ||
-                                                ex.Message.Contains("outerHeight is not a function"))
+                                                ex.Message.Contains("outerHeight is not a function") ||
+                                                ex.Message.Contains("$ is not a function"))
             {
                 driver.ExecuteJavaScript(script);
                 var sw = new Stopwatch();
@@ -34,7 +34,8 @@ namespace WDSE.Helpers
                         return;
                     }
                     catch (WebDriverException ex2) when (ex2.Message.Contains("$ is not defined") ||
-                                                         ex2.Message.Contains("outerHeight is not a function"))
+                                                         ex2.Message.Contains("outerHeight is not a function") ||
+                                                         ex.Message.Contains("$ is not a function"))
                     {
                         Thread.Sleep(10);
                     }
@@ -163,6 +164,12 @@ namespace WDSE.Helpers
         internal static void ScrollTo(this IWebDriver driver, IWebElement element, int position)
         {
             driver.ExecuteJavaScript("$(arguments[0]).scrollTop(arguments[1])", element, position);
+        }
+
+        internal static int GetCurrentScrollLocation(this IWebDriver driver, IWebElement element)
+        {
+            var value = driver.ExecuteJavaScript<long>("return $(arguments[0]).scrollTop()", element);
+            return (int) value;
         }
     }
 }
