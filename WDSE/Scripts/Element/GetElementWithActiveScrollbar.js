@@ -1,16 +1,16 @@
 ﻿let GetElementWithActiveScrollBar = function(elements) {
-    elements = $(elements);
-    if (elements.length === 0) return null;
-    if (elements.first().get(0) === document.scrollingElement) return elements.get(0);
-    if (elements.length === 1) return elements.get(0);
-    const scrollBarsHeight = elements.map(function() {
+    let jQueryElements = $(elements);
+    if (jQueryElements.length === 0) return null;
+    if (jQueryElements.first().get(0) === document.scrollingElement) return jQueryElements.get(0);
+    if (jQueryElements.length === 1) return jQueryElements.get(0);
+    const scrollBarsHeight = jQueryElements.map(function() {
         return $(this)[0].scrollHeight;
     });
     const scrollBarWithMaxHeight = Math.max(...scrollBarsHeight.toArray());
-    elements = elements.filter(function() {
+    jQueryElements = jQueryElements.filter(function() {
         if ($(this)[0].scrollHeight === scrollBarWithMaxHeight) return $(this)[0];
     });
-    return elements.get(0);
+    return jQueryElements.get(0);
 };
 
-return GetElementWithActiveScrollBar();
+return GetElementWithActiveScrollBar(arguments[0]);
