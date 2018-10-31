@@ -16,18 +16,6 @@ namespace WDSETests.VerticalCombineAndElementCuttingTests
     public class VerticalCombineAndElementCuttingTests : TestsInit
     {
         [Test]
-        public void TestCutElementWithVcsImageWithPixels1280x720()
-        {
-            Driver.Manage().Window.Size = new Size(1280, 720);
-            Driver.Navigate().GoToUrl(PagePathWithHr);
-            var ele = By.Id("hrId");
-            var arr = Driver.TakeScreenshot(new VerticalCombineDecorator(
-                new CutterDecorator(new ScreenshotMaker()).SetCuttingStrategy(
-                    new CutElementHeightOnEntireWidthThenCombine(ele))));
-            CompareAndTest(arr, Resources.VcsEleCuttingShouldBe1280x720);
-        }
-
-        [Test]
         public void TestCutElementWithVcsImageWithPixels1920x1080()
         {
             Driver.Manage().Window.Size = new Size(1920, 1080);

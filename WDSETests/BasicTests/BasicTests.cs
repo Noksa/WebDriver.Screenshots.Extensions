@@ -13,15 +13,6 @@ namespace WDSETests.BasicTests
     public class BasicTests : TestsInit
     {
         [Test]
-        public void TestBasicImage1280x720()
-        {
-            Driver.Manage().Window.Size = new Size(1280, 720);
-            Driver.Navigate().GoToUrl(PagePath);
-            var arr = Driver.TakeScreenshot(new ScreenshotMaker());
-            CompareAndTest(arr, Resources.BasicImageShouldBe1280x720);
-        }
-
-        [Test]
         public void TestBasicImage1920x1080()
         {
             Driver.Manage().Window.Size = new Size(1920, 1080);
