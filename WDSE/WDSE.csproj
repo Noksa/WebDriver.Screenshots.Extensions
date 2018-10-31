@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net452;net46;net461;net462;net47;net471;net472</TargetFrameworks>
     <PackageId>Noksa.WebDriver.ScreenshotsExtensions</PackageId>
-    <Version>0.0.4.2</Version>
+    <Version>0.0.4.3</Version>
     <Product>Noksa (Alexandr Danilin)</Product>
     <Company>Noksa (Alexandr Danilin)</Company>
     <Authors>Noksa (Alexandr Danilin)</Authors>
@@ -19,6 +19,60 @@ For examples of usage, see the github project page.
     <PackageProjectUrl>https://github.com/Noksa/WebDriver.Screenshots.Extensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Noksa/WebDriver.Screenshots.Extensions</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Scripts\Element\GetAllElementsWithScrollBars.js" />
+    <None Remove="Scripts\Element\GetElementAbsoluteXPath.js" />
+    <None Remove="Scripts\Element\GetElementCoordinates.js" />
+    <None Remove="Scripts\Element\GetElementFromByStr.js" />
+    <None Remove="Scripts\Element\GetElementVisibleState.js" />
+    <None Remove="Scripts\Element\GetElementWithActiveScrollbar.js" />
+    <None Remove="Scripts\Element\HideElementFromDOM.js" />
+    <None Remove="Scripts\Element\ShowElementInDOM.js" />
+    <None Remove="Scripts\JQuery\SetJQuery.js" />
+    <None Remove="Scripts\Scrolling\RemoveScrollBar.js" />
+    <None Remove="Scripts\Scrolling\ScrollToElement.js" />
+    <None Remove="Scripts\Scrolling\ShowScrollBar.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\Element\GetAllElementsWithScrollBars.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Element\GetElementAbsoluteXPath.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Element\GetElementCoordinates.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Element\GetElementFromByStr.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Element\GetElementVisibleState.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Element\GetElementWithActiveScrollbar.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Element\HideElementFromDOM.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Element\ShowElementInDOM.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\JQuery\SetJQuery.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Scrolling\RemoveScrollBar.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Scrolling\ScrollToElement.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Scrolling\ShowScrollBar.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.9.0" />

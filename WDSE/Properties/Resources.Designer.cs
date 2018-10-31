@@ -169,23 +169,17 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /**
-        /// * @return {boolean}
-        /// */
-        ///let IsElementHasScrollbar = function(element) {
-        ///
-        ///    if (element.tagName === document.scrollingElement.tagName &amp;&amp; typeof window.innerWidth === &apos;number&apos;) {
-        ///        return window.innerWidth &gt; document.documentElement.clientWidth;
-        ///    }
-        ///
-        ///    let overflowStyle;
-        ///
-        ///    if (typeof element.currentStyle !== &apos;undefined&apos;)
-        ///        overflowStyle = element.currentStyle.overflow;
-        ///
-        ///    overflowStyle = overflowStyle || window.getComputedStyle(element, &apos;&apos;).overflow;
-        ///
-        ///    let overfl [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to let GetElementWithActiveScrollBar = function(elements) {
+        ///    elements = $(elements);
+        ///    if (elements.length === 0) return null;
+        ///    if (elements.first().get(0) === document.scrollingElement) return elements.get(0);
+        ///    if (elements.length === 1) return elements.get(0);
+        ///    const scrollBarsHeight = elements.map(function() {
+        ///        return $(this)[0].scrollHeight;
+        ///    });
+        ///    const scrollBarWithMaxHeight = Math.max(...scrollBarsHeight.toArray());
+        ///    elements = elements.filter(function() {
+        ///         [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetElementWithActiveScrollbar {
             get {
