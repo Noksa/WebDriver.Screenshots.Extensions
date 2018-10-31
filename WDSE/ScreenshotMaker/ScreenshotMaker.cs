@@ -59,6 +59,7 @@ namespace WDSE.ScreenshotMaker
 
         private List<By> _elementsToRemoveBys;
         private List<IWebElement> _hiddenElements;
+        private Dictionary<IWebElement, string> _scrollBarsOverflows;
         private IWebDriver _driver;
         private bool _scrollBarsNeedToBeHidden;
 
@@ -108,13 +109,38 @@ namespace WDSE.ScreenshotMaker
 
         private ScreenshotMaker HideScrollBars()
         {
-            if (_scrollBarsNeedToBeHidden) _driver.HideScrollBar();
+            if (_scrollBarsNeedToBeHidden)
+            {
+                if (_scrollBarsOverflows == null) _scrollBarsOverflows = new Dictionary<IWebElement, string>();
+
+                var eles = _driver.GetAllElementsWithScrollbars();
+                eles.ForEach(ele =>
+                {
+                    if (!_scrollBarsOverflows.ContainsKey(ele))
+                    {
+                        var overflow =
+                            _driver.ExecuteJavaScript<string>("return $(arguments[0]).css(\"overflow\");", ele);
+                        _scrollBarsOverflows.Add(ele, overflow);
+                        _driver.HideScrollBar(ele);
+                    }
+                });
+            }
             return this;
         }
 
         private ScreenshotMaker RestoreScrollBars()
         {
-            if (_scrollBarsNeedToBeHidden) _driver.ShowScrollBar();
+            if (_scrollBarsNeedToBeHidden)
+            {
+                if (_scrollBarsOverflows != null && _scrollBarsOverflows.Count != 0)
+                {
+                    foreach (var pair in _scrollBarsOverflows)
+                    {
+                        _driver.ShowScrollBar(pair.Key, pair.Value);
+                    }
+                    _scrollBarsOverflows.Clear();
+                }
+            }
             return this;
         }
 

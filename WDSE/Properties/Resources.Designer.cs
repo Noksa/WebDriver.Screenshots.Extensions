@@ -61,6 +61,31 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /**
+        /// * @return {boolean}
+        /// */
+        ///let IsElementHasScrollbar = function(element) {
+        ///
+        ///    if (element.tagName === document.scrollingElement.tagName &amp;&amp; typeof window.innerWidth === &apos;number&apos;) {
+        ///        return window.innerWidth &gt; document.documentElement.clientWidth;
+        ///    }
+        ///
+        ///    let overflowStyle;
+        ///
+        ///    if (typeof element.currentStyle !== &apos;undefined&apos;)
+        ///        overflowStyle = element.currentStyle.overflow;
+        ///
+        ///    overflowStyle = overflowStyle || window.getComputedStyle(element, &apos;&apos;).overflow;
+        ///
+        ///    let overfl [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GetAllElementsWithScrollBars {
+            get {
+                return ResourceManager.GetString("GetAllElementsWithScrollBars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to function absoluteXPath(element) {
         ///    var comp, comps = [];
         ///    var xpath = &apos;&apos;;
@@ -144,17 +169,23 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to function GetElementWithActiveScrollBar() {
-        ///    const elements = $(&quot;*&quot;);
-        ///    let elementWithScrollBar = FilteringElements(elements);
-        ///    if (elementWithScrollBar.length === 0) return null;
-        ///    if (elementWithScrollBar.length === 1) return elementWithScrollBar[0];
-        ///    elementWithScrollBar = elementWithScrollBar.filter(function() {
-        ///        return $(this)[0].tagName.toLowerCase() !== &quot;html&quot;;
-        ///    });
-        ///    if (elementWithScrollBar.length === 1) return elementWithScrollBar[0];
-        ///    let str = &quot;&quot;;
-        ///    elemen [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to /**
+        /// * @return {boolean}
+        /// */
+        ///let IsElementHasScrollbar = function(element) {
+        ///
+        ///    if (element.tagName === document.scrollingElement.tagName &amp;&amp; typeof window.innerWidth === &apos;number&apos;) {
+        ///        return window.innerWidth &gt; document.documentElement.clientWidth;
+        ///    }
+        ///
+        ///    let overflowStyle;
+        ///
+        ///    if (typeof element.currentStyle !== &apos;undefined&apos;)
+        ///        overflowStyle = element.currentStyle.overflow;
+        ///
+        ///    overflowStyle = overflowStyle || window.getComputedStyle(element, &apos;&apos;).overflow;
+        ///
+        ///    let overfl [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetElementWithActiveScrollbar {
             get {
@@ -173,7 +204,8 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $(&quot;body&quot;).css(&quot;overflow&quot;, &quot;hidden&quot;);.
+        ///   Looks up a localized string similar to var ele = $(arguments[0]);
+        ///ele.css(&quot;overflow&quot;, &quot;hidden&quot;);.
         /// </summary>
         internal static string RemoveScrollBar {
             get {
@@ -214,7 +246,9 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $(&quot;body&quot;).css(&quot;overflow&quot;, &quot;auto&quot;);.
+        ///   Looks up a localized string similar to var ele = $(arguments[0]);
+        ///var value = arguments[1];
+        ///ele.css(&quot;overflow&quot;, value);.
         /// </summary>
         internal static string ShowScrollBar {
             get {

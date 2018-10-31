@@ -1,1 +1,2 @@
-﻿$("body").css("overflow", "hidden");
+﻿var ele = $(arguments[0]);
+ele.css("overflow", "hidden");

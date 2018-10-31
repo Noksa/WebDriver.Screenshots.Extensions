@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Support.Extensions;
 using WDSE.Properties;
 
@@ -116,21 +118,40 @@ namespace WDSE.Helpers
             return driver.ExecuteJavaScript<string>(Resources.GetElementAbsoluteXPath, element);
         }
 
-        internal static void ShowScrollBar(this IWebDriver driver)
+        internal static void ShowScrollBar(this IWebDriver driver, IWebElement element, string value)
         {
-            driver.ExecuteJavaScript(Resources.ShowScrollBar);
+            driver.ExecuteJavaScript(Resources.ShowScrollBar, element, value);
         }
 
-
-        internal static void HideScrollBar(this IWebDriver driver)
+        internal static List<IWebElement> GetAllElementsWithScrollbars(this IWebDriver driver)
         {
-            driver.ExecuteJavaScript(Resources.RemoveScrollBar);
+            IReadOnlyCollection<IWebElement> arr = new List<IWebElement>();
+            try
+            {
+                arr = driver.ExecuteJavaScript<IReadOnlyCollection<IWebElement>>(Resources
+                    .GetAllElementsWithScrollBars);
+            }
+            catch (WebDriverException ex) when(ex.Message.Contains("Script returned a value"))
+            {
+                // nothing to do, elements with scrollbar not exists
+            }
+            return arr?.ToList();
+        }
+
+        internal static void HideScrollBar(this IWebDriver driver, IWebElement element)
+        {
+            driver.ExecuteJavaScript(Resources.RemoveScrollBar, element);
         }
 
 
         internal static IWebElement GetElementWithActiveScrollBar(this IWebDriver driver)
         {
-            return driver.ExecuteJavaScript<IWebElement>(Resources.GetElementWithActiveScrollbar);
+            var allElementsWithScrollbar = driver.GetAllElementsWithScrollbars();
+            if (allElementsWithScrollbar.Count == 0) return driver.GetDocumentScrollingElement();
+            var element = driver.ExecuteJavaScript<IWebElement>(Resources.GetElementWithActiveScrollbar, allElementsWithScrollbar);
+            if (element == null || element.TagName.ToLower() == "body" ||
+                element.TagName.ToLower() == "html") element = driver.GetDocumentScrollingElement();
+            return element;
         }
 
         internal static IWebElement GetDocumentScrollingElement(this IWebDriver driver)

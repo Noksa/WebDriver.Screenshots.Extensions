@@ -1,9 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
-
 using System.Drawing;
 using ImageMagick;
 using NUnit.Framework;
-using OpenQA.Selenium;
 using WDSE;
 using WDSE.Decorators;
 using WDSE.ScreenshotMaker;
