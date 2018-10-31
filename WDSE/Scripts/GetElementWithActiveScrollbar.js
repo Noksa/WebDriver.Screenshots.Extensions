@@ -31,24 +31,20 @@ let IsElementHasScrollbar = function (element) {
 
 let GetElementWithActiveScrollBar = function () {
     const elements = $("*");
-    let elementWithScroll = elements.filter(function () {
+    let elementsWithScrollBar = elements.filter(function () {
         return (IsElementHasScrollbar($(this)[0]));
     });
-    if (elementWithScroll.length === 0) return null;
-    if (elementWithScroll.first()[0] === document.scrollingElement) return elementWithScroll.get(0);
-    if (elementWithScroll.length === 1) return elementWithScroll.get(0);
-    let str = "";
-    elementWithScroll.each(function () {
-        str = str + $(this)[0].tagName + ", ";
+    if (elementsWithScrollBar.length === 0) return null;
+    if (elementsWithScrollBar.first().get(0) === document.scrollingElement) return elementsWithScrollBar.get(0);
+    if (elementsWithScrollBar.length === 1) return elementsWithScrollBar.get(0);
+    const scrollBarsHeight = elementsWithScrollBar.map(function () {
+        return $(this)[0].scrollHeight;
     });
-    if (str !== "") {
-        const index = str.lastIndexOf(", ");
-        str = str.substr(str, index);
-    }
-    throw new DOMException(
-        `Cant find only one element with active scrollbar. Count of elements: ${elementWithScroll.length
-        }. Elements tags: ${str
-        }. Please create issue about it at https://github.com/Noksa/WebDriver.Screenshots.Extensions/issues`);
-}
+    const scrollBarWithMaxHeight = Math.max(...scrollBarsHeight.toArray());
+    elementsWithScrollBar = elementsWithScrollBar.filter(function () {
+        if ($(this)[0].scrollHeight === scrollBarWithMaxHeight) return $(this)[0];
+    });
+    return elementsWithScrollBar.get(0);
+};
 
 return GetElementWithActiveScrollBar();
