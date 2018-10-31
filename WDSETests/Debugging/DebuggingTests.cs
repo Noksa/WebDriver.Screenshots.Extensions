@@ -2,6 +2,7 @@
 using System.Drawing;
 using ImageMagick;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using WDSE;
 using WDSE.Decorators;
 using WDSE.ScreenshotMaker;
@@ -20,6 +21,13 @@ namespace WDSETests.Debugging
             Driver.Navigate().GoToUrl("http://ya.ru");
             var screenMaker = new ScreenshotMaker();
             screenMaker.RemoveScrollBarsWhileShooting();
+            screenMaker.SetElementsToHide(new[]
+            {
+                By.XPath("(//*[contains(@class, \'phpdebugbar\')]) [1]"),
+                By.XPath("(//*[contains(@class, \'phpdebugbar\')]) [2]"),
+                By.XPath("(//*[contains(@class, \'phpdebugbar\')]) [3]"),
+
+            });
             var arr = Driver.TakeScreenshot(new VerticalCombineDecorator(screenMaker));
             new MagickImage(arr).ToBitmap().Save(@"C:\png.png");
         }

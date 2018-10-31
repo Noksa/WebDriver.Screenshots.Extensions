@@ -15,42 +15,34 @@ namespace WDSE.Helpers
     {
         internal static void CheckJQueryOnPage(this IWebDriver driver)
         {
+            var script = Resources.SetJQuery;
             try
             {
-                _ = driver.ExecuteJavaScript<long>("return $(document).height()");
+                _ = driver.ExecuteJavaScript<long>("return $(document).outerHeight()");
             }
-            catch (WebDriverException ex)
+            catch (WebDriverException ex) when (ex.Message.Contains("$ is not defined") ||
+                                                ex.Message.Contains("outerHeight is not a function"))
             {
-                if (ex.Message.Contains("$ is not defined"))
-                {
-                    var script = Resources.SetJQuery;
-                    driver.ExecuteJavaScript(script);
-                }
-                else
-                {
-                    throw;
-                }
-
+                driver.ExecuteJavaScript(script);
                 var sw = new Stopwatch();
                 sw.Start();
                 do
                 {
                     try
                     {
-                        _ = driver.ExecuteJavaScript<long>("return $(document).height()");
+                        _ = driver.ExecuteJavaScript<long>("return $(document).outerHeight()");
                         return;
                     }
-                    catch (WebDriverException)
+                    catch (WebDriverException ex2) when (ex2.Message.Contains("$ is not defined") ||
+                                                         ex2.Message.Contains("outerHeight is not a function"))
                     {
-                        if (ex.Message.Contains("$ is not defined"))
-                            Thread.Sleep(10);
-                        else throw;
+                        Thread.Sleep(10);
                     }
                     finally
                     {
                         sw.Stop();
                     }
-                } while (sw.Elapsed.TotalSeconds <= 15);
+                } while (sw.Elapsed.TotalSeconds <= 5);
             }
         }
 
@@ -131,10 +123,11 @@ namespace WDSE.Helpers
                 arr = driver.ExecuteJavaScript<IReadOnlyCollection<IWebElement>>(Resources
                     .GetAllElementsWithScrollBars);
             }
-            catch (WebDriverException ex) when(ex.Message.Contains("Script returned a value"))
+            catch (WebDriverException ex) when (ex.Message.Contains("Script returned a value"))
             {
                 // nothing to do, elements with scrollbar not exists
             }
+
             return arr?.ToList();
         }
 
@@ -148,7 +141,9 @@ namespace WDSE.Helpers
         {
             var allElementsWithScrollbar = driver.GetAllElementsWithScrollbars();
             if (allElementsWithScrollbar.Count == 0) return driver.GetDocumentScrollingElement();
-            var element = driver.ExecuteJavaScript<IWebElement>(Resources.GetElementWithActiveScrollbar, allElementsWithScrollbar);
+            var element =
+                driver.ExecuteJavaScript<IWebElement>(Resources.GetElementWithActiveScrollbar,
+                    allElementsWithScrollbar);
             if (element == null || element.TagName.ToLower() == "body" ||
                 element.TagName.ToLower() == "html") element = driver.GetDocumentScrollingElement();
             return element;
