@@ -1,7 +1,7 @@
 ﻿/**
  * @return {boolean}
  */
-let IsElementHasScrollbar = function (element) {
+let IsElementHasScrollbar = function(element) {
 
     if (element.tagName === document.scrollingElement.tagName && typeof window.innerWidth === 'number') {
         return window.innerWidth > document.documentElement.clientWidth;
@@ -29,19 +29,19 @@ let IsElementHasScrollbar = function (element) {
     return (contentOverflows && overflowShown && contentOverWindow) || (alwaysShowScroll)
 };
 
-let GetElementWithActiveScrollBar = function () {
+let GetElementWithActiveScrollBar = function() {
     const elements = $("*");
-    let elementsWithScrollBar = elements.filter(function () {
+    let elementsWithScrollBar = elements.filter(function() {
         return (IsElementHasScrollbar($(this)[0]));
     });
     if (elementsWithScrollBar.length === 0) return null;
     if (elementsWithScrollBar.first().get(0) === document.scrollingElement) return elementsWithScrollBar.get(0);
     if (elementsWithScrollBar.length === 1) return elementsWithScrollBar.get(0);
-    const scrollBarsHeight = elementsWithScrollBar.map(function () {
+    const scrollBarsHeight = elementsWithScrollBar.map(function() {
         return $(this)[0].scrollHeight;
     });
     const scrollBarWithMaxHeight = Math.max(...scrollBarsHeight.toArray());
-    elementsWithScrollBar = elementsWithScrollBar.filter(function () {
+    elementsWithScrollBar = elementsWithScrollBar.filter(function() {
         if ($(this)[0].scrollHeight === scrollBarWithMaxHeight) return $(this)[0];
     });
     return elementsWithScrollBar.get(0);
