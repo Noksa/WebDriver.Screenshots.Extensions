@@ -32,7 +32,7 @@ let IsElementHasScrollbar = function(element) {
 let GetAllElementsWithScrollbar = function() {
     const elements = $("*");
     const elementsWithScrollBar = elements.filter(function() {
-        return (IsElementHasScrollbar($(this)[0]) && IsElementNeedToBeAdded($(this)[0]));
+        return (IsElementHasScrollbar($(this)[0]) && IsElementNeedToBeAdded($(this)[0]) && $(this).is(":visible"));
     });
     return elementsWithScrollBar.toArray();
 };

@@ -12,7 +12,6 @@ namespace WDSETests.ScrollRemovingTests
     [NonParallelizable]
     public class ScrollRemovingTests : TestsInit
     {
-
         [Test]
         public void RemoveScrollBar1920x1080()
         {

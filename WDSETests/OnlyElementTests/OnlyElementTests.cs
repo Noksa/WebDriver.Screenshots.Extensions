@@ -14,7 +14,6 @@ namespace WDSETests.OnlyElementTests
     [NonParallelizable]
     public class OnlyElementTests : TestsInit
     {
-
         [Test]
         public void TestOnlyElementImage1920x1080()
         {

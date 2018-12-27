@@ -24,15 +24,15 @@ namespace WDSETests
             throw new InvalidOperationException(),
             "Resources/VeryLongScrollPage.html");
 
-        protected readonly string PagePathWithHr = Path.Combine(
-            Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
-            throw new InvalidOperationException(),
-            "Resources/PageWithElements.html");
-
         protected readonly string PagePath5Elements = Path.Combine(
             Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
             throw new InvalidOperationException(),
             "Resources/PageWithFiveElements.html");
+
+        protected readonly string PagePathWithHr = Path.Combine(
+            Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
+            throw new InvalidOperationException(),
+            "Resources/PageWithElements.html");
 
         protected static IWebDriver Driver => _driver;
 
