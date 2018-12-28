@@ -141,6 +141,7 @@ namespace WDSE.Helpers
         internal static IWebElement GetElementWithActiveScrollBar(this IWebDriver driver)
         {
             var allElementsWithScrollbar = driver.GetAllElementsWithScrollbars();
+            allElementsWithScrollbar = allElementsWithScrollbar.Where(o => o.Displayed).ToList();
             if (allElementsWithScrollbar.Count == 0) return driver.GetDocumentScrollingElement();
             var element =
                 driver.ExecuteJavaScript<IWebElement>(Resources.GetElementWithActiveScrollbar,
