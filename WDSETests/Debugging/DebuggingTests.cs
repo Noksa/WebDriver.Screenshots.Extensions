@@ -1,15 +1,14 @@
-﻿// ReSharper disable InconsistentNaming
-
-using System.Drawing;
-using ImageMagick;
+﻿using System.Drawing;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using WDSE;
 using WDSE.Decorators;
+using WDSE.Decorators.CuttingStrategies;
 using WDSE.ScreenshotMaker;
 
 namespace WDSETests.Debugging
 {
+#if DEBUG
     [TestFixture(TestName = "DEBUG SUITE")]
     [NonParallelizable]
     public class DebuggingTests : TestsInit
@@ -17,18 +16,14 @@ namespace WDSETests.Debugging
         [Test]
         public void Debugging()
         {
-            Driver.Manage().Window.Size = new Size(1280, 720);
-            Driver.Navigate().GoToUrl("http://docker.com");
-            var screenMaker = new ScreenshotMaker();
-            screenMaker.RemoveScrollBarsWhileShooting();
-            screenMaker.SetElementsToHide(new[]
-            {
-                By.XPath("(//*[contains(@class, \'phpdebugbar\')]) [1]"),
-                By.XPath("(//*[contains(@class, \'phpdebugbar\')]) [2]"),
-                By.XPath("(//*[contains(@class, \'phpdebugbar\')]) [3]")
-            });
-            var arr = Driver.TakeScreenshot(new VerticalCombineDecorator(screenMaker));
-            new MagickImage(arr).ToBitmap().Save(@"C:\png.png");
+            Driver.Manage().Window.Maximize();
+            Driver.Url = "https://edition.cnn.com/entertainment";
+            var scMaker = new ScreenshotMaker();
+            var cutFooterDecorator = new CutterDecorator(scMaker);
+            cutFooterDecorator.SetCuttingStrategy(new CutElementHeightOnEntireWidthThenCombine(By.Id("footer")));
+            var vcd = new VerticalCombineDecorator(cutFooterDecorator);
+            var screenArrBytes = Driver.TakeScreenshot(vcd);
         }
     }
+#endif
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using ImageMagick;
 using OpenQA.Selenium;
@@ -93,9 +94,14 @@ namespace WDSE.Decorators
                     var afterScrollingScrollLocation = driver.GetCurrentScrollLocation(elementWithScrollBar);
                     var realFooterSize = afterScrollingScrollLocation - currentScrollLocation;
                     var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
-                    var footerImage = screenshot.Clone(0, screenshot.Height - realFooterSize, screenshot.Width,
-                        realFooterSize);
-                    imagesCollection.Add(footerImage);
+                    var maxSize = imagesCollection.Max(q => q.Height);
+                    if (maxSize != screenshot.Height) realFooterSize = realFooterSize - (maxSize - screenshot.Height);
+                    if (realFooterSize > 0)
+                    {
+                        var footerImage = screenshot.Clone(0, screenshot.Height - realFooterSize, screenshot.Width,
+                            realFooterSize);
+                        imagesCollection.Add(footerImage);
+                    }
                 }
 
                 var overallImage = imagesCollection.AppendVertically();

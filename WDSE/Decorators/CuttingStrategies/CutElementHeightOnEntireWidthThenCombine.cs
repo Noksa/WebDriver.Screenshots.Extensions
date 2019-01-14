@@ -23,22 +23,24 @@ namespace WDSE.Decorators.CuttingStrategies
             if (!driver.IsElementInViewPort(_elementByToCut)) return magickImage;
             var width = magickImage.Width;
             var height = magickImage.Height;
-            var headElementCoords = driver.GetElementCoordinates(_elementByToCut);
-            if (headElementCoords.y != 0)
+            var elementCoordinates = driver.GetElementCoordinates(_elementByToCut);
+            if (elementCoordinates.y != 0)
                 using (var collection = new MagickImageCollection())
                 {
-                    var firstRectangle = new Rectangle(0, 0, width, 0 + headElementCoords.y);
-                    var secondRectangle = new Rectangle(0, headElementCoords.y + headElementCoords.height, width,
-                        height - headElementCoords.y - headElementCoords.height);
-                    var firstpart = magickImage.Clone(new MagickGeometry(firstRectangle));
-                    var secondpart = magickImage.Clone(new MagickGeometry(secondRectangle));
-                    collection.Add(firstpart);
-                    collection.Add(secondpart);
+                    IMagickImage firstPart = null;
+                    IMagickImage secondPart = null;
+                    var firstRectangle = new Rectangle(0, 0, width, 0 + elementCoordinates.y);
+                    var secondRectangle = new Rectangle(0, elementCoordinates.y + elementCoordinates.height, width,
+                        height - elementCoordinates.y - elementCoordinates.height);
+                    if (firstRectangle.Height >= 0) firstPart = magickImage.Clone(new MagickGeometry(firstRectangle));
+                    if (secondRectangle.Height >= 0) secondPart = magickImage.Clone(new MagickGeometry(secondRectangle));
+                    if (firstPart != null) collection.Add(firstPart);
+                    if (secondPart != null) collection.Add(secondPart);
                     var overAllImage = collection.AppendVertically();
                     return new MagickImage(overAllImage);
                 }
 
-            var rectangle = new Rectangle(0, headElementCoords.height, width, height - headElementCoords.height);
+            var rectangle = new Rectangle(0, elementCoordinates.height, width, height - elementCoordinates.height);
             return magickImage.Clone(new MagickGeometry(rectangle));
         }
     }
