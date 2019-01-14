@@ -1,8 +1,14 @@
-﻿var ele = $(arguments[0]);
-var win = $(window);
-var elementTop = ele.offset().top;
-var elementBottom = elementTop + ele.outerHeight();
-var viewportTop = win.scrollTop();
-var viewportBottom = viewportTop + win.height();
-var res = ele.is(":visible");
-return elementBottom > viewportTop && elementTop < viewportBottom && res;
+﻿function GetVisibleState(y, bottom) {
+    const win = $(window);
+    const elementTop = Math.max(y, 0);
+    const elementBottom = Math.min(bottom, win.height());
+    const viewportTop = 0;
+    const viewportBottom = win.height();
+    const result = elementTop >= viewportTop &&
+        elementTop < viewportBottom &&
+        elementBottom <= viewportBottom &&
+        elementBottom > viewportTop;
+    return result;
+}
+
+return GetVisibleState(arguments[0], arguments[1]);

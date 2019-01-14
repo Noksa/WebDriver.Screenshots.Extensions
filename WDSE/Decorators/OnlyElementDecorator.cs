@@ -55,8 +55,15 @@ namespace WDSE.Decorators
             if (_by == null)
                 throw new ArgumentNullException(
                     $"Element is not setted. Before using {nameof(OnlyElementDecorator)}, call the method {nameof(SetElement)}.");
-            driver.ScrollToElement(_by);
             var coords = driver.GetElementCoordinates(_by);
+
+            if (!driver.IsElementInViewPort(coords.y, coords.bottom))
+            {
+                driver.ScrollToElement(_by);
+                coords = driver.GetElementCoordinates(_by);
+                magickImage = NestedStrategy.MakeScreenshot(driver);
+            }
+
             var rectangle = new Rectangle(coords.x, coords.y, coords.width, coords.height);
             var image = magickImage.Clone(new MagickGeometry(rectangle));
             return image;

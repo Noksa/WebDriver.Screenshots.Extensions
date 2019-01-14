@@ -1,16 +1,18 @@
 ﻿function GetCoords(element) {
-    var coords = $(element)[0].getBoundingClientRect();
-    var left = parseInt(coords.left);
-    var top = parseInt(coords.top);
-    var width = parseInt(coords.width);
-    var height = parseInt(coords.height);
-    const x = Math.max(left, 0);
-    const y = Math.max(top, 0);
-    var str = JSON.stringify({
+    const coords = $(element)[0].getBoundingClientRect();
+    const left = parseInt(coords.left);
+    const top = parseInt(coords.top);
+    const width = parseInt(coords.width);
+    const height = parseInt(coords.height);
+    const bottom = parseInt(coords.bottom);
+    const x = left;
+    const y = top;
+    const str = JSON.stringify({
         x: x,
         y: y,
         width: width,
-        height: height
+        height: height,
+        bottom: bottom
     });
     return str;
 }

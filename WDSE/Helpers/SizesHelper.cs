@@ -37,12 +37,17 @@ namespace WDSE.Helpers
             }
         }
 
-        internal static ElementCoords GetElementCoordinates(this IWebDriver driver, By by)
+        internal static ElementCoords GetElementCoordinates(this IWebDriver driver, IWebElement element)
         {
-            var element = driver.GetElementFromDOM(by);
             var w = driver.ExecuteJavaScript<string>(Resources.GetElementCoordinates, element);
             var json = JsonConvert.DeserializeObject<ElementCoords>(w);
             return json;
+        }
+
+        internal static ElementCoords GetElementCoordinates(this IWebDriver driver, By by)
+        {
+            var element = driver.GetElementFromDOM(by);
+            return GetElementCoordinates(driver, element);
         }
 
         internal enum Entity

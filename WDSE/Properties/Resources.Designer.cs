@@ -66,16 +66,16 @@ namespace WDSE.Properties {
         /// */
         ///let IsElementHasScrollbar = function(element) {
         ///
-        ///    if (element.tagName === document.scrollingElement.tagName &amp;&amp; typeof window.innerWidth === &apos;number&apos;) {
+        ///    if (element.tagName === document.scrollingElement.tagName &amp;&amp; typeof window.innerWidth === &quot;number&quot;) {
         ///        return window.innerWidth &gt; document.documentElement.clientWidth;
         ///    }
         ///
         ///    let overflowStyle;
         ///
-        ///    if (typeof element.currentStyle !== &apos;undefined&apos;)
+        ///    if (typeof element.currentStyle !== &quot;undefined&quot;)
         ///        overflowStyle = element.currentStyle.overflow;
         ///
-        ///    overflowStyle = overflowStyle || window.getComputedStyle(element, &apos;&apos;).overflow;
+        ///    overflowStyle = overflowStyle || window.getComputedStyle(element, &quot;&quot;).overflow;
         ///
         ///    let overfl [rest of string was truncated]&quot;;.
         /// </summary>
@@ -87,9 +87,10 @@ namespace WDSE.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to function absoluteXPath(element) {
-        ///    var comp, comps = [];
-        ///    var xpath = &apos;&apos;;
-        ///    var getPos = function(element) {
+        ///    var comp;
+        ///    const comps = [];
+        ///    var xpath = &quot;&quot;;
+        ///    const getPos = function(element) {
         ///        var position = 1, curNode;
         ///        if (element.nodeType == Node.ATTRIBUTE_NODE) {
         ///            return null;
@@ -103,7 +104,7 @@ namespace WDSE.Properties {
         ///        return position;
         ///    };
         ///
-        ///    if (element i [rest of string was truncated]&quot;;.
+        ///     [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetElementAbsoluteXPath {
             get {
@@ -112,20 +113,26 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to var ele = $(arguments[0]);
-        ///var left = parseInt(ele.offset().left);
-        ///var top = parseInt(ele.offset().top);
-        ///var right = parseInt(left + ele.outerWidth());
-        ///var bottom = parseInt(top + ele.outerHeight());
-        ///const x = Math.max(left, 0);
-        ///const y = Math.max(top, 0);
-        ///var str = JSON.stringify({
-        ///    x: x,
-        ///    y: y,
-        ///    width: right - x,
-        ///    height: bottom - y
-        ///});
-        ///return str;.
+        ///   Looks up a localized string similar to function GetCoords(element) {
+        ///    var coords = $(element)[0].getBoundingClientRect();
+        ///    var left = parseInt(coords.left);
+        ///    var top = parseInt(coords.top);
+        ///    var width = parseInt(coords.width);
+        ///    var height = parseInt(coords.height);
+        ///    var bottom = parseInt(coords.bottom);
+        ///    const x = left;
+        ///    const y = top;
+        ///    var str = JSON.stringify({
+        ///        x: x,
+        ///        y: y,
+        ///        width: width,
+        ///        height: height,
+        ///        bottom: bottom
+        ///    });
+        ///    return str;
+        ///}
+        ///
+        ///return GetCoord [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetElementCoordinates {
             get {
@@ -134,33 +141,20 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to function GetElement(byStr) {
-        ///    let res = &quot;&quot;;
-        ///    if (byStr.startsWith(&quot;By.XPath: &quot;)) {
-        ///        res = byStr.replace(&quot;By.XPath: &quot;, &quot;&quot;);
-        ///        res = res.replace(&quot;&apos;&quot;, &quot;\&apos;&quot;);
-        ///        return document.evaluate(res, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0);
-        ///    } else if (byStr.startsWith(&quot;By.Id: &quot;)) {
-        ///        res = byStr.replace(&quot;By.Id: &quot;, &quot;&quot;);
-        ///        return document.getElementById(res);
-        ///    } else if (byStr.startsWith(&quot;By.TagName: &quot;)) {
-        ///        res = byStr.repla [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string GetElementFromByStr {
-            get {
-                return ResourceManager.GetString("GetElementFromByStr", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to var ele = $(arguments[0]);
-        ///var win = $(window);
-        ///var elementTop = ele.offset().top;
-        ///var elementBottom = elementTop + ele.outerHeight();
-        ///var viewportTop = win.scrollTop();
-        ///var viewportBottom = viewportTop + win.height();
-        ///var res = ele.is(&quot;:visible&quot;);
-        ///return elementBottom &gt; viewportTop &amp;&amp; elementTop &lt; viewportBottom &amp;&amp; res;.
+        ///   Looks up a localized string similar to function GetVisibleState(y, bottom) {
+        ///    var win = $(window);
+        ///    var elementTop = Math.max(y, 0);
+        ///    var elementBottom = Math.min(bottom, win.height());
+        ///    var viewportTop = 0;
+        ///    var viewportBottom = win.height();
+        ///    var result = elementTop &gt;= viewportTop &amp;&amp;
+        ///        elementTop &lt; viewportBottom &amp;&amp;
+        ///        elementBottom &lt;= viewportBottom &amp;&amp;
+        ///        elementBottom &gt; viewportTop;
+        ///    return result;
+        ///}
+        ///
+        ///return GetVisibleState(arguments[0], arguments[1]);.
         /// </summary>
         internal static string GetElementVisibleState {
             get {
@@ -170,16 +164,15 @@ namespace WDSE.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to let GetElementWithActiveScrollBar = function(elements) {
-        ///    elements = $(elements);
-        ///    if (elements.length === 0) return null;
-        ///    if (elements.first().get(0) === document.scrollingElement) return elements.get(0);
-        ///    if (elements.length === 1) return elements.get(0);
-        ///    const scrollBarsHeight = elements.map(function() {
+        ///    let jQueryElements = $(elements);
+        ///    if (jQueryElements.length === 0) return null;
+        ///    if (jQueryElements.first().get(0) === document.scrollingElement) return jQueryElements.get(0);
+        ///    if (jQueryElements.length === 1) return jQueryElements.get(0);
+        ///    const scrollBarsHeight = jQueryElements.map(function() {
         ///        return $(this)[0].scrollHeight;
         ///    });
         ///    const scrollBarWithMaxHeight = Math.max(...scrollBarsHeight.toArray());
-        ///    elements = elements.filter(function() {
-        ///         [rest of string was truncated]&quot;;.
+        ///    jQu [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetElementWithActiveScrollbar {
             get {

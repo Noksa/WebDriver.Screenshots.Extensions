@@ -29,6 +29,11 @@ namespace WDSETests
             throw new InvalidOperationException(),
             "Resources/PageWithFiveElements.html");
 
+        protected readonly string PagePathWithBigElement = Path.Combine(
+            Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
+            throw new InvalidOperationException(),
+            "Resources/RemoveBigElement.html");
+
         protected readonly string PagePathWithHr = Path.Combine(
             Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
             throw new InvalidOperationException(),
@@ -40,7 +45,8 @@ namespace WDSETests
         public void Setup()
         {
             var chromeOptions = new ChromeOptions();
-            _driver = new ChromeDriver(chromeOptions);
+            var cds = ChromeDriverService.CreateDefaultService();
+            _driver = new ChromeDriver(cds, chromeOptions, TimeSpan.FromMinutes(3));
         }
 
         [TearDown]

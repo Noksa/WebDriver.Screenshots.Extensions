@@ -61,19 +61,12 @@ namespace WDSE.Decorators
 
         private IMagickImage CombineScreenshots(IWebDriver driver)
         {
-            int totalHeight;
             var elementWithScrollBar = driver.GetElementWithActiveScrollBar();
-            if (elementWithScrollBar.TagName.ToLower() == "body" ||
-                elementWithScrollBar.TagName.ToLower() == "html" ||
-                elementWithScrollBar.Equals(driver.GetDocumentScrollingElement()))
-            totalHeight = driver.GetHeight(SizesHelper.Entity.Document);
-            else
-                totalHeight = driver.GetElementScrollBarHeight(elementWithScrollBar);
+            var totalHeight = GetTotalHeight(driver, elementWithScrollBar);
 
             var windowHeight = driver.GetHeight(SizesHelper.Entity.Window);
             var totalScrolls = totalHeight / windowHeight;
             var footer = totalHeight - windowHeight * totalScrolls;
-
             using (var imagesCollection = new MagickImageCollection())
             {
                 for (var i = 0; i < totalScrolls; i++)
@@ -81,9 +74,22 @@ namespace WDSE.Decorators
                     driver.ScrollTo(elementWithScrollBar,
                         windowHeight * i);
                     WaitAfterScrolling();
-                    var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
-                    imagesCollection.Add(screenshot);
+                    var image = NestedStrategy.MakeScreenshot(driver);
+                    if (image != null)
+                    {
+                        image = new MagickImage(image);
+                        imagesCollection.Add(image);
+                    }
+                    else
+                    {
+                        var temp = _waitAfterScroll;
+                        _waitAfterScroll = TimeSpan.FromSeconds(1);
+                        WaitAfterScrolling();
+                        _waitAfterScroll = temp;
+                    }
                 }
+
+                var realtimeTotalHeight = GetTotalHeight(driver, elementWithScrollBar);
 
                 if (footer > 0)
                 {
@@ -95,7 +101,17 @@ namespace WDSE.Decorators
                     var realFooterSize = afterScrollingScrollLocation - currentScrollLocation;
                     var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
                     var maxSize = imagesCollection.Max(q => q.Height);
-                    if (maxSize != screenshot.Height) realFooterSize = realFooterSize - (maxSize - screenshot.Height);
+                    if (maxSize != screenshot.Height)
+                    {
+                        realFooterSize = realFooterSize - (maxSize - screenshot.Height);
+                    }
+                    else
+                    {
+                        var realtimeTotalHeight2 = GetTotalHeight(driver, elementWithScrollBar);
+                        var collapsed = realtimeTotalHeight - realtimeTotalHeight2;
+                        if (collapsed > 0) realFooterSize = realFooterSize - collapsed;
+                    }
+
                     if (realFooterSize > 0)
                     {
                         var footerImage = screenshot.Clone(0, screenshot.Height - realFooterSize, screenshot.Width,
@@ -107,6 +123,18 @@ namespace WDSE.Decorators
                 var overallImage = imagesCollection.AppendVertically();
                 return overallImage;
             }
+        }
+
+        private static int GetTotalHeight(IWebDriver driver, IWebElement elementWithScrollBar)
+        {
+            int totalHeight;
+            if (elementWithScrollBar.TagName.ToLower() == "body" ||
+                elementWithScrollBar.TagName.ToLower() == "html" ||
+                elementWithScrollBar.Equals(driver.GetDocumentScrollingElement()))
+                totalHeight = driver.GetHeight(SizesHelper.Entity.Document);
+            else
+                totalHeight = driver.GetElementScrollBarHeight(elementWithScrollBar);
+            return totalHeight;
         }
 
         #endregion

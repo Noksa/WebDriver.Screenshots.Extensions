@@ -87,7 +87,8 @@ namespace WDSE.ScreenshotMaker
                     if (elements.Count > 0)
                         elements.ForEach(element =>
                         {
-                            var visibleState = _driver.IsElementInViewPort(element);
+                            var coords = _driver.GetElementCoordinates(element);
+                            var visibleState = _driver.IsElementInViewPort(coords.y, coords.bottom);
                             if (visibleState)
                             {
                                 if (_hiddenElements == null) _hiddenElements = new List<IWebElement>();

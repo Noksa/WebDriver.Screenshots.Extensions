@@ -47,17 +47,10 @@ namespace WDSE.Helpers
             }
         }
 
-        internal static bool IsElementInViewPort(this IWebDriver driver, By by)
-        {
-            var element = driver.GetElementFromDOM(by);
-            if (element == null) return false;
-            var result = driver.ExecuteJavaScript<bool>(Resources.GetElementVisibleState, element);
-            return result;
-        }
 
-        internal static bool IsElementInViewPort(this IWebDriver driver, IWebElement element)
+        internal static bool IsElementInViewPort(this IWebDriver driver, int y, int elementBottom)
         {
-            var result = driver.ExecuteJavaScript<bool>(Resources.GetElementVisibleState, element);
+            var result = driver.ExecuteJavaScript<bool>(Resources.GetElementVisibleState, y, elementBottom);
             return result;
         }
 
