@@ -80,13 +80,6 @@ namespace WDSE.Decorators
                         image = new MagickImage(image);
                         imagesCollection.Add(image);
                     }
-                    else
-                    {
-                        var temp = _waitAfterScroll;
-                        _waitAfterScroll = TimeSpan.FromSeconds(1);
-                        WaitAfterScrolling();
-                        _waitAfterScroll = temp;
-                    }
                 }
 
                 var realtimeTotalHeight = GetTotalHeight(driver, elementWithScrollBar);
