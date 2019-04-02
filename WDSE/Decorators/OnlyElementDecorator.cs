@@ -7,7 +7,7 @@ using WDSE.Interfaces;
 
 namespace WDSE.Decorators
 {
-    internal class OnlyElementDecorator : BaseScreenshotDecorator
+    public class OnlyElementDecorator : BaseScreenshotDecorator
     {
         #region Private fields
 
