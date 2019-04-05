@@ -10,4 +10,4 @@ How to use can be found [here](https://github.com/Noksa/WebDriver.Screenshots.Ex
 
 ## Important
 
-This package will not work in **Internet Explorer**!
+**Internet Explorer** support added since 0.1-beta version
