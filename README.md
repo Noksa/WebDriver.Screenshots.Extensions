@@ -10,4 +10,4 @@ How to use can be found [here](https://github.com/Noksa/WebDriver.Screenshots.Ex
 
 ## Important
 
-**Internet Explorer** support added since 0.1-beta version
+**Internet Explorer** support added since _0.1-beta_ version
