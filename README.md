@@ -8,3 +8,6 @@ More information can be found in the [wiki](https://github.com/Noksa/WebDriver.S
 
 How to use can be found [here](https://github.com/Noksa/WebDriver.Screenshots.Extensions/wiki/How-to-use).
 
+## Important
+
+This package will not work in **Internet Explorer**!
