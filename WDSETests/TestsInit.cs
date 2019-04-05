@@ -41,8 +41,9 @@ namespace WDSETests
         public void Setup()
         {
             //var ieOptions = new InternetExplorerOptions();
-            //var chromeOptions = new ChromeOptions();
-            _driver = new InternetExplorerDriver();
+            var chromeOptions = new ChromeOptions();
+            //_driver = new InternetExplorerDriver();
+            _driver = new ChromeDriver();
         }
 
         [TearDown]
