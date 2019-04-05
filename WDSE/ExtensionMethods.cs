@@ -22,6 +22,7 @@ namespace WDSE
         /// <returns></returns>
         public static byte[] TakeScreenshot(this IWebDriver driver, IScreenshotStrategy strategy)
         {
+            driver.CheckIeDriver();
             driver.CheckJQueryOnPage();
             ScreenshotMaker.ScreenshotMaker screenshotMaker = null;
             switch (strategy)

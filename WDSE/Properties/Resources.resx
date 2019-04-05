@@ -142,6 +142,9 @@
   <data name="RemoveScrollBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\Scrolling\RemoveScrollBar.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="ScrollingElement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Scripts\Element\ScrollingElement.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="ScrollToElement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\Scrolling\ScrollToElement.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

@@ -21,7 +21,7 @@ namespace WDSE.Helpers
             }
             catch (WebDriverException ex) when (ex.Message.Contains("$ is not defined") ||
                                                 ex.Message.Contains("outerHeight is not a function") ||
-                                                ex.Message.Contains("$ is not a function"))
+                                                ex.Message.Contains("$ is not a function") || ex.Message.Equals("JavaScript error"))
             {
                 driver.ExecuteJavaScript(script);
                 var sw = new Stopwatch();

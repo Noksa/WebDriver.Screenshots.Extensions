@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Noksa.NUnit.Allure" Version="2.5.0.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
-    <PackageReference Include="WebDriverManager" Version="2.2.7" />
+    <PackageReference Include="Noksa.NUnit.Allure" Version="2.5.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+    <PackageReference Include="WebDriverManager" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +24,9 @@
 
   <ItemGroup>
     <Content Update="C:\Users\a.danilin\.nuget\packages\noksa.nunit.allure\2.5.0.1\contentFiles\any\net471\allureConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\a.danilin\.nuget\packages\noksa.nunit.allure\2.5.1\contentFiles\any\net471\allureConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
