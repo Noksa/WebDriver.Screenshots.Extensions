@@ -29,6 +29,9 @@
     <Content Update="C:\Users\a.danilin\.nuget\packages\noksa.nunit.allure\2.5.1\contentFiles\any\net471\allureConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="C:\Users\DELL\.nuget\packages\noksa.nunit.allure\2.5.1\contentFiles\any\net471\allureConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
