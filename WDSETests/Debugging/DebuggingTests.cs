@@ -1,11 +1,9 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using System.Drawing;
-using Allure.Commons;
 using ImageMagick;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.Extensions;
 using WDSE;
 using WDSE.Decorators;
 using WDSE.ScreenshotMaker;
@@ -20,13 +18,9 @@ namespace WDSETests.Debugging
         public void Debugging()
         {
             Driver.Manage().Window.Size = new Size(1280, 720);
-            Driver.Navigate().GoToUrl("http://docker.com");
-
-            var arr = new VerticalCombineDecorator(new ScreenshotMaker());
-
-            var bytesArr = Driver.TakeScreenshot(arr);
-
-            AllureLifecycle.Instance.AddAttachment("Screen", AllureLifecycle.AttachFormat.ImagePng, bytesArr);
+            Driver.Navigate().GoToUrl("https://angular.io");
+            var screenMaker = new ScreenshotMaker();
+            var arr = Driver.TakeScreenshot(new VerticalCombineDecorator(screenMaker));
         }
     }
 }
