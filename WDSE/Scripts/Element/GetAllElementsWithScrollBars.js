@@ -1,7 +1,13 @@
 ﻿var IsElementHasScrollbar = function(element) {
 
     if (element.tagName === document.scrollingElement.tagName && typeof window.innerWidth === "number") {
-        return window.innerWidth > document.documentElement.clientWidth;
+        var scrollHeight = Math.max(
+            document.body.scrollHeight, document.documentElement.scrollHeight,
+            document.body.offsetHeight, document.documentElement.offsetHeight,
+            document.body.clientHeight, document.documentElement.clientHeight
+        );
+
+        return scrollHeight > document.documentElement.clientHeight;
     }
 
     var overflowStyle;
