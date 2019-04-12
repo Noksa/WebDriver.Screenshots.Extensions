@@ -1,5 +1,5 @@
 ﻿function GetElement(byStr) {
-    let res = "";
+    var res = "";
     if (byStr.startsWith("By.XPath: ")) {
         res = byStr.replace("By.XPath: ", "");
         res = res.replace("'", "\'");

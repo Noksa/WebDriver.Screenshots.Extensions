@@ -28,7 +28,7 @@ namespace WDSETests.VerticalCombineTests
         public void TestVcsImage1920x1080()
         {
             Driver.Manage().Window.Size = new Size(1920, 1080);
-            Driver.Navigate().GoToUrl(PagePath);
+            Driver.Navigate().GoToUrl("file:///" + PagePath);
             var arr = Driver.TakeScreenshot(new VerticalCombineDecorator(new ScreenshotMaker()));
             CompareAndTest(arr, Resources.VcsImageShouldBe1920x1080);
         }

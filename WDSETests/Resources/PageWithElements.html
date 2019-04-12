@@ -5,8 +5,13 @@
     <meta charset="utf-8"/>
     <title>Very long scroll page</title>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        window.onerror=function(msg){
+            $("body").attr("JSError",msg);
+        }
+    </script>
 </head>
-<body>
+<body JSError="nothing">
 <h1>
     В чем разница между sudo и su
     Оригинал: What`s the Difference Between Sudo & Su?

@@ -65,7 +65,7 @@ namespace WDSE.Decorators
             if (elementWithScrollBar.TagName.ToLower() == "body" ||
                 elementWithScrollBar.TagName.ToLower() == "html" ||
                 elementWithScrollBar.Equals(driver.GetDocumentScrollingElement()))
-            totalHeight = driver.GetHeight(SizesHelper.Entity.Document);
+                totalHeight = driver.GetHeight(SizesHelper.Entity.Document);
             else
                 totalHeight = driver.GetElementScrollBarHeight(elementWithScrollBar);
 

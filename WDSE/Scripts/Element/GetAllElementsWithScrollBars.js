@@ -1,49 +1,49 @@
-﻿/**
- * @return {boolean}
- */
-let IsElementHasScrollbar = function(element) {
+﻿var IsElementHasScrollbar = function(element) {
 
     if (element.tagName === document.scrollingElement.tagName && typeof window.innerWidth === "number") {
-        return window.innerWidth > document.documentElement.clientWidth;
+        var scrollHeight = Math.max(
+            document.body.scrollHeight, document.documentElement.scrollHeight,
+            document.body.offsetHeight, document.documentElement.offsetHeight,
+            document.body.clientHeight, document.documentElement.clientHeight
+        );
+
+        return scrollHeight > document.documentElement.clientHeight;
     }
 
-    let overflowStyle;
+    var overflowStyle;
 
     if (typeof element.currentStyle !== "undefined")
         overflowStyle = element.currentStyle.overflow;
 
     overflowStyle = overflowStyle || window.getComputedStyle(element, "").overflow;
 
-    let overflowYStyle;
+    var overflowYStyle;
 
     if (typeof element.currentStyle !== "undefined")
         overflowYStyle = element.currentStyle.overflowY;
 
     overflowYStyle = overflowYStyle || window.getComputedStyle(element, "").overflowY;
 
-    const contentOverflows = element.scrollHeight > element.clientHeight;
-    const contentOverWindow = element.scrollHeight > $(window).height();
-    const overflowShown = /^(visible|auto)$/.test(overflowStyle) || /^(visible|auto)$/.test(overflowYStyle);
-    const alwaysShowScroll = overflowStyle === "scroll" || overflowYStyle === "scroll";
+    var contentOverflows = element.scrollHeight > element.clientHeight;
+    var contentOverWindow = element.scrollHeight > $(window).height();
+    var overflowShown = /^(visible|auto)$/.test(overflowStyle) || /^(visible|auto)$/.test(overflowYStyle);
+    var alwaysShowScroll = overflowStyle === "scroll" || overflowYStyle === "scroll";
 
     return (contentOverflows && overflowShown && contentOverWindow) || (alwaysShowScroll);
 };
 
-let GetAllElementsWithScrollbar = function() {
-    const elements = $("*");
-    const elementsWithScrollBar = elements.filter(function() {
+var GetAllElementsWithScrollbar = function() {
+    var elements = $("*");
+    var elementsWithScrollBar = elements.filter(function() {
         return (IsElementHasScrollbar($(this)[0]) && IsElementNeedToBeAdded($(this)[0]));
     });
     return elementsWithScrollBar.toArray();
 };
 
-/**
- * @return {boolean}
- */
-let IsElementNeedToBeAdded = function(element) {
-    const elementTagName = element.tagName.toLowerCase();
+var IsElementNeedToBeAdded = function(element) {
+    var elementTagName = element.tagName.toLowerCase();
     if (elementTagName === "body" || elementTagName === "html") {
-        const scrollingElementTag = document.scrollingElement.tagName.toLowerCase();
+        var scrollingElementTag = document.scrollingElement.tagName.toLowerCase();
         return elementTagName === scrollingElementTag;
     } else return true;
 };
