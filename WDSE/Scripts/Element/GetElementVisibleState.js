@@ -3,7 +3,7 @@
 	var  elementTop = Math.max(y, 0);
 	var  elementBottom = Math.min(bottom, win.height());
 	var  viewportTop = 0;
-	var  viewportBottom = win.height();
+	var  viewportBottom = window.innerHeight;
 	var  result = elementTop >= viewportTop &&
         elementTop < viewportBottom &&
         elementBottom <= viewportBottom &&

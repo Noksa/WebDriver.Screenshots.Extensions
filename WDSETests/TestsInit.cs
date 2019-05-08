@@ -34,6 +34,10 @@ namespace WDSETests
             Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
             throw new InvalidOperationException(),
             "Resources\\PageWithElements.html");
+        protected readonly string PagePathWithBigElement = Path.Combine(
+            Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
+            throw new InvalidOperationException(),
+            "Resources\\RemoveBigElement.html");
 
         protected static IWebDriver Driver => _driver;
 
