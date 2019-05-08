@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -17,7 +18,7 @@ namespace WDSE.Helpers
             var script = Resources.SetJQuery;
             try
             {
-                _ = driver.ExecuteJavaScript<long>("return $(document).outerHeight()");
+                _ = driver.ExecuteJavaScript<object>("return $(document).outerHeight()");
             }
             catch (WebDriverException)
             {
@@ -28,7 +29,7 @@ namespace WDSE.Helpers
                 {
                     try
                     {
-                        _ = driver.ExecuteJavaScript<long>("return $(document).outerHeight()");
+                        _ = driver.ExecuteJavaScript<object>("return $(document).outerHeight()");
                         return;
                     }
                     catch (WebDriverException) 
@@ -152,8 +153,9 @@ namespace WDSE.Helpers
 
         internal static int GetElementScrollBarHeight(this IWebDriver driver, IWebElement element)
         {
-            return int.Parse(driver
-                .ExecuteJavaScript<long>("return arguments[0].scrollHeight", element).ToString());
+            var value = driver
+                .ExecuteJavaScript<object>("return arguments[0].scrollHeight", element).ToString();
+            return int.Parse(value);
         }
 
         internal static void ScrollTo(this IWebDriver driver, IWebElement element, int position)
@@ -163,8 +165,9 @@ namespace WDSE.Helpers
 
         internal static int GetCurrentScrollLocation(this IWebDriver driver, IWebElement element)
         {
-            var value = driver.ExecuteJavaScript<long>("return $(arguments[0]).scrollTop()", element);
-            return (int) value;
+            var value = driver.ExecuteJavaScript<object>("return $(arguments[0]).scrollTop()", element)?.ToString();
+            if (string.IsNullOrEmpty(value)) throw new Exception($"Cant get current scroll location: {value}");
+            return int.Parse(value);
         }
     }
 }

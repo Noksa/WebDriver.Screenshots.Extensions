@@ -14,32 +14,32 @@ namespace WDSE.Helpers
     {
         internal static int GetCurrentScrolledBottom(this IWebDriver driver)
         {
-            return int.Parse(driver.ExecuteJavaScript<long>("return $(window).scrollTop() + window.innerHeight;")
-                .ToString());
+            var value = driver.ExecuteJavaScript<object>("return $(window).scrollTop() + window.innerHeight;").ToString();
+            return int.Parse(value);
         }
 
         internal static int GetHeight(this IWebDriver driver, Entity entity)
         {
-            long height;
+            string value;
             switch (entity)
             {
                 case Entity.Document:
-                    height = driver.ExecuteJavaScript<long>($"return $({GetStrEntity(entity)}).height()");
+                    value = driver.ExecuteJavaScript<object>($"return $({GetStrEntity(entity)}).height()").ToString();
                     break;
                 case Entity.Window:
-                    height = driver.ExecuteJavaScript<long>($"return {GetStrEntity(entity)}.innerHeight");
+                    value = driver.ExecuteJavaScript<object>($"return {GetStrEntity(entity)}.innerHeight").ToString();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(entity), entity, null);
             }
 
-            return int.Parse(height.ToString());
+            return int.Parse(value);
         }
 
         internal static int GetWidth(this IWebDriver driver, Entity entity)
         {
-            var height = driver.ExecuteJavaScript<long>($"return $({GetStrEntity(entity)}).width()");
-            return int.Parse(height.ToString());
+            var width = driver.ExecuteJavaScript<object>($"return $({GetStrEntity(entity)}).width()").ToString();
+            return int.Parse(width);
         }
 
         private static string GetStrEntity(Entity entity)
