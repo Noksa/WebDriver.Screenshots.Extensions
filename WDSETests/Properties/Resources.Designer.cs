@@ -103,6 +103,16 @@ namespace WDSETests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RemoveBigElementShouldBe {
+            get {
+                object obj = ResourceManager.GetObject("RemoveBigElementShouldBe", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap RemoveElementShouldBe1920x1080 {
             get {
                 object obj = ResourceManager.GetObject("RemoveElementShouldBe1920x1080", resourceCulture);

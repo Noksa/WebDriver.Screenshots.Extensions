@@ -20,25 +20,35 @@ namespace WDSE.Decorators.CuttingStrategies
 
         public IMagickImage Cut(IWebDriver driver, IMagickImage magickImage)
         {
-            if (!driver.IsElementInViewPort(_elementByToCut)) return magickImage;
+            var elementCoordinates = driver.GetElementCoordinates(_elementByToCut);
+            if (!driver.IsElementPartialInViewPort(elementCoordinates.y, elementCoordinates.bottom)) return magickImage;
             var width = magickImage.Width;
             var height = magickImage.Height;
-            var headElementCoords = driver.GetElementCoordinates(_elementByToCut);
-            if (headElementCoords.y != 0)
                 using (var collection = new MagickImageCollection())
                 {
-                    var firstRectangle = new Rectangle(0, 0, width, 0 + headElementCoords.y);
-                    var secondRectangle = new Rectangle(0, headElementCoords.y + headElementCoords.height, width,
-                        height - headElementCoords.y - headElementCoords.height);
-                    var firstpart = magickImage.Clone(new MagickGeometry(firstRectangle));
-                    var secondpart = magickImage.Clone(new MagickGeometry(secondRectangle));
-                    collection.Add(firstpart);
-                    collection.Add(secondpart);
-                    var overAllImage = collection.AppendVertically();
-                    return new MagickImage(overAllImage);
+                    var heightT = 0 + elementCoordinates.y;
+                    if (heightT < 0 && height < elementCoordinates.bottom) return null;
+                    if (heightT < 0) heightT = elementCoordinates.bottom;
+                    var firstRectangle = new Rectangle(0, 0, width, heightT);
+                    var secondRectangle = new Rectangle(0, elementCoordinates.y + elementCoordinates.height, width,
+                        magickImage.Height - elementCoordinates.y - elementCoordinates.height);
+                    var firstPart = elementCoordinates.y <= 0
+                        ? null
+                        : magickImage.Clone(new MagickGeometry(firstRectangle));
+                    var secondPart = elementCoordinates.bottom > height
+                        ? null
+                        : magickImage.Clone(new MagickGeometry(secondRectangle));
+                    if (firstPart != null) collection.Add(firstPart);
+                    if (secondPart != null) collection.Add(secondPart);
+                    if (secondPart == null)
+                    {
+
+                    }
+                    var overAllImage = collection.Count == 0 ? null : collection.AppendVertically();
+                    return overAllImage == null ? null : new MagickImage(overAllImage);
                 }
 
-            var rectangle = new Rectangle(0, headElementCoords.height, width, height - headElementCoords.height);
+            var rectangle = new Rectangle(0, elementCoordinates.height, width, height - elementCoordinates.height);
             return magickImage.Clone(new MagickGeometry(rectangle));
         }
     }

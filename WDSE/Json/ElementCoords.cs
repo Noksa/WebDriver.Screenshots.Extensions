@@ -9,5 +9,6 @@ namespace WDSE.Json
         public int y { get; set; }
         public int width { get; set; }
         public int height { get; set; }
+        public int bottom { get; set; }
     }
 }

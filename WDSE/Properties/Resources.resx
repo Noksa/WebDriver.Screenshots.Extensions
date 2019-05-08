@@ -127,9 +127,6 @@
   <data name="GetElementCoordinates" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\Element\GetElementCoordinates.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="GetElementFromByStr" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Scripts\Element\GetElementFromByStr.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="GetElementVisibleState" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\Element\GetElementVisibleState.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -156,5 +153,8 @@
   </data>
   <data name="ShowScrollBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Scripts\Scrolling\ShowScrollBar.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="GetElementPartialVisibleState" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Scripts\Element\GetElementPartialVisibleState.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
 </root>

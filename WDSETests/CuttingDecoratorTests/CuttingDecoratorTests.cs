@@ -16,6 +16,19 @@ namespace WDSETests.CuttingDecoratorTests
     public class CuttingDecoratorTests : TestsInit
     {
         [Test]
+        public void TestCutBigElement1920x1080()
+        {
+            Driver.Manage().Window.Size = new Size(1920, 1080);
+            Driver.Url = PagePathWithBigElement;
+            var scMaker = new ScreenshotMaker();
+            var cut = new CutterDecorator(scMaker).SetCuttingStrategy(
+                new CutElementHeightOnEntireWidthThenCombine(By.Id("hrId")));
+            var vcd = new VerticalCombineDecorator(cut);
+            var screenArrBytes = Driver.TakeScreenshot(vcd);
+            CompareAndTest(screenArrBytes, Resources.RemoveBigElementShouldBe);
+        }
+
+        [Test]
         public void TestCutElementImageWithPixels1920x1080()
         {
             Driver.Manage().Window.Size = new Size(1920, 1080);

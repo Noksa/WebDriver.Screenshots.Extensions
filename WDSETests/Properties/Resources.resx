@@ -130,6 +130,9 @@
   <data name="RemoveAllElementByOneByShouldBe1920x1080" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\images\RemoveAllElementByOneByShouldBe1920x1080.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="RemoveBigElementShouldBe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\images\RemoveBigElementShouldBe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="RemoveElementShouldBe1920x1080" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\images\RemoveElementShouldBe1920x1080.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

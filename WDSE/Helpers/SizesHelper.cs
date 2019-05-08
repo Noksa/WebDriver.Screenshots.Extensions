@@ -12,9 +12,27 @@ namespace WDSE.Helpers
 {
     internal static class SizesHelper
     {
+        internal static int GetCurrentScrolledBottom(this IWebDriver driver)
+        {
+            return int.Parse(driver.ExecuteJavaScript<long>("return $(window).scrollTop() + window.innerHeight;")
+                .ToString());
+        }
+
         internal static int GetHeight(this IWebDriver driver, Entity entity)
         {
-            var height = driver.ExecuteJavaScript<long>($"return $({GetStrEntity(entity)}).height()");
+            long height;
+            switch (entity)
+            {
+                case Entity.Document:
+                    height = driver.ExecuteJavaScript<long>($"return $({GetStrEntity(entity)}).height()");
+                    break;
+                case Entity.Window:
+                    height = driver.ExecuteJavaScript<long>($"return {GetStrEntity(entity)}.innerHeight");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(entity), entity, null);
+            }
+
             return int.Parse(height.ToString());
         }
 
@@ -37,12 +55,27 @@ namespace WDSE.Helpers
             }
         }
 
+        internal static ElementCoords GetElementCoordinates(this IWebDriver driver, IWebElement element)
+        {
+            var w = driver.ExecuteJavaScript<string>(Resources.GetElementCoordinates, element);
+            var json = JsonConvert.DeserializeObject<ElementCoords>(w);
+            if (json.y >= 0)
+            {
+                json.bottom = json.y + json.height;
+            }
+            else
+            {
+                json.bottom = json.height + json.y;
+            }
+            
+
+            return json;
+        }
+
         internal static ElementCoords GetElementCoordinates(this IWebDriver driver, By by)
         {
             var element = driver.GetElementFromDOM(by);
-            var w = driver.ExecuteJavaScript<string>(Resources.GetElementCoordinates, element);
-            var json = JsonConvert.DeserializeObject<ElementCoords>(w);
-            return json;
+            return GetElementCoordinates(driver, element);
         }
 
         internal enum Entity

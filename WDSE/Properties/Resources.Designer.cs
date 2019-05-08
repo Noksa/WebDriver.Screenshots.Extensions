@@ -19,7 +19,7 @@ namespace WDSE.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -64,19 +64,13 @@ namespace WDSE.Properties {
         ///   Looks up a localized string similar to var IsElementHasScrollbar = function(element) {
         ///
         ///    if (element.tagName === document.scrollingElement.tagName &amp;&amp; typeof window.innerWidth === &quot;number&quot;) {
-        ///        return window.innerWidth &gt; document.documentElement.clientWidth;
-        ///    }
+        ///        var scrollHeight = Math.max(
+        ///            document.body.scrollHeight, document.documentElement.scrollHeight,
+        ///            document.body.offsetHeight, document.documentElement.offsetHeight,
+        ///            document.body.clientHeight, document.documentElement.clientHeight
+        ///        );
         ///
-        ///    var overflowStyle;
-        ///
-        ///    if (typeof element.currentStyle !== &quot;undefined&quot;)
-        ///        overflowStyle = element.currentStyle.overflow;
-        ///
-        ///    overflowStyle = overflowStyle || window.getComputedStyle(element, &quot;&quot;).overflow;
-        ///
-        ///    var overflowYStyle;
-        ///
-        ///    if (typeof elem [rest of string was truncated]&quot;;.
+        ///        return scrollHeight &gt; document.documentElement.clientHe [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetAllElementsWithScrollBars {
             get {
@@ -103,7 +97,7 @@ namespace WDSE.Properties {
         ///        return position;
         ///    };
         ///
-        ///     [rest of string was truncated]&quot;;.
+        ///    if ( [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetElementAbsoluteXPath {
             get {
@@ -114,11 +108,11 @@ namespace WDSE.Properties {
         /// <summary>
         ///   Looks up a localized string similar to var ele = $(arguments[0]);
         ///var left = parseInt(ele.offset().left);
-        ///var top = parseInt(ele.offset().top);
+        ///var top = parseInt(ele.offset().top - $(window).scrollTop());
         ///var right = parseInt(left + ele.outerWidth());
         ///var bottom = parseInt(top + ele.outerHeight());
-        ///var x = Math.max(left, 0);
-        ///var y = Math.max(top, 0);
+        ///var x = left;
+        ///var y = top;
         ///var str = JSON.stringify({
         ///    x: x,
         ///    y: y,
@@ -134,33 +128,40 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to function GetElement(byStr) {
-        ///    var res = &quot;&quot;;
-        ///    if (byStr.startsWith(&quot;By.XPath: &quot;)) {
-        ///        res = byStr.replace(&quot;By.XPath: &quot;, &quot;&quot;);
-        ///        res = res.replace(&quot;&apos;&quot;, &quot;\&apos;&quot;);
-        ///        return document.evaluate(res, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0);
-        ///    } else if (byStr.startsWith(&quot;By.Id: &quot;)) {
-        ///        res = byStr.replace(&quot;By.Id: &quot;, &quot;&quot;);
-        ///        return document.getElementById(res);
-        ///    } else if (byStr.startsWith(&quot;By.TagName: &quot;)) {
-        ///        res = byStr.repla [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to function GetVisibleState(y, bottom) {
+        ///	var elementTop = y;
+        ///	var elementBottom = bottom;
+        ///	var  viewportTop = $(window).scrollTop();
+        ///	var  viewportBottom = $(window).scrollTop() + window.innerHeight;
+        ///	var  result = elementTop &gt;= viewportTop &amp;&amp;
+        ///        elementTop &lt; viewportBottom &amp;&amp;
+        ///        elementBottom &lt;= viewportBottom &amp;&amp;
+        ///        elementBottom &gt; viewportTop;
+        ///    return result;
+        ///}
+        ///
+        ///return GetVisibleState(arguments[0], arguments[1]);.
         /// </summary>
-        internal static string GetElementFromByStr {
+        internal static string GetElementPartialVisibleState {
             get {
-                return ResourceManager.GetString("GetElementFromByStr", resourceCulture);
+                return ResourceManager.GetString("GetElementPartialVisibleState", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to var ele = $(arguments[0]);
-        ///var win = $(window);
-        ///var elementTop = ele.offset().top;
-        ///var elementBottom = elementTop + ele.outerHeight();
-        ///var viewportTop = win.scrollTop();
-        ///var viewportBottom = viewportTop + win.height();
-        ///var res = ele.is(&quot;:visible&quot;);
-        ///return elementBottom &gt; viewportTop &amp;&amp; elementTop &lt; viewportBottom &amp;&amp; res;.
+        ///   Looks up a localized string similar to function GetVisibleState(y, bottom) {
+        ///	var elementTop = y;
+        ///	var elementBottom = bottom;
+        ///	var  viewportTop = $(window).scrollTop();
+        ///	var  viewportBottom = $(window).scrollTop() + window.innerHeight;
+        ///	var  result = elementTop &gt;= viewportTop &amp;&amp;
+        ///        elementTop &lt; viewportBottom &amp;&amp;
+        ///        elementBottom &lt;= viewportBottom &amp;&amp;
+        ///        elementBottom &gt; viewportTop;
+        ///    return result;
+        ///}
+        ///
+        ///return GetVisibleState(arguments[0], arguments[1]);.
         /// </summary>
         internal static string GetElementVisibleState {
             get {
@@ -169,7 +170,7 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to let GetElementWithActiveScrollBar = function(elements) {
+        ///   Looks up a localized string similar to var  GetElementWithActiveScrollBar = function(elements) {
         ///    var jQueryElements = $(elements);
         ///    if (jQueryElements.length === 0) return null;
         ///    if (jQueryElements.first().get(0) === document.scrollingElement) return jQueryElements.get(0);
@@ -177,8 +178,8 @@ namespace WDSE.Properties {
         ///    var scrollBarsHeight = jQueryElements.map(function() {
         ///        return $(this)[0].scrollHeight;
         ///    });
-        ///    var scrollBarWithMaxHeight = Math.max(...scrollBarsHeight.toArray());
-        ///    jQu [rest of string was truncated]&quot;;.
+        ///    var scrollBarWithMaxHeight = Math.max.apply(null, scrollBarsHeight.toArray());
+        ///  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetElementWithActiveScrollbar {
             get {

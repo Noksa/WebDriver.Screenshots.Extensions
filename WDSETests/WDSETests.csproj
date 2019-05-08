@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Noksa.NUnit.Allure" Version="2.5.1" />
+    <PackageReference Include="Noksa.NUnit.Allure" Version="2.5.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
     <PackageReference Include="WebDriverManager" Version="2.3.0" />
   </ItemGroup>
@@ -29,6 +29,9 @@
     <Content Update="C:\Users\a.danilin\.nuget\packages\noksa.nunit.allure\2.5.1\contentFiles\any\net471\allureConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="C:\Users\a.danilin\.nuget\packages\noksa.nunit.allure\2.5.2\contentFiles\any\net471\allureConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="C:\Users\DELL\.nuget\packages\noksa.nunit.allure\2.5.1\contentFiles\any\net471\allureConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -46,7 +49,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\PageWithFiveElements.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\RemoveBigElement.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\VeryLongScrollPage.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
