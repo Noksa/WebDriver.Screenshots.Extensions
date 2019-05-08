@@ -27,16 +27,16 @@ namespace WDSE.Decorators.CuttingStrategies
             if (elementCoordinates.y != 0)
                 using (var collection = new MagickImageCollection())
                 {
-                    IMagickImage firstPart = null;
-                    IMagickImage secondPart = null;
                     var heightT = 0 + elementCoordinates.y;
                     var firstRectangle = new Rectangle(0, 0, width, heightT);
                     var secondRectangle = new Rectangle(0, elementCoordinates.y + elementCoordinates.height, width,
                         height - elementCoordinates.y - elementCoordinates.height);
-                    if (elementCoordinates.y <= 0) firstPart = null;
-                    else firstPart = magickImage.Clone(new MagickGeometry(firstRectangle));
-                    if (elementCoordinates.bottom > magickImage.Height) secondPart = null;
-                    else secondPart = magickImage.Clone(new MagickGeometry(secondRectangle));
+                    var firstPart = elementCoordinates.y <= 0
+                        ? null
+                        : magickImage.Clone(new MagickGeometry(firstRectangle));
+                    var secondPart = elementCoordinates.bottom > magickImage.Height
+                        ? null
+                        : magickImage.Clone(new MagickGeometry(secondRectangle));
                     if (firstPart != null) collection.Add(firstPart);
                     if (secondPart != null) collection.Add(secondPart);
                     var overAllImage = collection.Count == 0 ? null : collection.AppendVertically();

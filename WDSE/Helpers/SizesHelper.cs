@@ -14,7 +14,18 @@ namespace WDSE.Helpers
     {
         internal static int GetHeight(this IWebDriver driver, Entity entity)
         {
-            var height = driver.ExecuteJavaScript<long>($"return $({GetStrEntity(entity)}).height()");
+            long height;
+            switch (entity)
+            {
+                case Entity.Document:
+                    height = driver.ExecuteJavaScript<long>($"return $({GetStrEntity(entity)}).height()");
+                    break;
+                case Entity.Window:
+                    height = driver.ExecuteJavaScript<long>($"return {GetStrEntity(entity)}.innerHeight");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(entity), entity, null);
+            }
             return int.Parse(height.ToString());
         }
 

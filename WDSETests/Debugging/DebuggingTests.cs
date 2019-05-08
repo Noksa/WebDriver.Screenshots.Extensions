@@ -10,7 +10,10 @@ namespace WDSETests.Debugging
         [Test]
         public void Debugging()
         {
-            
+            //Driver.Navigate().GoToUrl("https://www.nordstromrack.com");
+            //var sm = new VerticalCombineDecorator(new ScreenshotMaker());
+
+            //var screenshot = Driver.TakeScreenshot(sm);
         }
     }
 #endif
