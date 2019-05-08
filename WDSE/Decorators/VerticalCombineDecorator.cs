@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using ImageMagick;
 using OpenQA.Selenium;
@@ -61,12 +60,19 @@ namespace WDSE.Decorators
 
         private IMagickImage CombineScreenshots(IWebDriver driver)
         {
+            int totalHeight;
             var elementWithScrollBar = driver.GetElementWithActiveScrollBar();
-            var totalHeight = GetTotalHeight(driver, elementWithScrollBar);
+            if (elementWithScrollBar.TagName.ToLower() == "body" ||
+                elementWithScrollBar.TagName.ToLower() == "html" ||
+                elementWithScrollBar.Equals(driver.GetDocumentScrollingElement()))
+                totalHeight = driver.GetHeight(SizesHelper.Entity.Document);
+            else
+                totalHeight = driver.GetElementScrollBarHeight(elementWithScrollBar);
 
             var windowHeight = driver.GetHeight(SizesHelper.Entity.Window);
             var totalScrolls = totalHeight / windowHeight;
             var footer = totalHeight - windowHeight * totalScrolls;
+
             using (var imagesCollection = new MagickImageCollection())
             {
                 for (var i = 0; i < totalScrolls; i++)
@@ -74,15 +80,9 @@ namespace WDSE.Decorators
                     driver.ScrollTo(elementWithScrollBar,
                         windowHeight * i);
                     WaitAfterScrolling();
-                    var image = NestedStrategy.MakeScreenshot(driver);
-                    if (image != null)
-                    {
-                        image = new MagickImage(image);
-                        imagesCollection.Add(image);
-                    }
+                    var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
+                    imagesCollection.Add(screenshot);
                 }
-
-                var realtimeTotalHeight = GetTotalHeight(driver, elementWithScrollBar);
 
                 if (footer > 0)
                 {
@@ -93,41 +93,14 @@ namespace WDSE.Decorators
                     var afterScrollingScrollLocation = driver.GetCurrentScrollLocation(elementWithScrollBar);
                     var realFooterSize = afterScrollingScrollLocation - currentScrollLocation;
                     var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
-                    var maxSize = imagesCollection.Max(q => q.Height);
-                    if (maxSize != screenshot.Height)
-                    {
-                        realFooterSize = realFooterSize - (maxSize - screenshot.Height);
-                    }
-                    else
-                    {
-                        var realtimeTotalHeight2 = GetTotalHeight(driver, elementWithScrollBar);
-                        var collapsed = realtimeTotalHeight - realtimeTotalHeight2;
-                        if (collapsed > 0) realFooterSize = realFooterSize - collapsed;
-                    }
-
-                    if (realFooterSize > 0)
-                    {
-                        var footerImage = screenshot.Clone(0, screenshot.Height - realFooterSize, screenshot.Width,
-                            realFooterSize);
-                        imagesCollection.Add(footerImage);
-                    }
+                    var footerImage = screenshot.Clone(0, screenshot.Height - realFooterSize, screenshot.Width,
+                        realFooterSize);
+                    imagesCollection.Add(footerImage);
                 }
 
                 var overallImage = imagesCollection.AppendVertically();
                 return overallImage;
             }
-        }
-
-        private static int GetTotalHeight(IWebDriver driver, IWebElement elementWithScrollBar)
-        {
-            int totalHeight;
-            if (elementWithScrollBar.TagName.ToLower() == "body" ||
-                elementWithScrollBar.TagName.ToLower() == "html" ||
-                elementWithScrollBar.Equals(driver.GetDocumentScrollingElement()))
-                totalHeight = driver.GetHeight(SizesHelper.Entity.Document);
-            else
-                totalHeight = driver.GetElementScrollBarHeight(elementWithScrollBar);
-            return totalHeight;
         }
 
         #endregion

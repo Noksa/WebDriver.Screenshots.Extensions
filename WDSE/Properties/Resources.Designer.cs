@@ -61,23 +61,22 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /**
-        /// * @return {boolean}
-        /// */
-        ///let IsElementHasScrollbar = function(element) {
+        ///   Looks up a localized string similar to var IsElementHasScrollbar = function(element) {
         ///
         ///    if (element.tagName === document.scrollingElement.tagName &amp;&amp; typeof window.innerWidth === &quot;number&quot;) {
         ///        return window.innerWidth &gt; document.documentElement.clientWidth;
         ///    }
         ///
-        ///    let overflowStyle;
+        ///    var overflowStyle;
         ///
         ///    if (typeof element.currentStyle !== &quot;undefined&quot;)
         ///        overflowStyle = element.currentStyle.overflow;
         ///
         ///    overflowStyle = overflowStyle || window.getComputedStyle(element, &quot;&quot;).overflow;
         ///
-        ///    let overfl [rest of string was truncated]&quot;;.
+        ///    var overflowYStyle;
+        ///
+        ///    if (typeof elem [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetAllElementsWithScrollBars {
             get {
@@ -88,9 +87,9 @@ namespace WDSE.Properties {
         /// <summary>
         ///   Looks up a localized string similar to function absoluteXPath(element) {
         ///    var comp;
-        ///    const comps = [];
+        ///    var comps = [];
         ///    var xpath = &quot;&quot;;
-        ///    const getPos = function(element) {
+        ///    var getPos = function(element) {
         ///        var position = 1, curNode;
         ///        if (element.nodeType == Node.ATTRIBUTE_NODE) {
         ///            return null;
@@ -113,26 +112,20 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to function GetCoords(element) {
-        ///    var coords = $(element)[0].getBoundingClientRect();
-        ///    var left = parseInt(coords.left);
-        ///    var top = parseInt(coords.top);
-        ///    var width = parseInt(coords.width);
-        ///    var height = parseInt(coords.height);
-        ///    var bottom = parseInt(coords.bottom);
-        ///    const x = left;
-        ///    const y = top;
-        ///    var str = JSON.stringify({
-        ///        x: x,
-        ///        y: y,
-        ///        width: width,
-        ///        height: height,
-        ///        bottom: bottom
-        ///    });
-        ///    return str;
-        ///}
-        ///
-        ///return GetCoord [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to var ele = $(arguments[0]);
+        ///var left = parseInt(ele.offset().left);
+        ///var top = parseInt(ele.offset().top);
+        ///var right = parseInt(left + ele.outerWidth());
+        ///var bottom = parseInt(top + ele.outerHeight());
+        ///var x = Math.max(left, 0);
+        ///var y = Math.max(top, 0);
+        ///var str = JSON.stringify({
+        ///    x: x,
+        ///    y: y,
+        ///    width: right - x,
+        ///    height: bottom - y
+        ///});
+        ///return str;.
         /// </summary>
         internal static string GetElementCoordinates {
             get {
@@ -141,20 +134,33 @@ namespace WDSE.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to function GetVisibleState(y, bottom) {
-        ///    var win = $(window);
-        ///    var elementTop = Math.max(y, 0);
-        ///    var elementBottom = Math.min(bottom, win.height());
-        ///    var viewportTop = 0;
-        ///    var viewportBottom = win.height();
-        ///    var result = elementTop &gt;= viewportTop &amp;&amp;
-        ///        elementTop &lt; viewportBottom &amp;&amp;
-        ///        elementBottom &lt;= viewportBottom &amp;&amp;
-        ///        elementBottom &gt; viewportTop;
-        ///    return result;
-        ///}
-        ///
-        ///return GetVisibleState(arguments[0], arguments[1]);.
+        ///   Looks up a localized string similar to function GetElement(byStr) {
+        ///    var res = &quot;&quot;;
+        ///    if (byStr.startsWith(&quot;By.XPath: &quot;)) {
+        ///        res = byStr.replace(&quot;By.XPath: &quot;, &quot;&quot;);
+        ///        res = res.replace(&quot;&apos;&quot;, &quot;\&apos;&quot;);
+        ///        return document.evaluate(res, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0);
+        ///    } else if (byStr.startsWith(&quot;By.Id: &quot;)) {
+        ///        res = byStr.replace(&quot;By.Id: &quot;, &quot;&quot;);
+        ///        return document.getElementById(res);
+        ///    } else if (byStr.startsWith(&quot;By.TagName: &quot;)) {
+        ///        res = byStr.repla [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GetElementFromByStr {
+            get {
+                return ResourceManager.GetString("GetElementFromByStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to var ele = $(arguments[0]);
+        ///var win = $(window);
+        ///var elementTop = ele.offset().top;
+        ///var elementBottom = elementTop + ele.outerHeight();
+        ///var viewportTop = win.scrollTop();
+        ///var viewportBottom = viewportTop + win.height();
+        ///var res = ele.is(&quot;:visible&quot;);
+        ///return elementBottom &gt; viewportTop &amp;&amp; elementTop &lt; viewportBottom &amp;&amp; res;.
         /// </summary>
         internal static string GetElementVisibleState {
             get {
@@ -164,14 +170,14 @@ namespace WDSE.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to let GetElementWithActiveScrollBar = function(elements) {
-        ///    let jQueryElements = $(elements);
+        ///    var jQueryElements = $(elements);
         ///    if (jQueryElements.length === 0) return null;
         ///    if (jQueryElements.first().get(0) === document.scrollingElement) return jQueryElements.get(0);
         ///    if (jQueryElements.length === 1) return jQueryElements.get(0);
-        ///    const scrollBarsHeight = jQueryElements.map(function() {
+        ///    var scrollBarsHeight = jQueryElements.map(function() {
         ///        return $(this)[0].scrollHeight;
         ///    });
-        ///    const scrollBarWithMaxHeight = Math.max(...scrollBarsHeight.toArray());
+        ///    var scrollBarWithMaxHeight = Math.max(...scrollBarsHeight.toArray());
         ///    jQu [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string GetElementWithActiveScrollbar {
@@ -197,6 +203,28 @@ namespace WDSE.Properties {
         internal static string RemoveScrollBar {
             get {
                 return ResourceManager.GetString("RemoveScrollBar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*! https://mths.be/scrollingelement v1.5.2 by @diegoperini &amp; @mathias | MIT license */
+        ///if (!(&apos;scrollingElement&apos; in document)) (function () {
+        ///
+        ///    function computeStyle(element) {
+        ///        if (window.getComputedStyle) {
+        ///            // Support Firefox &lt; 4 which throws on a single parameter.
+        ///            return getComputedStyle(element, null);
+        ///        }
+        ///        // Support Internet Explorer &lt; 9.
+        ///        return element.currentStyle;
+        ///    }
+        ///
+        ///    function isBodyElement(element) {
+        ///        // The `instanc [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ScrollingElement {
+            get {
+                return ResourceManager.GetString("ScrollingElement", resourceCulture);
             }
         }
         

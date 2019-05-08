@@ -1,8 +1,15 @@
-﻿using NUnit.Framework;
+﻿// ReSharper disable InconsistentNaming
+
+using System.Drawing;
+using ImageMagick;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using WDSE;
+using WDSE.Decorators;
+using WDSE.ScreenshotMaker;
 
 namespace WDSETests.Debugging
 {
-#if DEBUG
     [TestFixture(TestName = "DEBUG SUITE")]
     [NonParallelizable]
     public class DebuggingTests : TestsInit
@@ -10,11 +17,10 @@ namespace WDSETests.Debugging
         [Test]
         public void Debugging()
         {
-            //Driver.Navigate().GoToUrl("https://www.nordstromrack.com");
-            //var sm = new VerticalCombineDecorator(new ScreenshotMaker());
-
-            //var screenshot = Driver.TakeScreenshot(sm);
+            Driver.Manage().Window.Size = new Size(1280, 720);
+            Driver.Navigate().GoToUrl("https://angular.io");
+            var screenMaker = new ScreenshotMaker();
+            var arr = Driver.TakeScreenshot(new VerticalCombineDecorator(screenMaker));
         }
     }
-#endif
 }

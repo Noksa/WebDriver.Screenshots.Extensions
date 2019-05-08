@@ -1,8 +1,8 @@
 ﻿function absoluteXPath(element) {
     var comp;
-    const comps = [];
+    var comps = [];
     var xpath = "";
-    const getPos = function(element) {
+    var getPos = function(element) {
         var position = 1, curNode;
         if (element.nodeType == Node.ATTRIBUTE_NODE) {
             return null;
@@ -48,7 +48,7 @@
         comp.position = getPos(element);
     }
 
-    for (let i = comps.length - 1; i >= 0; i--) {
+    for (var i = comps.length - 1; i >= 0; i--) {
         comp = comps[i];
         xpath += `/${comp.name.toLowerCase()}`;
         if (comp.position !== null) {

@@ -8,6 +8,7 @@ using ImageMagick;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.IE;
 using WDSE;
 using WDSE.Compare;
 using WebDriverManager;
@@ -22,31 +23,27 @@ namespace WDSETests
         protected readonly string PagePath = Path.Combine(
             Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
             throw new InvalidOperationException(),
-            "Resources/VeryLongScrollPage.html");
+            "Resources\\VeryLongScrollPage.html");
 
         protected readonly string PagePath5Elements = Path.Combine(
             Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
             throw new InvalidOperationException(),
-            "Resources/PageWithFiveElements.html");
-
-        protected readonly string PagePathWithBigElement = Path.Combine(
-            Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
-            throw new InvalidOperationException(),
-            "Resources/RemoveBigElement.html");
+            "Resources\\PageWithFiveElements.html");
 
         protected readonly string PagePathWithHr = Path.Combine(
             Path.GetDirectoryName(Assembly.GetAssembly(typeof(VerticalCombineTests.VerticalCombineTests)).Location) ??
             throw new InvalidOperationException(),
-            "Resources/PageWithElements.html");
+            "Resources\\PageWithElements.html");
 
         protected static IWebDriver Driver => _driver;
 
         [SetUp]
         public void Setup()
         {
-            var chromeOptions = new ChromeOptions();
-            var cds = ChromeDriverService.CreateDefaultService();
-            _driver = new ChromeDriver(cds, chromeOptions, TimeSpan.FromMinutes(3));
+            //var ieOptions = new InternetExplorerOptions();
+            //var chromeOptions = new ChromeOptions();
+            _driver = new InternetExplorerDriver();
+            //_driver = new ChromeDriver();
         }
 
         [TearDown]

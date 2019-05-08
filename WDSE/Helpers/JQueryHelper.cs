@@ -19,9 +19,7 @@ namespace WDSE.Helpers
             {
                 _ = driver.ExecuteJavaScript<long>("return $(document).outerHeight()");
             }
-            catch (WebDriverException ex) when (ex.Message.Contains("$ is not defined") ||
-                                                ex.Message.Contains("outerHeight is not a function") ||
-                                                ex.Message.Contains("$ is not a function"))
+            catch (WebDriverException)
             {
                 driver.ExecuteJavaScript(script);
                 var sw = new Stopwatch();
@@ -33,9 +31,7 @@ namespace WDSE.Helpers
                         _ = driver.ExecuteJavaScript<long>("return $(document).outerHeight()");
                         return;
                     }
-                    catch (WebDriverException ex2) when (ex2.Message.Contains("$ is not defined") ||
-                                                         ex2.Message.Contains("outerHeight is not a function") ||
-                                                         ex.Message.Contains("$ is not a function"))
+                    catch (WebDriverException) 
                     {
                         Thread.Sleep(10);
                     }
