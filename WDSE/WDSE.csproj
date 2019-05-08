@@ -46,9 +46,6 @@ For examples of usage, see the github project page.
     <EmbeddedResource Include="Scripts\Element\GetElementCoordinates.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Scripts\Element\GetElementFromByStr.js">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Scripts\Element\GetElementVisibleState.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
