@@ -43,6 +43,11 @@ namespace WDSE.Helpers
             }
         }
 
+        internal static bool IsElementPartialInViewPort(this IWebDriver driver, int y, int elementBottom)
+        {
+            var result = driver.ExecuteJavaScript<bool>(Resources.GetElementPartialVisibleState, y, elementBottom);
+            return result;
+        }
 
         internal static bool IsElementInViewPort(this IWebDriver driver, int y, int elementBottom)
         {

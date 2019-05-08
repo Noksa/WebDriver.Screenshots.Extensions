@@ -26,6 +26,7 @@ For examples of usage, see the github project page.
     <None Remove="Scripts\Element\GetElementAbsoluteXPath.js" />
     <None Remove="Scripts\Element\GetElementCoordinates.js" />
     <None Remove="Scripts\Element\GetElementFromByStr.js" />
+    <None Remove="Scripts\Element\GetElementPartialVisibleState.js" />
     <None Remove="Scripts\Element\GetElementVisibleState.js" />
     <None Remove="Scripts\Element\GetElementWithActiveScrollbar.js" />
     <None Remove="Scripts\Element\HideElementFromDOM.js" />
@@ -44,6 +45,9 @@ For examples of usage, see the github project page.
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Scripts\Element\GetElementCoordinates.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripts\Element\GetElementPartialVisibleState.js">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Scripts\Element\GetElementVisibleState.js">

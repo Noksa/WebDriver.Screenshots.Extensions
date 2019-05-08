@@ -12,6 +12,12 @@ namespace WDSE.Helpers
 {
     internal static class SizesHelper
     {
+        internal static int GetCurrentScrolledBottom(this IWebDriver driver)
+        {
+            return int.Parse(driver.ExecuteJavaScript<long>("return $(window).scrollTop() + window.innerHeight;")
+                .ToString());
+        }
+
         internal static int GetHeight(this IWebDriver driver, Entity entity)
         {
             long height;
@@ -26,6 +32,7 @@ namespace WDSE.Helpers
                 default:
                     throw new ArgumentOutOfRangeException(nameof(entity), entity, null);
             }
+
             return int.Parse(height.ToString());
         }
 
@@ -52,6 +59,16 @@ namespace WDSE.Helpers
         {
             var w = driver.ExecuteJavaScript<string>(Resources.GetElementCoordinates, element);
             var json = JsonConvert.DeserializeObject<ElementCoords>(w);
+            if (json.y >= 0)
+            {
+                json.bottom = json.y + json.height;
+            }
+            else
+            {
+                json.bottom = json.height + json.y;
+            }
+            
+
             return json;
         }
 

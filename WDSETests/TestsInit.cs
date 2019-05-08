@@ -46,8 +46,8 @@ namespace WDSETests
         {
             //var ieOptions = new InternetExplorerOptions();
             //var chromeOptions = new ChromeOptions();
-            _driver = new InternetExplorerDriver();
-            //_driver = new ChromeDriver();
+            //_driver = new InternetExplorerDriver();
+            _driver = new ChromeDriver();
         }
 
         [TearDown]

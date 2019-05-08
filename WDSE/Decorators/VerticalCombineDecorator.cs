@@ -80,8 +80,11 @@ namespace WDSE.Decorators
                     driver.ScrollTo(elementWithScrollBar,
                         windowHeight * i);
                     WaitAfterScrolling();
-                    var screenshot = new MagickImage(NestedStrategy.MakeScreenshot(driver));
-                    imagesCollection.Add(screenshot);
+                    var screenshot = NestedStrategy.MakeScreenshot(driver);
+                    if (screenshot != null)
+                    {
+                        imagesCollection.Add(screenshot);
+                    }
                 }
 
                 if (footer > 0)

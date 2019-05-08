@@ -1,7 +1,6 @@
 ﻿function GetVisibleState(y, bottom) {
-	var  win = $(window);
-	var  elementTop = Math.max(y, 0);
-	var  elementBottom = Math.min(bottom, win.height());
+	var elementTop = y;
+	var elementBottom = bottom;
 	var  viewportTop = 0;
 	var  viewportBottom = window.innerHeight;
 	var  result = elementTop >= viewportTop &&

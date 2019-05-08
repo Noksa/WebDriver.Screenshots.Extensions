@@ -21,24 +21,29 @@ namespace WDSE.Decorators.CuttingStrategies
         public IMagickImage Cut(IWebDriver driver, IMagickImage magickImage)
         {
             var elementCoordinates = driver.GetElementCoordinates(_elementByToCut);
-            if (!driver.IsElementInViewPort(elementCoordinates.y, elementCoordinates.bottom)) return magickImage;
+            if (!driver.IsElementPartialInViewPort(elementCoordinates.y, elementCoordinates.bottom)) return magickImage;
             var width = magickImage.Width;
             var height = magickImage.Height;
-            if (elementCoordinates.y != 0)
                 using (var collection = new MagickImageCollection())
                 {
                     var heightT = 0 + elementCoordinates.y;
+                    if (heightT < 0 && height < elementCoordinates.bottom) return null;
+                    if (heightT < 0) heightT = elementCoordinates.bottom;
                     var firstRectangle = new Rectangle(0, 0, width, heightT);
                     var secondRectangle = new Rectangle(0, elementCoordinates.y + elementCoordinates.height, width,
-                        height - elementCoordinates.y - elementCoordinates.height);
+                        magickImage.Height - elementCoordinates.y - elementCoordinates.height);
                     var firstPart = elementCoordinates.y <= 0
                         ? null
                         : magickImage.Clone(new MagickGeometry(firstRectangle));
-                    var secondPart = elementCoordinates.bottom > magickImage.Height
+                    var secondPart = elementCoordinates.bottom > height
                         ? null
                         : magickImage.Clone(new MagickGeometry(secondRectangle));
                     if (firstPart != null) collection.Add(firstPart);
                     if (secondPart != null) collection.Add(secondPart);
+                    if (secondPart == null)
+                    {
+
+                    }
                     var overAllImage = collection.Count == 0 ? null : collection.AppendVertically();
                     return overAllImage == null ? null : new MagickImage(overAllImage);
                 }
