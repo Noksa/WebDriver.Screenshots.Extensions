@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using OpenQA.Selenium;
@@ -165,9 +166,24 @@ namespace WDSE.Helpers
 
         internal static int GetCurrentScrollLocation(this IWebDriver driver, IWebElement element)
         {
-            var value = driver.ExecuteJavaScript<object>("return $(arguments[0]).scrollTop()", element)?.ToString();
-            if (string.IsNullOrEmpty(value)) throw new Exception($"Cant get current scroll location: {value}");
-            return int.Parse(value);
+            var value = driver.ExecuteJavaScript<object>("return arguments[0].scrollTop", element);
+            if (value == null) throw new Exception($"Cant get current scroll location, value is null. Element: {element.TagName}, {element.Location}");
+            var isParsed = int.TryParse(value.ToString(), out var result);
+            if (!isParsed)
+            {
+                switch (value)
+                {
+                    case double valueDouble:
+                        result = int.Parse(Math.Floor(valueDouble).ToString(CultureInfo.InvariantCulture));
+                        break;
+                    case decimal valueDecimal:
+                        result = int.Parse(Math.Floor(valueDecimal).ToString(CultureInfo.InvariantCulture));
+                        break;
+                    default:
+                        throw new Exception($"Cant get current scroll location: {value}");
+                }
+            }
+            return result;
         }
     }
 }

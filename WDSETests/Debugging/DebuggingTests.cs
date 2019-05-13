@@ -19,9 +19,8 @@ namespace WDSETests.Debugging
         public void Debugging()
         {
             //Driver.Manage().Window.Maximize();
-            Driver.Manage().Window.Size = new Size(640, 480);
-            Driver.Navigate().GoToUrl("http://docker.com");
-            var ele = Driver.FindElement(By.TagName("html"));
+            Driver.Manage().Window.Size = new Size(1920, 1080);
+            Driver.Navigate().GoToUrl("https://www.nordstromrack.com/");
             var screenMaker = new ScreenshotMaker();
             var arr = Driver.TakeScreenshot(new VerticalCombineDecorator(screenMaker));
         }
