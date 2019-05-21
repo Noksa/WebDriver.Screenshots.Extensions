@@ -65,7 +65,7 @@ namespace WDSE.Decorators
             }
 
             var rectangle = new Rectangle(coords.x, coords.y, coords.width, coords.height);
-            var image = magickImage.Clone(new MagickGeometry(rectangle));
+            var image = magickImage.Clone(rectangle.ToMagickGeometry());
             return image;
         }
 
