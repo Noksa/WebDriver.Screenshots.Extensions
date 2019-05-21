@@ -21,7 +21,7 @@ namespace WDSE.Helpers
             {
                 _ = driver.ExecuteJavaScript<object>("return $(document).outerHeight()");
             }
-            catch (WebDriverException)
+            catch (Exception)
             {
                 driver.ExecuteJavaScript(script);
                 var sw = new Stopwatch();
@@ -33,7 +33,7 @@ namespace WDSE.Helpers
                         _ = driver.ExecuteJavaScript<object>("return $(document).outerHeight()");
                         return;
                     }
-                    catch (WebDriverException) 
+                    catch (Exception) 
                     {
                         Thread.Sleep(10);
                     }
@@ -120,7 +120,7 @@ namespace WDSE.Helpers
                 arr = driver.ExecuteJavaScript<IReadOnlyCollection<IWebElement>>(Resources
                     .GetAllElementsWithScrollBars);
             }
-            catch (WebDriverException ex) when (ex.Message.Contains("Script returned a value"))
+            catch (Exception)
             {
                 // nothing to do, elements with scrollbar not exists
             }
