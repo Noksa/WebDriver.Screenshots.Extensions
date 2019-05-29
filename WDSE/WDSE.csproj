@@ -3,8 +3,8 @@
   <PropertyGroup>
     <!--<TargetFrameworks>net452;net46;net461;net462;net47;net471;net472;netstandard2.0</TargetFrameworks>-->
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <PackageId>LuizCarlosFaria.TMP.WebDriver.ScreenshotsExtensions</PackageId>
-    <Version>0.1.5.0-alpha1</Version>
+    <PackageId>Noksa.WebDriver.ScreenshotsExtensions</PackageId>
+    <Version>0.1.5.0-</Version>
     <Product>Noksa (Alexandr Danilin)</Product>
     <Company>Noksa (Alexandr Danilin)</Company>
     <Authors>Noksa (Alexandr Danilin)</Authors>
@@ -81,7 +81,7 @@ For examples of usage, see the github project page.
     <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.13.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+	<PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
   </ItemGroup>
 
   <ItemGroup>
