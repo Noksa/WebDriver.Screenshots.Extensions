@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using ImageMagick;
+using System.Collections.Generic;
 using System.Linq;
-using ImageMagick;
 
 namespace WDSE.Compare
 {
@@ -22,7 +21,7 @@ namespace WDSE.Compare
                     {
                         var compareSettings = new CompareSettings
                         {
-                            HighlightColor = new MagickColor(Color.Red),
+                            HighlightColor = new MagickColor(MagickColor.FromRgb(255,0,0)),
                             Metric = ErrorMetric.Absolute
                         };
                         image1.ColorFuzz = new Percentage(3);
@@ -38,18 +37,18 @@ namespace WDSE.Compare
 
         #region Compare and get image
 
-        /// <summary>
-        ///     Compares two images and returns an image which show the difference between.
-        /// </summary>
-        /// <param name="image1">Image #1 to compare</param>
-        /// <param name="image2">Image #2 to compare</param>
-        /// <returns></returns>
-        public static byte[] CompareAndGetImage(Bitmap image1, Bitmap image2)
-        {
-            var list = CompareImages(new MagickImage(image1), new MagickImage(image2)).ToList();
-            var arr = ((IMagickImage) list[1]).ToByteArray();
-            return arr;
-        }
+        ///// <summary>
+        /////     Compares two images and returns an image which show the difference between.
+        ///// </summary>
+        ///// <param name="image1">Image #1 to compare</param>
+        ///// <param name="image2">Image #2 to compare</param>
+        ///// <returns></returns>
+        //public static byte[] CompareAndGetImage(Bitmap image1, Bitmap image2)
+        //{
+        //    var list = CompareImages(new MagickImage(image1), new MagickImage(image2)).ToList();
+        //    var arr = ((IMagickImage) list[1]).ToByteArray();
+        //    return arr;
+        //}
 
         /// <summary>
         ///     Compares two images and returns an image which show the difference between.
@@ -103,18 +102,18 @@ namespace WDSE.Compare
             return !(res > 0);
         }
 
-        /// <summary>
-        ///     Compares two images. Returns true if images are same.
-        /// </summary>
-        /// <param name="image1">Image #1 to compare</param>
-        /// <param name="image2">Image #2 to compare</param>
-        /// <returns></returns>
-        public static bool Compare(Bitmap image1, Bitmap image2)
-        {
-            var list = CompareImages(new MagickImage(image1), new MagickImage(image2)).ToList();
-            var res = (double) list[0];
-            return !(res > 0);
-        }
+        ///// <summary>
+        /////     Compares two images. Returns true if images are same.
+        ///// </summary>
+        ///// <param name="image1">Image #1 to compare</param>
+        ///// <param name="image2">Image #2 to compare</param>
+        ///// <returns></returns>
+        //public static bool Compare(Bitmap image1, Bitmap image2)
+        //{
+        //    var list = CompareImages(new MagickImage(image1), new MagickImage(image2)).ToList();
+        //    var res = (double) list[0];
+        //    return !(res > 0);
+        //}
 
         /// <summary>
         ///     Compares two images. Returns true if images are same.

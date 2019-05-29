@@ -34,10 +34,10 @@ namespace WDSE.Decorators.CuttingStrategies
                         magickImage.Height - elementCoordinates.y - elementCoordinates.height);
                     var firstPart = elementCoordinates.y <= 0
                         ? null
-                        : magickImage.Clone(new MagickGeometry(firstRectangle));
+                        : magickImage.Clone(firstRectangle.ToMagickGeometry());
                     var secondPart = elementCoordinates.bottom > height
                         ? null
-                        : magickImage.Clone(new MagickGeometry(secondRectangle));
+                        : magickImage.Clone(secondRectangle.ToMagickGeometry());
                     if (firstPart != null) collection.Add(firstPart);
                     if (secondPart != null) collection.Add(secondPart);
                     if (secondPart == null)
@@ -49,7 +49,7 @@ namespace WDSE.Decorators.CuttingStrategies
                 }
 
             var rectangle = new Rectangle(0, elementCoordinates.height, width, height - elementCoordinates.height);
-            return magickImage.Clone(new MagickGeometry(rectangle));
+            return magickImage.Clone(rectangle.ToMagickGeometry());
         }
     }
 }
