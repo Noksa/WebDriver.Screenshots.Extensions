@@ -16,7 +16,11 @@ namespace WDSE.Helpers
     {
         internal static void CheckJQueryOnPage(this IWebDriver driver)
         {
+            if (driver == null)
+                throw new ArgumentNullException(nameof(driver), @"Driver is null, can't take screenshot.");
             var script = Resources.SetJQuery;
+            if (string.IsNullOrEmpty(script))
+                throw new ArgumentNullException(nameof(script), @"Script is null, can't take screenshot.");
             try
             {
                 _ = driver.ExecuteJavaScript<object>("return $(document).outerHeight()");
@@ -33,7 +37,7 @@ namespace WDSE.Helpers
                         _ = driver.ExecuteJavaScript<object>("return $(document).outerHeight()");
                         return;
                     }
-                    catch (Exception) 
+                    catch (Exception)
                     {
                         Thread.Sleep(10);
                     }
@@ -167,7 +171,9 @@ namespace WDSE.Helpers
         internal static int GetCurrentScrollLocation(this IWebDriver driver, IWebElement element)
         {
             var value = driver.ExecuteJavaScript<object>("return arguments[0].scrollTop", element);
-            if (value == null) throw new Exception($"Cant get current scroll location, value is null. Element: {element.TagName}, {element.Location}");
+            if (value == null)
+                throw new Exception(
+                    $"Cant get current scroll location, value is null. Element: {element.TagName}, {element.Location}");
             var isParsed = int.TryParse(value.ToString(), out var result);
             if (!isParsed)
             {
@@ -183,6 +189,7 @@ namespace WDSE.Helpers
                         throw new Exception($"Cant get current scroll location: {value}");
                 }
             }
+
             return result;
         }
     }

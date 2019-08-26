@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ImageMagick;
 using OpenQA.Selenium;
@@ -22,6 +23,10 @@ namespace WDSE
         /// <returns></returns>
         public static byte[] TakeScreenshot(this IWebDriver driver, IScreenshotStrategy strategy)
         {
+            if (driver == null)
+                throw new ArgumentNullException(nameof(driver), @"Driver is null, can't take screenshot.");
+            if (strategy == null)
+                throw new ArgumentNullException(nameof(strategy), @"Strategy is null, can't take screenshot.");
             driver.CheckIeDriver();
             driver.CheckJQueryOnPage();
             ScreenshotMaker.ScreenshotMaker screenshotMaker = null;
