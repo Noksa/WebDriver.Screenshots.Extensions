@@ -27,7 +27,16 @@ namespace WDSE.Helpers
             }
             catch (Exception)
             {
-                driver.ExecuteJavaScript(script);
+                try
+                {
+                    driver.ExecuteJavaScript(script);
+                }
+                catch(Exception)
+                {
+                    // here can be null exception if check performed when any alert is open
+                    // At the moment, we will not close it, because this will entail the disappearance of an error in the test
+                    
+                }
                 var sw = new Stopwatch();
                 sw.Start();
                 do

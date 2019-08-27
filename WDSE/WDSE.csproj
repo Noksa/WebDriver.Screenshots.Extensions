@@ -4,7 +4,7 @@
     <!--<TargetFrameworks>net452;net46;net461;net462;net47;net471;net472;netstandard2.0</TargetFrameworks>-->
     <TargetFrameworks>net452;net46;netstandard2.0</TargetFrameworks>
     <PackageId>Noksa.WebDriver.ScreenshotsExtensions</PackageId>
-    <Version>0.1.5.1</Version>
+    <Version>0.1.5.2</Version>
     <Product>Noksa (Alexandr Danilin)</Product>
     <Company>Noksa (Alexandr Danilin)</Company>
     <Authors>Noksa (Alexandr Danilin)</Authors>
@@ -14,7 +14,7 @@ For examples of usage, see the github project page.
     <Copyright>Noksa (Alexandr Danilin)</Copyright>
     <PackageIconUrl>https://avatars0.githubusercontent.com/u/36312857?s=40&amp;v=4</PackageIconUrl>
     <PackageTags>webdriver, screenshot, selenium, extension, page</PackageTags>
-    <PackageReleaseNotes>.NET Standard Support</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed null pointer exception when any alert open</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>7.1</LangVersion>
     <PackageProjectUrl>https://github.com/Noksa/WebDriver.Screenshots.Extensions</PackageProjectUrl>
