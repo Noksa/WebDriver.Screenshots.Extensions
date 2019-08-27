@@ -50,10 +50,6 @@ namespace WDSE.Helpers
                     {
                         Thread.Sleep(10);
                     }
-                    finally
-                    {
-                        sw.Stop();
-                    }
                 } while (sw.Elapsed.TotalSeconds <= 5);
             }
         }

@@ -4,7 +4,7 @@
     <!--<TargetFrameworks>net452;net46;net461;net462;net47;net471;net472;netstandard2.0</TargetFrameworks>-->
     <TargetFrameworks>net452;net46;netstandard2.0</TargetFrameworks>
     <PackageId>Noksa.WebDriver.ScreenshotsExtensions</PackageId>
-    <Version>0.1.5.2</Version>
+    <Version>0.1.5.3</Version>
     <Product>Noksa (Alexandr Danilin)</Product>
     <Company>Noksa (Alexandr Danilin)</Company>
     <Authors>Noksa (Alexandr Danilin)</Authors>
