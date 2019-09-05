@@ -4,6 +4,8 @@
 If you want to take a screenshot of the entire page or a screenshot of a specific element, then this is what you need.<br/>
 More information can be found in the [wiki](https://github.com/Noksa/WebDriver.Screenshots.Extensions/wiki).
 
+You can also sponsor this repository if you wish. Just click the "Sponsor" button at the top.
+
 ## How to use
 
 How to use can be found [here](https://github.com/Noksa/WebDriver.Screenshots.Extensions/wiki/How-to-use).
