@@ -8,7 +8,3 @@ More information can be found in the [wiki](https://github.com/Noksa/WebDriver.S
 ## How to use
 
 How to use can be found [here](https://github.com/Noksa/WebDriver.Screenshots.Extensions/wiki/How-to-use).
-
-## Important
-
-**Internet Explorer** support added since _0.1-beta_ version
