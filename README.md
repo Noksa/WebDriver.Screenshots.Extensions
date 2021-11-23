@@ -1,7 +1,7 @@
 # C# WebDriver Screenshots Extensions
 [![nuget](http://flauschig.ch/nubadge.php?id=Noksa.WebDriver.ScreenshotsExtensions)](https://www.nuget.org/packages/Noksa.WebDriver.ScreenshotsExtensions/)
 
-*IMPORANT*
+*IMPORTANT!*
 
 Currently it may have problems when it works with Selenium 4. If you encounter a problem please create an issue.
 
