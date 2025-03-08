@@ -73,13 +73,20 @@ namespace WDSETests
         protected void CompareAndTest(byte[] actual, Bitmap expected)
         {
             var image = WdseImageComparer.CompareAndGetImageIfNotSame(actual.ToMagickImage(),
-                new MagickImage(expected));
+                new MagickImage(ImageToByte(expected)));
             if (image == null) return;
             AllureLifecycle.Instance.AddAttachment("Difference", AllureLifecycle.AttachFormat.ImagePng, image);
             AllureLifecycle.Instance.AddAttachment("Actual", AllureLifecycle.AttachFormat.ImagePng, actual);
             AllureLifecycle.Instance.AddAttachment("Expected", AllureLifecycle.AttachFormat.ImagePng,
-                new MagickImage(expected).ToByteArray());
+                new MagickImage(ImageToByte(expected)).ToByteArray());
             throw new AssertionException("Test failed");
+        }
+        
+        private static byte[] ImageToByte(Image img)
+        {
+            using var stream = new MemoryStream();
+            img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+            return stream.ToArray();
         }
     }
 }
